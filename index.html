@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Career GPS — Bradesco</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --red: #CC092F;
     --red-dark: #a80724;
     --red-light: #f9e9ec;
-    --red-mid: #f2c0c9;
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
     --gray-200: #e5e7eb;
@@ -19,169 +19,188 @@
     --gray-600: #4b5563;
     --gray-700: #374151;
     --gray-900: #111827;
-    --sidebar-w: 240px;
+    --sidebar-w: 248px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: var(--gray-900); display: flex; height: 100vh; overflow: hidden; }
+  body { font-family: 'Sora', sans-serif; background: #fff; color: var(--gray-900); display: flex; height: 100vh; overflow: hidden; }
 
   /* SIDEBAR */
   .sidebar {
-    width: var(--sidebar-w);
-    min-width: var(--sidebar-w);
-    background: #fff;
-    border-right: 1px solid var(--gray-200);
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow-y: auto;
+    width: var(--sidebar-w); min-width: var(--sidebar-w);
+    background: #fff; border-right: 1px solid var(--gray-200);
+    display: flex; flex-direction: column; height: 100vh; overflow-y: auto;
   }
   .sidebar-logo {
-    padding: 20px 20px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    padding: 24px 20px 20px;
+    display: flex; align-items: center; gap: 12px;
     border-bottom: 1px solid var(--gray-200);
   }
   .logo-icon {
-    width: 32px; height: 32px;
-    background: var(--red);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; background: var(--red); border-radius: 9px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .logo-icon svg { width: 18px; height: 18px; fill: white; }
-  .logo-text { font-weight: 700; font-size: 15px; color: var(--gray-900); }
-  .logo-sub { font-size: 10px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+  .logo-text { font-weight: 800; font-size: 15px; color: var(--gray-900); letter-spacing: -.3px; }
+  .logo-sub { font-size: 10px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: .6px; margin-top: 1px; }
 
-  .sidebar-nav { padding: 12px 10px; flex: 1; }
+  .sidebar-nav { padding: 16px 12px; flex: 1; }
   .nav-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 9px 12px; border-radius: 8px;
-    font-size: 14px; font-weight: 500; color: var(--gray-600);
-    cursor: pointer; transition: all .15s; margin-bottom: 2px;
+    display: flex; align-items: center; gap: 11px;
+    padding: 10px 13px; border-radius: 9px;
+    font-size: 13.5px; font-weight: 500; color: var(--gray-600);
+    cursor: pointer; transition: all .15s; margin-bottom: 3px;
     border: none; background: none; width: 100%; text-align: left;
   }
   .nav-item:hover { background: var(--gray-100); color: var(--gray-900); }
-  .nav-item.active { background: var(--red-light); color: var(--red); }
+  .nav-item.active { background: var(--red-light); color: var(--red); font-weight: 600; }
   .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
 
   .sidebar-user {
-    padding: 14px 14px;
-    border-top: 1px solid var(--gray-200);
-    display: flex; align-items: center; gap: 10px;
+    padding: 16px; border-top: 1px solid var(--gray-200);
+    display: flex; align-items: center; gap: 11px;
   }
-  .user-avatar {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: var(--red); color: white;
+  .sidebar-user-avatar {
+    width: 36px; height: 36px; border-radius: 50%; overflow: hidden;
+    background: var(--red); flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 13px; flex-shrink: 0;
+    font-weight: 700; font-size: 13px; color: white;
   }
+  .sidebar-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
   .user-name { font-size: 13px; font-weight: 600; color: var(--gray-900); }
-  .user-role { font-size: 11px; color: var(--gray-400); }
+  .user-role { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
 
   /* MAIN */
   .main { flex: 1; overflow-y: auto; height: 100vh; }
-  .screen { display: none; }
-  .screen.active { display: block; }
 
   /* ─── SCREEN 1: PROFILE ─── */
   .profile-header {
-    padding: 32px 40px 24px;
+    padding: 40px 48px 32px;
     border-bottom: 1px solid var(--gray-200);
-    display: flex; align-items: center; gap: 24px;
+    display: flex; align-items: center; gap: 28px;
   }
-  .profile-avatar {
-    width: 72px; height: 72px; border-radius: 50%;
+  .profile-photo {
+    width: 88px; height: 88px; border-radius: 50%; overflow: hidden;
     background: linear-gradient(135deg, var(--red), #ff4d6d);
-    color: white; font-size: 26px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    flex-shrink: 0; position: relative;
+    display: flex; align-items: center; justify-content: center;
   }
-  .profile-info h1 { font-size: 24px; font-weight: 700; }
-  .profile-info .role-badge {
+  .profile-photo img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+  .profile-photo-initials { color: white; font-size: 28px; font-weight: 700; }
+  .profile-info h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
+  .role-badge {
     display: inline-flex; align-items: center; gap: 6px;
     background: var(--red-light); color: var(--red);
-    font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-top: 5px;
+    font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 8px;
   }
-  .profile-info .meta { font-size: 13px; color: var(--gray-500); margin-top: 6px; display: flex; gap: 16px; }
-  .profile-info .meta span { display: flex; align-items: center; gap: 4px; }
+  .meta { font-size: 13px; color: var(--gray-500); margin-top: 10px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .meta span { display: flex; align-items: center; gap: 5px; }
 
-  .profile-body { padding: 28px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .card {
-    border: 1px solid var(--gray-200); border-radius: 12px; padding: 22px;
+  .profile-body { padding: 36px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+  .card { border: 1px solid var(--gray-200); border-radius: 14px; padding: 28px; }
+  .card + .card { margin-top: 0; }
+  .card-title {
+    font-size: 11px; font-weight: 700; color: var(--gray-400);
+    text-transform: uppercase; letter-spacing: .7px; margin-bottom: 18px;
   }
-  .card-title { font-size: 13px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; }
-  .bio-text { font-size: 14px; color: var(--gray-700); line-height: 1.7; }
-  .bio-text strong { color: var(--gray-900); }
+  .bio-text { font-size: 14px; color: var(--gray-700); line-height: 1.75; }
+  .bio-text strong { color: var(--gray-900); font-weight: 600; }
+  .bio-text + .bio-text { margin-top: 14px; }
 
-  .achievements { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .achievements { display: flex; flex-direction: column; gap: 12px; }
   .achievement {
-    display: flex; align-items: flex-start; gap: 10px;
-    background: var(--gray-50); border-radius: 8px; padding: 10px 12px;
-    font-size: 13px; color: var(--gray-700);
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--gray-50); border-radius: 10px; padding: 12px 14px;
+    font-size: 13px; color: var(--gray-700); line-height: 1.6;
   }
-  .achievement-icon { width: 20px; height: 20px; background: var(--red-light); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .achievement-icon svg { width: 11px; height: 11px; stroke: var(--red); fill: none; }
+  .achievement-icon {
+    width: 22px; height: 22px; background: var(--red-light); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .achievement-icon svg { width: 12px; height: 12px; stroke: var(--red); fill: none; }
 
-  .skill-row { margin-bottom: 14px; }
-  .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-  .skill-name { font-size: 13px; font-weight: 500; color: var(--gray-700); }
-  .skill-badges { display: flex; gap: 6px; font-size: 11px; font-weight: 600; }
-  .badge-current { color: var(--red); }
-  .badge-expected { color: var(--gray-400); }
-  .skill-track { height: 8px; background: var(--gray-100); border-radius: 4px; position: relative; overflow: visible; }
-  .skill-bar-current { height: 100%; border-radius: 4px; background: var(--red); transition: width .6s ease; }
-  .skill-bar-expected { position: absolute; top: 0; height: 100%; border-radius: 4px; border: 2px dashed var(--gray-300); background: transparent; }
-  .skill-gap { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+  /* STARS SKILLS */
+  .skill-row { margin-bottom: 22px; }
+  .skill-row:last-child { margin-bottom: 0; }
+  .skill-name { font-size: 13.5px; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; }
+  .skill-stars-row { display: flex; align-items: center; gap: 12px; }
+  .stars { display: flex; gap: 4px; }
+  .star { width: 18px; height: 18px; position: relative; }
+  .star svg { width: 100%; height: 100%; }
+  .star-full svg { fill: var(--red); }
+  .star-half { position: relative; overflow: hidden; }
+  .star-half .star-bg { position: absolute; top: 0; left: 0; width: 100%; }
+  .star-half .star-bg svg { fill: var(--gray-200); width: 18px; height: 18px; }
+  .star-half .star-fg { position: absolute; top: 0; left: 0; width: 50%; overflow: hidden; }
+  .star-half .star-fg svg { fill: var(--red); width: 18px; height: 18px; }
+  .star-empty svg { fill: var(--gray-200); }
+  .skill-level-label { font-size: 12px; color: var(--gray-500); font-weight: 500; }
+  .skill-gap-label {
+    font-size: 11.5px; font-weight: 600; margin-top: 5px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .skill-gap-label.ok { color: #16a34a; }
+  .skill-gap-label.warn { color: #d97706; }
+  .skill-gap-label.crit { color: var(--red); }
 
   /* ─── SCREEN 2: CAREER EXPLORER ─── */
   .chat-layout { display: flex; flex-direction: column; height: 100vh; }
   .chat-topbar {
-    padding: 18px 28px; border-bottom: 1px solid var(--gray-200);
+    padding: 20px 32px; border-bottom: 1px solid var(--gray-200);
     display: flex; align-items: center; gap: 12px;
   }
-  .agent-dot { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; }
-  .chat-topbar-info h2 { font-size: 16px; font-weight: 700; }
-  .chat-topbar-info p { font-size: 12px; color: var(--gray-400); }
+  .agent-dot { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+  .chat-topbar-info h2 { font-size: 16px; font-weight: 700; letter-spacing: -.2px; }
+  .chat-topbar-info p { font-size: 12px; color: var(--gray-400); margin-top: 1px; }
+  .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .new-chat-btn {
+    display: flex; align-items: center; gap: 6px;
+    border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 7px 13px;
+    font-size: 13px; font-weight: 600; color: var(--gray-600);
+    background: #fff; cursor: pointer; transition: all .15s; font-family: 'Sora', sans-serif;
+  }
+  .new-chat-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
+  .new-chat-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
   .agent-badge {
-    margin-left: auto; background: var(--red-light); color: var(--red);
-    font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+    background: var(--red-light); color: var(--red);
+    font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 20px;
     display: flex; align-items: center; gap: 5px;
   }
 
-  .chat-messages { flex: 1; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 18px; }
-  .chat-welcome {
-    text-align: center; padding: 32px 0 24px;
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 32px 40px;
+    display: flex; flex-direction: column; gap: 24px;
   }
-  .chat-welcome .welcome-icon {
-    width: 56px; height: 56px; background: var(--red); border-radius: 16px;
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
+  .chat-welcome { text-align: center; padding: 48px 0 32px; }
+  .welcome-icon {
+    width: 60px; height: 60px; background: var(--red); border-radius: 18px;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
   }
-  .chat-welcome .welcome-icon svg { width: 28px; height: 28px; fill: white; }
-  .chat-welcome h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-  .chat-welcome p { font-size: 14px; color: var(--gray-500); max-width: 400px; margin: 0 auto 20px; }
-  .suggestion-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .welcome-icon svg { width: 30px; height: 30px; fill: white; }
+  .chat-welcome h2 { font-size: 24px; font-weight: 800; letter-spacing: -.4px; margin-bottom: 8px; }
+  .chat-welcome p { font-size: 14px; color: var(--gray-500); max-width: 420px; margin: 0 auto 28px; line-height: 1.65; }
+  .suggestion-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
   .chip {
-    border: 1px solid var(--gray-200); border-radius: 20px; padding: 7px 14px;
-    font-size: 13px; color: var(--gray-700); cursor: pointer; transition: all .15s; background: #fff;
+    border: 1.5px solid var(--gray-200); border-radius: 24px; padding: 9px 17px;
+    font-size: 13px; font-weight: 500; color: var(--gray-700); cursor: pointer;
+    transition: all .15s; background: #fff; font-family: 'Sora', sans-serif;
   }
   .chip:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
 
-  .msg { display: flex; gap: 10px; max-width: 720px; }
+  .msg { display: flex; gap: 12px; max-width: 740px; }
   .msg.user { align-self: flex-end; flex-direction: row-reverse; }
   .msg-avatar {
-    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 700;
   }
   .msg-avatar.agent { background: var(--red); color: white; }
   .msg-avatar.user-av { background: var(--gray-200); color: var(--gray-600); }
   .msg-bubble {
-    padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6;
-    max-width: 600px;
+    padding: 14px 18px; border-radius: 14px; font-size: 14px; line-height: 1.65; max-width: 580px;
   }
   .msg.agent .msg-bubble { background: var(--gray-50); border: 1px solid var(--gray-200); border-top-left-radius: 4px; }
   .msg.user .msg-bubble { background: var(--red); color: white; border-top-right-radius: 4px; }
-  .msg-bubble ul { margin: 8px 0 0 16px; }
-  .msg-bubble li { margin-bottom: 4px; }
   .msg-bubble strong { font-weight: 700; }
 
   .typing-indicator { display: flex; gap: 4px; padding: 4px 0; }
@@ -190,241 +209,225 @@
   .typing-dot:nth-child(3) { animation-delay: .4s; }
   @keyframes bounce { 0%,80%,100%{ transform: translateY(0) } 40%{ transform: translateY(-6px) } }
 
-  .chat-input-area {
-    padding: 16px 28px 20px;
-    border-top: 1px solid var(--gray-200);
-  }
+  .chat-input-area { padding: 20px 40px 28px; border-top: 1px solid var(--gray-200); }
   .chat-input-box {
     display: flex; align-items: center; gap: 10px;
-    border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 10px 14px;
+    border: 1.5px solid var(--gray-200); border-radius: 14px; padding: 12px 16px;
     transition: border-color .15s;
   }
   .chat-input-box:focus-within { border-color: var(--red); }
   .chat-input-box input {
-    flex: 1; border: none; outline: none; font-size: 14px; background: transparent; color: var(--gray-900);
+    flex: 1; border: none; outline: none; font-size: 14px; background: transparent;
+    color: var(--gray-900); font-family: 'Sora', sans-serif;
   }
   .chat-input-box input::placeholder { color: var(--gray-400); }
   .send-btn {
-    width: 32px; height: 32px; border-radius: 8px; background: var(--red);
+    width: 34px; height: 34px; border-radius: 9px; background: var(--red);
     border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
+    transition: background .15s; flex-shrink: 0;
   }
   .send-btn:hover { background: var(--red-dark); }
   .send-btn svg { width: 14px; height: 14px; fill: white; }
 
   /* ─── SCREEN 3: MARKETPLACE ─── */
   .marketplace-layout { display: flex; height: 100vh; }
-  .marketplace-main { flex: 1; overflow-y: auto; padding: 32px 32px; }
-  .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-  .page-header h1 { font-size: 24px; font-weight: 700; }
-  .page-header p { font-size: 14px; color: var(--gray-500); margin-top: 4px; }
-  .filter-row { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .marketplace-main { flex: 1; overflow-y: auto; padding: 40px 40px; }
+  .page-header { margin-bottom: 28px; }
+  .page-header h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
+  .page-header p { font-size: 14px; color: var(--gray-500); margin-top: 6px; line-height: 1.6; }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
   .filter-btn {
-    padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    padding: 7px 16px; border-radius: 24px; font-size: 13px; font-weight: 600;
     border: 1.5px solid var(--gray-200); background: #fff; cursor: pointer; color: var(--gray-600);
-    transition: all .15s;
+    transition: all .15s; font-family: 'Sora', sans-serif;
   }
   .filter-btn.active, .filter-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
 
-  .opp-cards { display: flex; flex-direction: column; gap: 14px; }
+  .opp-cards { display: flex; flex-direction: column; gap: 16px; }
   .opp-card {
-    border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 20px 22px;
+    border: 1.5px solid var(--gray-200); border-radius: 14px; padding: 24px 26px;
     cursor: pointer; transition: all .2s; background: #fff;
   }
-  .opp-card:hover { border-color: var(--red); box-shadow: 0 4px 16px rgba(204,9,47,.08); }
-  .opp-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .opp-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(204,9,47,.07); }
+  .opp-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
   .opp-type {
     font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-    padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; display: inline-block;
+    padding: 3px 9px; border-radius: 5px; margin-bottom: 8px; display: inline-block;
   }
   .opp-type.vaga { background: #eff6ff; color: #2563eb; }
   .opp-type.projeto { background: #f0fdf4; color: #16a34a; }
-  .opp-title { font-size: 16px; font-weight: 700; color: var(--gray-900); }
-  .opp-dept { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
-  .compat-block { text-align: right; }
-  .compat-label { font-size: 11px; color: var(--gray-400); font-weight: 500; }
-  .compat-pct { font-size: 22px; font-weight: 800; }
+  .opp-title { font-size: 16px; font-weight: 700; color: var(--gray-900); letter-spacing: -.2px; }
+  .opp-dept { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+  .compat-block { text-align: right; flex-shrink: 0; }
+  .compat-label { font-size: 11px; color: var(--gray-400); font-weight: 500; margin-bottom: 3px; }
+  .compat-pct { font-size: 24px; font-weight: 800; letter-spacing: -.5px; }
   .compat-pct.high { color: #16a34a; }
   .compat-pct.mid { color: #d97706; }
-  .compat-pct.low { color: var(--gray-400); }
-  .compat-bar-track { height: 6px; background: var(--gray-100); border-radius: 3px; margin-top: 4px; width: 80px; }
+  .compat-bar-track { height: 6px; background: var(--gray-100); border-radius: 3px; margin-top: 5px; width: 80px; }
   .compat-bar-fill { height: 100%; border-radius: 3px; }
   .compat-bar-fill.high { background: #16a34a; }
   .compat-bar-fill.mid { background: #d97706; }
-  .opp-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
-  .tag { background: var(--gray-100); color: var(--gray-600); font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; }
-  .opp-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gray-100); }
-  .opp-location { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 4px; }
-  .see-btn {
-    font-size: 12px; font-weight: 600; color: var(--red); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px;
-  }
+  .opp-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { background: var(--gray-100); color: var(--gray-600); font-size: 11.5px; font-weight: 500; padding: 4px 9px; border-radius: 5px; }
+  .opp-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+  .opp-location { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 5px; }
+  .see-btn { font-size: 12px; font-weight: 700; color: var(--red); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: 'Sora', sans-serif; }
 
-  /* Agent 2 sidebar panel */
+  /* Agent 2 */
   .agent2-panel {
     width: 320px; min-width: 320px; border-left: 1px solid var(--gray-200);
     display: flex; flex-direction: column; height: 100vh;
   }
   .agent2-header {
-    padding: 18px 20px; border-bottom: 1px solid var(--gray-200);
-    display: flex; align-items: center; gap: 10px;
+    padding: 20px 20px; border-bottom: 1px solid var(--gray-200);
+    display: flex; align-items: center; gap: 12px;
   }
-  .agent2-icon {
-    width: 36px; height: 36px; border-radius: 10px; background: var(--red);
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
+  .agent2-icon { width: 38px; height: 38px; border-radius: 11px; background: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .agent2-icon svg { width: 18px; height: 18px; fill: white; }
   .agent2-name { font-size: 14px; font-weight: 700; }
-  .agent2-sub { font-size: 11px; color: var(--gray-400); }
-  .agent2-online { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; margin-left: auto; }
-  .agent2-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-  .agent2-msg { font-size: 13px; line-height: 1.6; }
-  .agent2-msg.agent { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; border-top-left-radius: 3px; padding: 10px 12px; }
-  .agent2-msg.user { background: var(--red); color: white; border-radius: 10px; border-top-right-radius: 3px; padding: 10px 12px; align-self: flex-end; max-width: 90%; }
-  .agent2-input { padding: 12px 14px; border-top: 1px solid var(--gray-200); }
-  .agent2-input-box { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 8px 12px; }
+  .agent2-sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
+  .agent2-online { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; margin-left: auto; flex-shrink: 0; }
+  .agent2-messages { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .agent2-msg { font-size: 13px; line-height: 1.65; }
+  .agent2-msg.agent { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 11px; border-top-left-radius: 3px; padding: 11px 13px; }
+  .agent2-msg.user { background: var(--red); color: white; border-radius: 11px; border-top-right-radius: 3px; padding: 11px 13px; align-self: flex-end; max-width: 90%; }
+  .agent2-input { padding: 14px 16px; border-top: 1px solid var(--gray-200); }
+  .agent2-input-box { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--gray-200); border-radius: 11px; padding: 9px 13px; }
   .agent2-input-box:focus-within { border-color: var(--red); }
-  .agent2-input-box input { flex: 1; border: none; outline: none; font-size: 13px; background: transparent; }
-  .agent2-send { width: 28px; height: 28px; border-radius: 7px; background: var(--red); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .agent2-input-box input { flex: 1; border: none; outline: none; font-size: 13px; background: transparent; font-family: 'Sora', sans-serif; }
+  .agent2-send { width: 30px; height: 30px; border-radius: 8px; background: var(--red); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .agent2-send svg { width: 12px; height: 12px; fill: white; }
 
-  /* ─── SCREEN 4: OPPORTUNITY DETAIL ─── */
+  /* ─── SCREEN 4: DETAIL ─── */
   .detail-layout { display: flex; height: 100vh; }
-  .detail-main { flex: 1; overflow-y: auto; padding: 32px 40px; }
+  .detail-main { flex: 1; overflow-y: auto; padding: 40px 48px; }
   .back-btn {
-    display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500;
-    color: var(--gray-500); cursor: pointer; background: none; border: none; margin-bottom: 20px;
-    transition: color .15s;
+    display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600;
+    color: var(--gray-500); cursor: pointer; background: none; border: none; margin-bottom: 28px;
+    transition: color .15s; font-family: 'Sora', sans-serif;
   }
   .back-btn:hover { color: var(--red); }
   .back-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
 
-  .detail-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #16a34a; margin-bottom: 8px; }
-  .detail-title { font-size: 28px; font-weight: 800; color: var(--gray-900); margin-bottom: 6px; }
-  .detail-meta { display: flex; gap: 20px; font-size: 13px; color: var(--gray-500); margin-bottom: 24px; flex-wrap: wrap; }
-  .detail-meta span { display: flex; align-items: center; gap: 5px; }
+  .detail-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #16a34a; margin-bottom: 10px; }
+  .detail-title { font-size: 28px; font-weight: 800; color: var(--gray-900); letter-spacing: -.6px; margin-bottom: 8px; }
+  .detail-meta { display: flex; gap: 22px; font-size: 13px; color: var(--gray-500); margin-bottom: 30px; flex-wrap: wrap; }
+  .detail-meta span { display: flex; align-items: center; gap: 6px; }
 
   .compat-hero {
     background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1.5px solid #bbf7d0;
-    border-radius: 12px; padding: 18px 22px; margin-bottom: 24px;
-    display: flex; align-items: center; gap: 20px;
+    border-radius: 14px; padding: 22px 26px; margin-bottom: 32px;
+    display: flex; align-items: center; gap: 22px;
   }
-  .compat-hero-pct { font-size: 42px; font-weight: 900; color: #16a34a; line-height: 1; }
-  .compat-hero-info h3 { font-size: 15px; font-weight: 700; color: #15803d; margin-bottom: 3px; }
-  .compat-hero-info p { font-size: 13px; color: #166534; }
-  .compat-full-bar { height: 10px; background: #dcfce7; border-radius: 5px; margin-top: 8px; }
+  .compat-hero-pct { font-size: 44px; font-weight: 800; color: #16a34a; line-height: 1; letter-spacing: -1px; }
+  .compat-hero-info h3 { font-size: 15px; font-weight: 700; color: #15803d; margin-bottom: 4px; }
+  .compat-hero-info p { font-size: 13px; color: #166534; line-height: 1.6; }
+  .compat-full-bar { height: 10px; background: #dcfce7; border-radius: 5px; margin-top: 10px; }
   .compat-full-fill { height: 100%; width: 85%; border-radius: 5px; background: #16a34a; }
 
-  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; letter-spacing: -.2px; }
   .section-title svg { width: 18px; height: 18px; stroke: var(--red); fill: none; }
-  .detail-desc { font-size: 14px; color: var(--gray-700); line-height: 1.7; margin-bottom: 24px; }
-  .req-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .detail-desc { font-size: 14px; color: var(--gray-700); line-height: 1.75; margin-bottom: 32px; }
+  .req-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
   .req-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 14px; color: var(--gray-700); padding: 10px 14px;
-    background: var(--gray-50); border-radius: 8px;
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 14px; color: var(--gray-700); padding: 13px 16px;
+    background: var(--gray-50); border-radius: 10px; line-height: 1.6;
   }
-  .req-check { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
+  .req-check { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
   .req-check.met { background: #dcfce7; }
   .req-check.met svg { width: 10px; height: 10px; stroke: #16a34a; fill: none; }
   .req-check.gap { background: #fef9c3; }
   .req-check.gap svg { width: 10px; height: 10px; stroke: #d97706; fill: none; }
 
-  /* Agent 3 panel */
+  /* Agent 3 */
   .agent3-panel {
     width: 380px; min-width: 380px; border-left: 1px solid var(--gray-200);
     display: flex; flex-direction: column; height: 100vh;
   }
   .agent3-header {
-    padding: 18px 20px; border-bottom: 1px solid var(--gray-200);
+    padding: 20px 22px; border-bottom: 1px solid var(--gray-200);
     background: var(--red-light);
   }
-  .agent3-header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-  .agent3-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--red); display: flex; align-items: center; justify-content: center; }
+  .agent3-header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .agent3-icon { width: 38px; height: 38px; border-radius: 11px; background: var(--red); display: flex; align-items: center; justify-content: center; }
   .agent3-icon svg { width: 18px; height: 18px; fill: white; }
   .agent3-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
-  .agent3-sub { font-size: 11px; color: var(--gray-500); }
-  .agent3-desc { font-size: 12px; color: var(--gray-600); margin-top: 6px; }
+  .agent3-sub { font-size: 11px; color: var(--gray-500); margin-top: 1px; }
+  .agent3-desc { font-size: 12.5px; color: var(--gray-600); line-height: 1.6; }
 
-  .plan-area { flex: 1; overflow-y: auto; padding: 16px; }
-  .generate-btn-wrap { padding: 0 16px 16px; }
+  .plan-area { flex: 1; overflow-y: auto; padding: 18px; }
+  .generate-btn-wrap { padding: 0 18px 18px; }
   .generate-btn {
-    width: 100%; padding: 12px; border-radius: 10px;
+    width: 100%; padding: 13px; border-radius: 11px;
     background: var(--red); color: white; border: none; cursor: pointer;
     font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: background .15s;
+    transition: background .15s; font-family: 'Sora', sans-serif;
   }
   .generate-btn:hover { background: var(--red-dark); }
   .generate-btn svg { width: 16px; height: 16px; fill: white; }
   .generate-btn:disabled { background: var(--gray-300); cursor: not-allowed; }
 
   .plan-thinking {
-    display: none; padding: 14px; background: var(--gray-50); border: 1px solid var(--gray-200);
-    border-radius: 10px; margin-bottom: 14px; font-size: 13px; color: var(--gray-500);
-    align-items: center; gap: 8px;
+    display: none; padding: 14px 16px; background: var(--gray-50); border: 1px solid var(--gray-200);
+    border-radius: 11px; margin-bottom: 14px; font-size: 13px; color: var(--gray-500);
+    align-items: center; gap: 10px;
   }
   .plan-thinking.visible { display: flex; }
 
   .plan-step {
-    border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 14px 16px;
-    margin-bottom: 12px; background: #fff; opacity: 0; transform: translateY(8px);
+    border: 1.5px solid var(--gray-200); border-radius: 11px; padding: 16px 18px;
+    margin-bottom: 14px; background: #fff; opacity: 0; transform: translateY(8px);
     transition: all .4s ease;
   }
   .plan-step.visible { opacity: 1; transform: translateY(0); }
-  .plan-step-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-  .plan-step-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--red); }
-  .plan-step-type {
-    font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px;
-  }
+  .plan-step-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .plan-step-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--red); }
+  .plan-step-type { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
   .plan-step-type.treinamento { background: #eff6ff; color: #2563eb; }
   .plan-step-type.acao { background: #f0fdf4; color: #16a34a; }
   .plan-step-type.mentoria { background: #faf5ff; color: #7c3aed; }
-  .plan-step-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
-  .plan-step-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
-  .plan-step-meta { display: flex; gap: 10px; margin-top: 8px; font-size: 11px; color: var(--gray-400); }
+  .plan-step-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; letter-spacing: -.1px; }
+  .plan-step-desc { font-size: 12.5px; color: var(--gray-600); line-height: 1.6; }
+  .plan-step-meta { display: flex; gap: 10px; margin-top: 10px; font-size: 11px; color: var(--gray-400); flex-wrap: wrap; }
 
-  .plan-action-row {
-    display: none; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--gray-200);
-  }
+  .plan-action-row { display: none; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--gray-200); }
   .plan-action-row.visible { display: flex; }
-  .plan-chat-input { display: flex; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--gray-200); }
+  .plan-chat-input { display: flex; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--gray-200); }
   .plan-chat-input input {
-    flex: 1; border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 8px 12px;
-    font-size: 13px; outline: none; transition: border-color .15s;
+    flex: 1; border: 1.5px solid var(--gray-200); border-radius: 9px; padding: 9px 13px;
+    font-size: 13px; outline: none; transition: border-color .15s; font-family: 'Sora', sans-serif;
   }
   .plan-chat-input input:focus { border-color: var(--red); }
-  .plan-chat-send { width: 34px; height: 34px; border-radius: 8px; background: var(--red); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .plan-chat-send { width: 36px; height: 36px; border-radius: 9px; background: var(--red); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .plan-chat-send svg { width: 14px; height: 14px; fill: white; }
 
   .accept-btn {
-    flex: 1; padding: 9px; border-radius: 8px; background: var(--red); color: white;
-    border: none; cursor: pointer; font-size: 13px; font-weight: 600;
+    flex: 1; padding: 10px; border-radius: 9px; background: var(--red); color: white;
+    border: none; cursor: pointer; font-size: 13px; font-weight: 700;
     display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: 'Sora', sans-serif;
   }
   .regen-btn {
-    padding: 9px 14px; border-radius: 8px; border: 1.5px solid var(--gray-200);
+    padding: 10px 16px; border-radius: 9px; border: 1.5px solid var(--gray-200);
     background: #fff; color: var(--gray-700); cursor: pointer; font-size: 13px; font-weight: 600;
+    font-family: 'Sora', sans-serif;
   }
   .regen-btn:hover { border-color: var(--red); color: var(--red); }
 
   .saved-indicator {
-    display: none; margin: 0 16px 12px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0;
-    border-radius: 8px; font-size: 12px; color: #166534; font-weight: 600;
-    align-items: center; gap: 6px;
+    display: none; margin: 0 18px 14px; padding: 11px 15px; background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 9px; font-size: 12px; color: #166534; font-weight: 600;
+    align-items: center; gap: 7px;
   }
   .saved-indicator.visible { display: flex; }
 
-  /* Bradesco logo bar */
-  .bradesco-bar {
-    height: 3px; background: linear-gradient(90deg, var(--red), #ff4d6d);
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  }
+  .bradesco-bar { height: 3px; background: linear-gradient(90deg, var(--red), #ff4d6d); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 2px; }
 
-  /* Animations */
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .fade-in { animation: fadeIn .3s ease forwards; }
 </style>
@@ -461,7 +464,10 @@
   </div>
 
   <div class="sidebar-user">
-    <div class="user-avatar">MS</div>
+    <div class="sidebar-user-avatar">
+      <img id="sidebar-photo" src="marilia.jpg" alt="Marília" onerror="this.style.display='none'"/>
+      MS
+    </div>
     <div>
       <div class="user-name">Marília Santos</div>
       <div class="user-role">Ger. de Relacionamento</div>
@@ -471,189 +477,128 @@
 
 <!-- SCREEN 1: PROFILE -->
 <div class="main" id="screen-profile">
-  <div class="screen active">
-    <div class="profile-header">
-      <div class="profile-avatar">MS</div>
-      <div class="profile-info">
-        <h1>Marília Santos</h1>
-        <div class="role-badge">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
-          Gerente de Relacionamento · Rede Bradesco
-        </div>
-        <div class="meta">
-          <span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            5 anos de casa
-          </span>
-          <span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            São Paulo, SP
-          </span>
-          <span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.07 5.18 2 2 0 0 1 4.06 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
-            (11) 3xxx-xxxx
-          </span>
+  <div class="profile-header">
+    <div class="profile-photo">
+      <img id="profile-photo" src="marilia.jpg" alt="Marília Santos" onerror="this.style.display='none'"/>
+      <span class="profile-photo-initials" id="profile-initials">MS</span>
+    </div>
+    <div class="profile-info">
+      <h1>Marília Santos</h1>
+      <div class="role-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+        Gerente de Relacionamento · Rede Bradesco
+      </div>
+      <div class="meta">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          5 anos de casa
+        </span>
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          São Paulo, SP
+        </span>
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+          Agência Vila Olímpia
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-body">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div class="card">
+        <div class="card-title">Trajetória no Bradesco</div>
+        <p class="bio-text">
+          Marília ingressou no Bradesco em 2019 como <strong>Assistente Comercial</strong> na agência Vila Olímpia, onde rapidamente se destacou pela capacidade analítica e habilidade em construir relacionamentos sólidos com clientes de médio porte.
+        </p>
+        <p class="bio-text">
+          Em 2021, foi promovida a <strong>Analista de Negócios</strong>, gerenciando uma carteira PJ com faturamento entre R$ 1M e R$ 10M. Em 2023, assumiu a <strong>Gerência de Relacionamento</strong>, liderando uma equipe de 4 pessoas e uma carteira de 120+ clientes.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Principais Entregas</div>
+        <div class="achievements">
+          <div class="achievement">
+            <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>Aumentou a captação da carteira em <strong>34%</strong> em 2024, superando a meta em 12 p.p.</div>
+          </div>
+          <div class="achievement">
+            <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>Implementou onboarding digital, reduzindo o tempo de ativação de clientes em <strong>40%</strong>.</div>
+          </div>
+          <div class="achievement">
+            <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>Liderou migração de 87 clientes para o segmento Empresas, gerando <strong>R$ 2,1M</strong> em receita incremental.</div>
+          </div>
+          <div class="achievement">
+            <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>NPS da carteira: <strong>72 pontos</strong> — acima da média da rede (58 pontos).</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="profile-body">
-      <div>
-        <div class="card" style="margin-bottom:20px">
-          <div class="card-title">Trajetória no Bradesco</div>
-          <p class="bio-text">
-            Marília ingressou no Bradesco em 2019 como <strong>Assistente Comercial</strong> na agência Vila Olímpia, onde rapidamente se destacou pela sua capacidade analítica e habilidade em construir relacionamentos sólidos com clientes de médio porte.
-          </p>
-          <p class="bio-text" style="margin-top:10px">
-            Em 2021, foi promovida a <strong>Analista de Negócios</strong>, passando a gerenciar uma carteira de clientes PJ com faturamento entre R$ 1M e R$ 10M. Em 2023, assumiu a <strong>Gerência de Relacionamento</strong>, liderando uma equipe de 4 pessoas e uma carteira de 120+ clientes.
-          </p>
-        </div>
-        <div class="card">
-          <div class="card-title">Principais Entregas</div>
-          <div class="achievements">
-            <div class="achievement">
-              <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>Aumentou a captação da carteira em <strong>34%</strong> em 2024, superando a meta em 12 p.p.</div>
-            </div>
-            <div class="achievement">
-              <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>Implementou processo de onboarding digital, reduzindo tempo de ativação de clientes em <strong>40%</strong>.</div>
-            </div>
-            <div class="achievement">
-              <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>Liderou migração de 87 clientes para o segmento Empresas, gerando <strong>R$ 2,1M</strong> em receita incremental.</div>
-            </div>
-            <div class="achievement">
-              <div class="achievement-icon"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>NPS da carteira: <strong>72 pontos</strong> — acima da média da rede (58 pontos).</div>
-            </div>
-          </div>
-        </div>
+    <!-- SKILLS & GAPS -->
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        Skills &amp; Gaps
+        <span style="font-size:11px;color:var(--gray-400);font-weight:400;display:flex;align-items:center;gap:5px">
+          <svg width="12" height="12" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#CC092F"/></svg>
+          Atual &nbsp;
+          <svg width="12" height="12" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="none" stroke="#d1d5db" stroke-width="2"/></svg>
+          Esperado
+        </span>
       </div>
 
-      <div class="card">
-        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
-          Skills & Proficiência
-          <span style="font-size:11px;color:var(--gray-400);font-weight:400">
-            <span style="color:var(--red);font-weight:600">■</span> Atual &nbsp;
-            <span style="color:var(--gray-300);font-weight:600">- -</span> Esperado
-          </span>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-header">
-            <div class="skill-name">Gestão de Relacionamento</div>
-            <div class="skill-badges"><span class="badge-current">85%</span><span class="badge-expected">/ 90%</span></div>
-          </div>
-          <div class="skill-track">
-            <div class="skill-bar-current" style="width:85%"></div>
-            <div class="skill-bar-expected" style="width:90%"></div>
-          </div>
-          <div class="skill-gap">5% abaixo do esperado</div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-header">
-            <div class="skill-name">Negociação Avançada</div>
-            <div class="skill-badges"><span class="badge-current">80%</span><span class="badge-expected">/ 85%</span></div>
-          </div>
-          <div class="skill-track">
-            <div class="skill-bar-current" style="width:80%"></div>
-            <div class="skill-bar-expected" style="width:85%"></div>
-          </div>
-          <div class="skill-gap">5% abaixo do esperado</div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-header">
-            <div class="skill-name">Análise Financeira</div>
-            <div class="skill-badges"><span class="badge-current">70%</span><span class="badge-expected">/ 85%</span></div>
-          </div>
-          <div class="skill-track">
-            <div class="skill-bar-current" style="width:70%"></div>
-            <div class="skill-bar-expected" style="width:85%"></div>
-          </div>
-          <div class="skill-gap" style="color:#d97706">⚠ 15% abaixo — gap relevante</div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-header">
-            <div class="skill-name">Liderança & Influência</div>
-            <div class="skill-badges"><span class="badge-current">65%</span><span class="badge-expected">/ 80%</span></div>
-          </div>
-          <div class="skill-track">
-            <div class="skill-bar-current" style="width:65%"></div>
-            <div class="skill-bar-expected" style="width:80%"></div>
-          </div>
-          <div class="skill-gap" style="color:#d97706">⚠ 15% abaixo — gap relevante</div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-header">
-            <div class="skill-name">Conhecimento de Produtos</div>
-            <div class="skill-badges"><span class="badge-current">75%</span><span class="badge-expected">/ 90%</span></div>
-          </div>
-          <div class="skill-track">
-            <div class="skill-bar-current" style="width:75%"></div>
-            <div class="skill-bar-expected" style="width:90%"></div>
-          </div>
-          <div class="skill-gap" style="color:#d97706">⚠ 15% abaixo — gap relevante</div>
-        </div>
-
-        <div class="skill-row">
-          <div class="skill-header">
-            <div class="skill-name">Transformação Digital</div>
-            <div class="skill-badges"><span class="badge-current">55%</span><span class="badge-expected">/ 70%</span></div>
-          </div>
-          <div class="skill-track">
-            <div class="skill-bar-current" style="width:55%"></div>
-            <div class="skill-bar-expected" style="width:70%"></div>
-          </div>
-          <div class="skill-gap" style="color:#dc2626">⚠ 15% abaixo — desenvolvimento prioritário</div>
-        </div>
-      </div>
+      <div id="skills-container"></div>
     </div>
   </div>
 </div>
 
 <!-- SCREEN 2: CAREER EXPLORER -->
 <div class="main" id="screen-explorer" style="display:none">
-  <div class="screen active">
-    <div class="chat-layout">
-      <div class="chat-topbar">
-        <div class="agent-dot"></div>
-        <div class="chat-topbar-info">
-          <h2>Career Explorer</h2>
-          <p>Seu consultor de carreira com IA · Estrutura completa de cargos Bradesco</p>
-        </div>
+  <div class="chat-layout">
+    <div class="chat-topbar">
+      <div class="agent-dot"></div>
+      <div class="chat-topbar-info">
+        <h2>Career Explorer</h2>
+        <p>Seu consultor de carreira com IA · Estrutura completa de cargos Bradesco</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="new-chat-btn" onclick="resetChat()">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Nova conversa
+        </button>
         <div class="agent-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a3 3 0 1 1-3 3 3 3 0 0 1 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.2 7.2 0 0 1-6 3.22z"/></svg>
           Agente 1
         </div>
       </div>
+    </div>
 
-      <div class="chat-messages" id="chat-messages">
-        <div class="chat-welcome" id="chat-welcome">
-          <div class="welcome-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 6.3-6.4 2 2-6.3z"/></svg>
-          </div>
-          <h2>Olá, Marília! 👋</h2>
-          <p>Sou o Career Explorer. Conheço toda a estrutura de cargos e trilhas do Bradesco. Como posso te ajudar hoje?</p>
-          <div class="suggestion-chips">
-            <div class="chip" onclick="sendMessage('O que preciso para ser Gerente Sênior?')">O que preciso para ser Gerente Sênior?</div>
-            <div class="chip" onclick="sendMessage('Quais são minhas maiores lacunas de desenvolvimento?')">Quais são minhas maiores lacunas?</div>
-            <div class="chip" onclick="sendMessage('Me mostra possíveis caminhos de carreira')">Possíveis caminhos de carreira</div>
-          </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-welcome" id="chat-welcome">
+        <div class="welcome-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 6.3-6.4 2 2-6.3z"/></svg>
+        </div>
+        <h2>Olá, Marília! 👋</h2>
+        <p>Sou o Career Explorer. Conheço toda a estrutura de cargos e trilhas do Bradesco. Como posso te ajudar hoje?</p>
+        <div class="suggestion-chips">
+          <div class="chip" onclick="sendMessage('O que preciso para ser Gerente Sênior?')">O que preciso para ser Gerente Sênior?</div>
+          <div class="chip" onclick="sendMessage('Quais são minhas maiores lacunas de desenvolvimento?')">Quais são minhas maiores lacunas?</div>
+          <div class="chip" onclick="sendMessage('Me mostra possíveis caminhos de carreira')">Possíveis caminhos de carreira</div>
         </div>
       </div>
+    </div>
 
-      <div class="chat-input-area">
-        <div class="chat-input-box">
-          <input type="text" id="chat-input" placeholder="Pergunte sobre sua carreira no Bradesco..." onkeypress="if(event.key==='Enter') sendChat()"/>
-          <button class="send-btn" onclick="sendChat()">
-            <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg>
-          </button>
-        </div>
+    <div class="chat-input-area">
+      <div class="chat-input-box">
+        <input type="text" id="chat-input" placeholder="Pergunte sobre sua carreira no Bradesco..." onkeypress="if(event.key==='Enter') sendChat()"/>
+        <button class="send-btn" onclick="sendChat()">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -661,290 +606,243 @@
 
 <!-- SCREEN 3: MARKETPLACE -->
 <div class="main" id="screen-marketplace" style="display:none">
-  <div class="screen active">
-    <div class="marketplace-layout">
-      <div class="marketplace-main">
-        <div class="page-header">
-          <div>
-            <h1>Marketplace de Oportunidades</h1>
-            <p>Vagas abertas e projetos disponíveis na Rede Bradesco, com compatibilidade calculada para o seu perfil</p>
+  <div class="marketplace-layout">
+    <div class="marketplace-main">
+      <div class="page-header">
+        <h1>Marketplace de Oportunidades</h1>
+        <p>Vagas abertas e projetos disponíveis na Rede Bradesco, com compatibilidade calculada para o seu perfil</p>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active">Todas (3)</button>
+        <button class="filter-btn">Vagas (2)</button>
+        <button class="filter-btn">Projetos (1)</button>
+        <button class="filter-btn">Alta compatibilidade</button>
+      </div>
+
+      <div class="opp-cards">
+        <div class="opp-card" onclick="goTo('detail')">
+          <div class="opp-card-header">
+            <div>
+              <div class="opp-type projeto">Projeto Estratégico</div>
+              <div class="opp-title">Força-Tarefa de Transformação Digital — Agências SP</div>
+              <div class="opp-dept">Diretoria de Negócios Digitais · São Paulo</div>
+            </div>
+            <div class="compat-block">
+              <div class="compat-label">Compatibilidade</div>
+              <div class="compat-pct high">85%</div>
+              <div class="compat-bar-track"><div class="compat-bar-fill high" style="width:85%"></div></div>
+            </div>
+          </div>
+          <div class="opp-tags">
+            <span class="tag">Transformação Digital</span>
+            <span class="tag">Relacionamento com Clientes</span>
+            <span class="tag">Gestão de Mudança</span>
+            <span class="tag">6 meses</span>
+          </div>
+          <div class="opp-footer">
+            <div class="opp-location">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              São Paulo, SP · Híbrido
+            </div>
+            <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
         </div>
 
-        <div class="filter-row">
-          <button class="filter-btn active">Todas (3)</button>
-          <button class="filter-btn">Vagas (2)</button>
-          <button class="filter-btn">Projetos (1)</button>
-          <button class="filter-btn">Alta compatibilidade</button>
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div>
+              <div class="opp-type vaga">Vaga Interna</div>
+              <div class="opp-title">Gerente de Relacionamento Sênior — Segmento Empresas</div>
+              <div class="opp-dept">Superintendência Empresas SP Interior · Campinas</div>
+            </div>
+            <div class="compat-block">
+              <div class="compat-label">Compatibilidade</div>
+              <div class="compat-pct mid">78%</div>
+              <div class="compat-bar-track"><div class="compat-bar-fill mid" style="width:78%"></div></div>
+            </div>
+          </div>
+          <div class="opp-tags">
+            <span class="tag">Liderança de Equipe</span>
+            <span class="tag">Carteira PJ</span>
+            <span class="tag">Análise de Crédito</span>
+            <span class="tag">CLT Efetivo</span>
+          </div>
+          <div class="opp-footer">
+            <div class="opp-location">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Campinas, SP · Presencial
+            </div>
+            <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
         </div>
 
-        <div class="opp-cards">
-          <!-- Card 1 - Projeto -->
-          <div class="opp-card" onclick="goTo('detail')">
-            <div class="opp-card-header">
-              <div>
-                <div class="opp-type projeto">Projeto Estratégico</div>
-                <div class="opp-title">Força-Tarefa de Transformação Digital — Agências SP</div>
-                <div class="opp-dept">Diretoria de Negócios Digitais · São Paulo</div>
-              </div>
-              <div class="compat-block">
-                <div class="compat-label">Compatibilidade</div>
-                <div class="compat-pct high">85%</div>
-                <div class="compat-bar-track"><div class="compat-bar-fill high" style="width:85%"></div></div>
-              </div>
+        <div class="opp-card">
+          <div class="opp-card-header">
+            <div>
+              <div class="opp-type vaga">Vaga Interna</div>
+              <div class="opp-title">Especialista em Produtos de Crédito — PJ</div>
+              <div class="opp-dept">Diretoria de Crédito Empresarial · São Paulo</div>
             </div>
-            <div class="opp-tags">
-              <span class="tag">Transformação Digital</span>
-              <span class="tag">Relacionamento com Clientes</span>
-              <span class="tag">Gestão de Mudança</span>
-              <span class="tag">6 meses</span>
-            </div>
-            <div class="opp-footer">
-              <div class="opp-location">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                São Paulo, SP · Híbrido
-              </div>
-              <button class="see-btn">
-                Ver detalhes
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
+            <div class="compat-block">
+              <div class="compat-label">Compatibilidade</div>
+              <div class="compat-pct" style="color:var(--gray-400)">62%</div>
+              <div class="compat-bar-track"><div class="compat-bar-fill" style="width:62%;background:var(--gray-300)"></div></div>
             </div>
           </div>
-
-          <!-- Card 2 - Vaga -->
-          <div class="opp-card">
-            <div class="opp-card-header">
-              <div>
-                <div class="opp-type vaga">Vaga Interna</div>
-                <div class="opp-title">Gerente de Relacionamento Sênior — Segmento Empresas</div>
-                <div class="opp-dept">Superintendência Empresas SP Interior · Campinas</div>
-              </div>
-              <div class="compat-block">
-                <div class="compat-label">Compatibilidade</div>
-                <div class="compat-pct mid">78%</div>
-                <div class="compat-bar-track"><div class="compat-bar-fill mid" style="width:78%"></div></div>
-              </div>
-            </div>
-            <div class="opp-tags">
-              <span class="tag">Liderança de Equipe</span>
-              <span class="tag">Carteira PJ</span>
-              <span class="tag">Análise de Crédito</span>
-              <span class="tag">CLT Efetivo</span>
-            </div>
-            <div class="opp-footer">
-              <div class="opp-location">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Campinas, SP · Presencial
-              </div>
-              <button class="see-btn">
-                Ver detalhes
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
-            </div>
+          <div class="opp-tags">
+            <span class="tag">Crédito PJ</span>
+            <span class="tag">Modelagem Financeira</span>
+            <span class="tag">Política de Crédito</span>
+            <span class="tag">CLT Efetivo</span>
           </div>
-
-          <!-- Card 3 - Vaga -->
-          <div class="opp-card">
-            <div class="opp-card-header">
-              <div>
-                <div class="opp-type vaga">Vaga Interna</div>
-                <div class="opp-title">Especialista em Produtos de Crédito — PJ</div>
-                <div class="opp-dept">Diretoria de Crédito Empresarial · São Paulo</div>
-              </div>
-              <div class="compat-block">
-                <div class="compat-label">Compatibilidade</div>
-                <div class="compat-pct" style="color:var(--gray-400)">62%</div>
-                <div class="compat-bar-track"><div class="compat-bar-fill" style="width:62%;background:var(--gray-300)"></div></div>
-              </div>
+          <div class="opp-footer">
+            <div class="opp-location">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              São Paulo, SP · Híbrido
             </div>
-            <div class="opp-tags">
-              <span class="tag">Crédito PJ</span>
-              <span class="tag">Modelagem Financeira</span>
-              <span class="tag">Política de Crédito</span>
-              <span class="tag">CLT Efetivo</span>
-            </div>
-            <div class="opp-footer">
-              <div class="opp-location">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                São Paulo, SP · Híbrido
-              </div>
-              <button class="see-btn">
-                Ver detalhes
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
-            </div>
+            <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Agent 2 panel -->
-      <div class="agent2-panel">
-        <div class="agent2-header">
-          <div class="agent2-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div>
-            <div class="agent2-name">Assistente do Marketplace</div>
-            <div class="agent2-sub">Agente 2 · IA</div>
-          </div>
-          <div class="agent2-online"></div>
+    <div class="agent2-panel">
+      <div class="agent2-header">
+        <div class="agent2-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <div class="agent2-name">Assistente do Marketplace</div>
+          <div class="agent2-sub">Agente 2 · IA</div>
         </div>
-        <div class="agent2-messages" id="agent2-messages">
-          <div class="agent2-msg agent">
-            Olá, Marília! Encontrei <strong>3 oportunidades</strong> que combinam com o seu perfil. 🎯
-          </div>
-          <div class="agent2-msg agent">
-            O projeto de <strong>Força-Tarefa Digital</strong> tem a maior compatibilidade com você (85%). Seu histórico de onboarding digital e gestão de carteira PJ é exatamente o que eles precisam.
-          </div>
-          <div class="agent2-msg agent">
-            Quer que eu explique os requisitos de alguma oportunidade específica ou compare as opções?
-          </div>
-        </div>
-        <div class="agent2-input">
-          <div class="agent2-input-box">
-            <input type="text" id="agent2-input" placeholder="Pergunte sobre as oportunidades..." onkeypress="if(event.key==='Enter') sendAgent2()"/>
-            <button class="agent2-send" onclick="sendAgent2()">
-              <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg>
-            </button>
-          </div>
+        <div class="agent2-online"></div>
+      </div>
+      <div class="agent2-messages" id="agent2-messages">
+        <div class="agent2-msg agent">Olá, Marília! Encontrei <strong>3 oportunidades</strong> que combinam com o seu perfil. 🎯</div>
+        <div class="agent2-msg agent">O projeto de <strong>Força-Tarefa Digital</strong> tem a maior compatibilidade com você (85%). Seu histórico de onboarding digital e gestão de carteira PJ é exatamente o que eles precisam.</div>
+        <div class="agent2-msg agent">Quer que eu explique os requisitos de alguma oportunidade específica ou compare as opções?</div>
+      </div>
+      <div class="agent2-input">
+        <div class="agent2-input-box">
+          <input type="text" id="agent2-input" placeholder="Pergunte sobre as oportunidades..." onkeypress="if(event.key==='Enter') sendAgent2()"/>
+          <button class="agent2-send" onclick="sendAgent2()"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg></button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SCREEN 4: OPPORTUNITY DETAIL -->
+<!-- SCREEN 4: DETAIL -->
 <div class="main" id="screen-detail" style="display:none">
-  <div class="screen active">
-    <div class="detail-layout">
-      <div class="detail-main">
-        <button class="back-btn" onclick="goTo('marketplace')">
-          <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Voltar ao Marketplace
-        </button>
+  <div class="detail-layout">
+    <div class="detail-main">
+      <button class="back-btn" onclick="goTo('marketplace')">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Voltar ao Marketplace
+      </button>
 
-        <div class="detail-type">✦ Projeto Estratégico</div>
-        <h1 class="detail-title">Força-Tarefa de Transformação Digital — Agências SP</h1>
-        <div class="detail-meta">
-          <span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Início: Agosto 2025
-          </span>
-          <span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            Duração: 6 meses
-          </span>
-          <span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            São Paulo, SP · Híbrido
-          </span>
-          <span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            8 vagas no projeto
-          </span>
-        </div>
+      <div class="detail-type">✦ Projeto Estratégico</div>
+      <h1 class="detail-title">Força-Tarefa de Transformação Digital — Agências SP</h1>
+      <div class="detail-meta">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Início: Agosto 2025</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Duração: 6 meses</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> São Paulo, SP · Híbrido</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 8 vagas no projeto</span>
+      </div>
 
-        <div class="compat-hero">
-          <div class="compat-hero-pct">85%</div>
-          <div class="compat-hero-info">
-            <h3>Alta compatibilidade com seu perfil</h3>
-            <p>Seu histórico em digitalização e gestão de carteira PJ é muito valorizado neste projeto.</p>
-            <div class="compat-full-bar"><div class="compat-full-fill"></div></div>
-          </div>
-        </div>
-
-        <div class="section-title">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Sobre o Projeto
-        </div>
-        <div class="detail-desc">
-          A Diretoria de Negócios Digitais está formando uma força-tarefa para acelerar a transformação digital de 40 agências na Grande São Paulo. O projeto visa migrar processos críticos de atendimento para canais digitais, reduzir filas em agências e aumentar o engajamento dos clientes com o app Bradesco. Os colaboradores selecionados atuarão como agentes de mudança, treinando equipes locais e mapeando fricções no processo de adoção.
-        </div>
-
-        <div class="section-title">
-          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Requisitos & Seu Perfil
-        </div>
-        <div class="req-list">
-          <div class="req-item">
-            <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div><strong>Experiência em gestão de carteira PJ</strong> — Você gerencia 120+ clientes há 2 anos</div>
-          </div>
-          <div class="req-item">
-            <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div><strong>Habilidade em relacionamento e influência</strong> — NPS 72, acima da média da rede</div>
-          </div>
-          <div class="req-item">
-            <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <div><strong>Vivência com iniciativas digitais</strong> — Liderou onboarding digital com redução de 40% no tempo</div>
-          </div>
-          <div class="req-item">
-            <div class="req-check gap"><svg viewBox="0 0 24 24" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-            <div><strong>Conhecimento em metodologias ágeis</strong> — Gap identificado: você ainda não tem certificação formal em Agile/Scrum</div>
-          </div>
-          <div class="req-item">
-            <div class="req-check gap"><svg viewBox="0 0 24 24" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-            <div><strong>Gestão de mudança organizacional</strong> — Gap identificado: experiência parcial, sem formação estruturada</div>
-          </div>
+      <div class="compat-hero">
+        <div class="compat-hero-pct">85%</div>
+        <div class="compat-hero-info">
+          <h3>Alta compatibilidade com seu perfil</h3>
+          <p>Seu histórico em digitalização e gestão de carteira PJ é muito valorizado neste projeto.</p>
+          <div class="compat-full-bar"><div class="compat-full-fill"></div></div>
         </div>
       </div>
 
-      <!-- Agent 3 panel -->
-      <div class="agent3-panel">
-        <div class="agent3-header">
-          <div class="agent3-header-top">
-            <div class="agent3-icon">
-              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </div>
-            <div>
-              <div class="agent3-name">Gerador de Plano de Ação</div>
-              <div class="agent3-sub">Agente 3 · IA</div>
-            </div>
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Sobre o Projeto
+      </div>
+      <div class="detail-desc">
+        A Diretoria de Negócios Digitais está formando uma força-tarefa para acelerar a transformação digital de 40 agências na Grande São Paulo. O projeto visa migrar processos críticos de atendimento para canais digitais, reduzir filas em agências e aumentar o engajamento dos clientes com o app Bradesco. Os colaboradores selecionados atuarão como agentes de mudança, treinando equipes locais e mapeando fricções no processo de adoção.
+      </div>
+
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Requisitos &amp; Seu Perfil
+      </div>
+      <div class="req-list">
+        <div class="req-item">
+          <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><strong>Experiência em gestão de carteira PJ</strong> — Você gerencia 120+ clientes há 2 anos</div>
+        </div>
+        <div class="req-item">
+          <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><strong>Habilidade em relacionamento e influência</strong> — NPS 72, acima da média da rede</div>
+        </div>
+        <div class="req-item">
+          <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><strong>Vivência com iniciativas digitais</strong> — Liderou onboarding digital com redução de 40% no tempo</div>
+        </div>
+        <div class="req-item">
+          <div class="req-check gap"><svg viewBox="0 0 24 24" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div><strong>Conhecimento em metodologias ágeis</strong> — Gap identificado: sem certificação formal em Agile/Scrum</div>
+        </div>
+        <div class="req-item">
+          <div class="req-check gap"><svg viewBox="0 0 24 24" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div><strong>Gestão de mudança organizacional</strong> — Gap identificado: experiência parcial, sem formação estruturada</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent 3 -->
+    <div class="agent3-panel">
+      <div class="agent3-header">
+        <div class="agent3-header-top">
+          <div class="agent3-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div>
+            <div class="agent3-name">Gerador de Plano de Ação</div>
+            <div class="agent3-sub">Agente 3 · IA</div>
           </div>
-          <div class="agent3-desc">Gero um plano de próximos passos personalizado para você se candidatar a esta oportunidade com mais chance de sucesso.</div>
         </div>
+        <div class="agent3-desc">Gero um plano de próximos passos personalizado para você se candidatar a esta oportunidade com mais chance de sucesso.</div>
+      </div>
 
-        <div class="plan-area" id="plan-area">
-          <div style="text-align:center;padding:30px 16px;color:var(--gray-400)">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 12px;display:block;opacity:.4"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <div style="font-size:14px;font-weight:600;color:var(--gray-700);margin-bottom:6px">Pronto para gerar seu plano</div>
-            <div style="font-size:13px">Clique abaixo para receber um plano de ação personalizado com base no seu perfil e nos requisitos desta oportunidade.</div>
-          </div>
+      <div class="plan-area" id="plan-area">
+        <div style="text-align:center;padding:36px 16px;color:var(--gray-400)">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;display:block;opacity:.35"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <div style="font-size:14px;font-weight:700;color:var(--gray-700);margin-bottom:8px">Pronto para gerar seu plano</div>
+          <div style="font-size:13px;line-height:1.6">Clique abaixo para receber um plano de ação personalizado com base no seu perfil e nos requisitos desta oportunidade.</div>
         </div>
+      </div>
 
-        <div id="plan-thinking" class="plan-thinking">
-          <div class="typing-indicator">
-            <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-          </div>
-          Analisando seu perfil e os requisitos da oportunidade...
-        </div>
+      <div id="plan-thinking" class="plan-thinking">
+        <div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+        Analisando seu perfil e os requisitos da oportunidade...
+      </div>
 
-        <div class="saved-indicator" id="saved-indicator">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Plano salvo em "Força-Tarefa Digital"
-        </div>
+      <div class="saved-indicator" id="saved-indicator">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Plano salvo em "Força-Tarefa Digital"
+      </div>
 
-        <div id="plan-action-row" class="plan-action-row">
-          <button class="accept-btn" onclick="acceptPlan()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Salvar plano de ação
-          </button>
-          <button class="regen-btn" onclick="regenPlan()">Regenerar</button>
-        </div>
+      <div id="plan-action-row" class="plan-action-row">
+        <button class="accept-btn" onclick="acceptPlan()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Salvar plano de ação
+        </button>
+        <button class="regen-btn" onclick="regenPlan()">Regenerar</button>
+      </div>
 
-        <div class="generate-btn-wrap" id="generate-btn-wrap">
-          <button class="generate-btn" id="generate-btn" onclick="generatePlan()">
-            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
-            Gerar plano de ação com IA
-          </button>
-        </div>
+      <div class="generate-btn-wrap" id="generate-btn-wrap">
+        <button class="generate-btn" id="generate-btn" onclick="generatePlan()">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+          Gerar plano de ação com IA
+        </button>
+      </div>
 
-        <div class="plan-chat-input" id="plan-chat-input" style="display:none">
-          <input type="text" placeholder="Refine o plano ou peça ajustes..." id="plan-chat-inp" onkeypress="if(event.key==='Enter') sendPlanChat()"/>
-          <button class="plan-chat-send" onclick="sendPlanChat()">
-            <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg>
-          </button>
-        </div>
+      <div class="plan-chat-input" id="plan-chat-input" style="display:none">
+        <input type="text" placeholder="Refine o plano ou peça ajustes..." id="plan-chat-inp" onkeypress="if(event.key==='Enter') sendPlanChat()"/>
+        <button class="plan-chat-send" onclick="sendPlanChat()"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg></button>
       </div>
     </div>
   </div>
@@ -955,17 +853,68 @@
 function goTo(screen) {
   document.querySelectorAll('.main').forEach(m => m.style.display = 'none');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
   document.getElementById('screen-' + screen).style.display = 'block';
-
   const map = { profile: 0, explorer: 1, marketplace: 2, detail: 2 };
   const idx = map[screen];
-  if (idx !== undefined) {
-    document.querySelectorAll('.nav-item')[idx].classList.add('active');
-  }
+  if (idx !== undefined) document.querySelectorAll('.nav-item')[idx].classList.add('active');
 }
 
-// ─── CAREER EXPLORER CHAT ───
+// ─── SKILLS STARS ───
+const skills = [
+  { name: 'Gestão de Relacionamento', current: 4, expected: 5, gapText: '1 nível abaixo do esperado', gapClass: 'warn' },
+  { name: 'Negociação Avançada',       current: 4, expected: 4, gapText: 'Dentro do esperado',         gapClass: 'ok'   },
+  { name: 'Análise Financeira',         current: 3, expected: 4, gapText: '1 nível abaixo — gap relevante', gapClass: 'warn' },
+  { name: 'Liderança & Influência',     current: 3, expected: 4, gapText: '1 nível abaixo — gap relevante', gapClass: 'warn' },
+  { name: 'Conhecimento de Produtos',   current: 4, expected: 5, gapText: '1 nível abaixo do esperado', gapClass: 'warn' },
+  { name: 'Transformação Digital',      current: 2, expected: 4, gapText: '2 níveis abaixo — desenvolvimento prioritário', gapClass: 'crit' },
+];
+
+const STAR_PATH = 'M12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
+
+function renderStars(current, expected, max = 5) {
+  let html = '<div class="stars">';
+  for (let i = 1; i <= max; i++) {
+    if (i <= current) {
+      html += `<div class="star star-full"><svg viewBox="0 0 24 24"><polygon points="${STAR_PATH}"/></svg></div>`;
+    } else if (i <= expected) {
+      html += `<div class="star"><svg viewBox="0 0 24 24"><polygon points="${STAR_PATH}" fill="none" stroke="#d1d5db" stroke-width="2"/></svg></div>`;
+    } else {
+      html += `<div class="star star-empty"><svg viewBox="0 0 24 24"><polygon points="${STAR_PATH}"/></svg></div>`;
+    }
+  }
+  html += '</div>';
+  return html;
+}
+
+function buildSkills() {
+  const container = document.getElementById('skills-container');
+  skills.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'skill-row';
+    const gapIcon = s.gapClass === 'ok'
+      ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+      : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
+    div.innerHTML = `
+      <div class="skill-name">${s.name}</div>
+      <div class="skill-stars-row">
+        ${renderStars(s.current, s.expected)}
+        <span class="skill-level-label">${s.current}/${s.expected}</span>
+      </div>
+      <div class="skill-gap-label ${s.gapClass}">${gapIcon} ${s.gapText}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+buildSkills();
+
+// Handle photo load
+const profilePhoto = document.getElementById('profile-photo');
+if (profilePhoto) {
+  profilePhoto.onload = () => { document.getElementById('profile-initials').style.display = 'none'; };
+  profilePhoto.onerror = () => { profilePhoto.style.display = 'none'; };
+}
+
+// ─── CAREER EXPLORER ───
 const explorerConversation = {
   'O que preciso para ser Gerente Sênior?': `Ótima pergunta, Marília! Analisando seu perfil atual e a estrutura de cargos do Bradesco, aqui está o que você precisa para avançar para **Gerente de Relacionamento Sênior**:
 
@@ -983,13 +932,13 @@ const explorerConversation = {
 
   'Quais são minhas maiores lacunas de desenvolvimento?': `Com base no seu perfil e no mapeamento de competências para a sua função atual, identifiquei **3 lacunas prioritárias**:
 
-**1. Transformação Digital (gap de 15% 🔴)**
+**1. Transformação Digital (2 níveis abaixo 🔴)**
 É a lacuna mais crítica. O mercado bancário está mudando rapidamente e o Bradesco tem dado muito peso a essa competência nas avaliações de promoção. Recomendo o curso interno *Jornada Digital Bradesco — Trilha Avançada*.
 
-**2. Análise Financeira (gap de 15% 🟡)**
+**2. Análise Financeira (1 nível abaixo 🟡)**
 Seu perfil comercial é forte, mas a análise técnica precisa evoluir para você assumir responsabilidades maiores de crédito. O módulo de *Análise de Demonstrações Financeiras para Gestores* pode resolver isso em ~3 meses.
 
-**3. Liderança & Influência (gap de 15% 🟡)**
+**3. Liderança & Influência (1 nível abaixo 🟡)**
 Você lidera uma equipe pequena. Para crescer, é importante ganhar visibilidade em projetos cross-funcionais — os projetos estratégicos do Marketplace são uma ótima oportunidade para isso.`,
 
   'Me mostra possíveis caminhos de carreira': `Ótimo, Marília! Mapeei **3 caminhos possíveis** a partir da sua posição atual:
@@ -1028,23 +977,32 @@ function sendChat() {
   sendMessage(text);
 }
 
+function resetChat() {
+  const msgs = document.getElementById('chat-messages');
+  msgs.innerHTML = `
+    <div class="chat-welcome" id="chat-welcome">
+      <div class="welcome-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 6.3-6.4 2 2-6.3z"/></svg></div>
+      <h2>Olá, Marília! 👋</h2>
+      <p>Sou o Career Explorer. Conheço toda a estrutura de cargos e trilhas do Bradesco. Como posso te ajudar hoje?</p>
+      <div class="suggestion-chips">
+        <div class="chip" onclick="sendMessage('O que preciso para ser Gerente Sênior?')">O que preciso para ser Gerente Sênior?</div>
+        <div class="chip" onclick="sendMessage('Quais são minhas maiores lacunas de desenvolvimento?')">Quais são minhas maiores lacunas?</div>
+        <div class="chip" onclick="sendMessage('Me mostra possíveis caminhos de carreira')">Possíveis caminhos de carreira</div>
+      </div>
+    </div>`;
+}
+
 function addMsg(type, text) {
   const messages = document.getElementById('chat-messages');
   const div = document.createElement('div');
   div.className = `msg ${type} fade-in`;
-
   const avatarText = type === 'agent' ? 'CE' : 'MS';
   const avatarClass = type === 'agent' ? 'agent' : 'user-av';
-
   const formattedText = text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n\n/g, '<br><br>')
     .replace(/\n/g, '<br>');
-
-  div.innerHTML = `
-    <div class="msg-avatar ${avatarClass}">${avatarText}</div>
-    <div class="msg-bubble">${formattedText}</div>
-  `;
+  div.innerHTML = `<div class="msg-avatar ${avatarClass}">${avatarText}</div><div class="msg-bubble">${formattedText}</div>`;
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
 }
@@ -1052,20 +1010,12 @@ function addMsg(type, text) {
 function showTyping() {
   const messages = document.getElementById('chat-messages');
   const div = document.createElement('div');
-  div.className = 'msg agent fade-in';
-  div.id = 'typing-msg';
-  div.innerHTML = `
-    <div class="msg-avatar agent">CE</div>
-    <div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
-  `;
+  div.className = 'msg agent fade-in'; div.id = 'typing-msg';
+  div.innerHTML = `<div class="msg-avatar agent">CE</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
 }
-
-function removeTyping() {
-  const t = document.getElementById('typing-msg');
-  if (t) t.remove();
-}
+function removeTyping() { const t = document.getElementById('typing-msg'); if (t) t.remove(); }
 
 // ─── AGENT 2 ───
 const agent2Responses = [
@@ -1081,14 +1031,12 @@ function sendAgent2() {
   const text = inp.value.trim();
   if (!text) return;
   inp.value = '';
-
   const msgs = document.getElementById('agent2-messages');
   const userDiv = document.createElement('div');
   userDiv.className = 'agent2-msg user fade-in';
   userDiv.textContent = text;
   msgs.appendChild(userDiv);
   msgs.scrollTop = msgs.scrollHeight;
-
   setTimeout(() => {
     const agentDiv = document.createElement('div');
     agentDiv.className = 'agent2-msg agent fade-in';
@@ -1099,42 +1047,13 @@ function sendAgent2() {
   }, 1000);
 }
 
-// ─── AGENT 3: PLAN GENERATOR ───
+// ─── AGENT 3 ───
 const planSteps = [
-  {
-    num: 'Passo 1',
-    type: 'treinamento',
-    typeLabel: 'Treinamento',
-    title: 'Jornada Digital Bradesco — Trilha Avançada',
-    desc: 'Curso interno disponível na Universidade Bradesco. Cobre fundamentos de transformação digital, design de jornadas e gestão de mudança em ambientes bancários. Carga horária: 24h online.',
-    meta: ['⏱ 3 semanas', '📱 Universidade Bradesco', '✦ Gratuito para colaboradores']
-  },
-  {
-    num: 'Passo 2',
-    type: 'acao',
-    typeLabel: 'Ação',
-    title: 'Documentar e apresentar o caso do onboarding digital',
-    desc: 'Formalize os resultados que você alcançou com a iniciativa de onboarding (redução de 40% no tempo de ativação) em um documento de 1 página. Isso fortalece sua candidatura e demonstra seu impacto concreto.',
-    meta: ['⏱ 1 semana', '📄 Google Docs / PowerPoint', '✦ Alto impacto na candidatura']
-  },
-  {
-    num: 'Passo 3',
-    type: 'mentoria',
-    typeLabel: 'Mentoria',
-    title: 'Conversar com um colega que já participou de projeto similar',
-    desc: 'Identifique no diretório interno um colaborador que tenha participado de projetos da Diretoria de Negócios Digitais. Uma conversa de 30 min pode revelar expectativas informais e te ajudar a calibrar sua candidatura.',
-    meta: ['⏱ 1-2 semanas', '👥 Diretório Interno', '✦ Networking estratégico']
-  },
-  {
-    num: 'Passo 4',
-    type: 'acao',
-    typeLabel: 'Ação',
-    title: 'Submeter candidatura com carta de motivação',
-    desc: 'Com o treinamento concluído e seu caso documentado, submeta sua candidatura pelo Portal RH até o prazo. Inclua uma carta de 3 parágrafos conectando sua trajetória ao objetivo do projeto.',
-    meta: ['⏱ Até 20/07/2025', '🔗 Portal RH Bradesco', '✦ Prazo fixo']
-  }
+  { num: 'Passo 1', type: 'treinamento', typeLabel: 'Treinamento', title: 'Jornada Digital Bradesco — Trilha Avançada', desc: 'Curso interno disponível na Universidade Bradesco. Cobre fundamentos de transformação digital, design de jornadas e gestão de mudança em ambientes bancários. Carga horária: 24h online.', meta: ['⏱ 3 semanas', '📱 Universidade Bradesco', '✦ Gratuito para colaboradores'] },
+  { num: 'Passo 2', type: 'acao', typeLabel: 'Ação', title: 'Documentar e apresentar o caso do onboarding digital', desc: 'Formalize os resultados que você alcançou com a iniciativa de onboarding (redução de 40% no tempo de ativação) em um documento de 1 página. Isso fortalece sua candidatura e demonstra seu impacto concreto.', meta: ['⏱ 1 semana', '📄 Google Docs / PowerPoint', '✦ Alto impacto na candidatura'] },
+  { num: 'Passo 3', type: 'mentoria', typeLabel: 'Mentoria', title: 'Conversar com um colega que já participou de projeto similar', desc: 'Identifique no diretório interno um colaborador que tenha participado de projetos da Diretoria de Negócios Digitais. Uma conversa de 30 min pode revelar expectativas informais e calibrar sua candidatura.', meta: ['⏱ 1-2 semanas', '👥 Diretório Interno', '✦ Networking estratégico'] },
+  { num: 'Passo 4', type: 'acao', typeLabel: 'Ação', title: 'Submeter candidatura com carta de motivação', desc: 'Com o treinamento concluído e seu caso documentado, submeta sua candidatura pelo Portal RH até o prazo. Inclua uma carta de 3 parágrafos conectando sua trajetória ao objetivo do projeto.', meta: ['⏱ Até 20/07/2025', '🔗 Portal RH Bradesco', '✦ Prazo fixo'] }
 ];
-
 let planGenerated = false;
 
 function generatePlan() {
@@ -1142,28 +1061,17 @@ function generatePlan() {
   document.getElementById('generate-btn').disabled = true;
   document.getElementById('plan-thinking').classList.add('visible');
   document.getElementById('plan-area').innerHTML = '';
-
   setTimeout(() => {
     document.getElementById('plan-thinking').classList.remove('visible');
     planGenerated = true;
-
     planSteps.forEach((step, i) => {
       setTimeout(() => {
         const div = document.createElement('div');
         div.className = 'plan-step';
-        div.innerHTML = `
-          <div class="plan-step-header">
-            <div class="plan-step-num">${step.num}</div>
-            <span class="plan-step-type ${step.type}">${step.typeLabel}</span>
-          </div>
-          <div class="plan-step-title">${step.title}</div>
-          <div class="plan-step-desc">${step.desc}</div>
-          <div class="plan-step-meta">${step.meta.join('&nbsp;·&nbsp;')}</div>
-        `;
+        div.innerHTML = `<div class="plan-step-header"><div class="plan-step-num">${step.num}</div><span class="plan-step-type ${step.type}">${step.typeLabel}</span></div><div class="plan-step-title">${step.title}</div><div class="plan-step-desc">${step.desc}</div><div class="plan-step-meta">${step.meta.join('&nbsp;·&nbsp;')}</div>`;
         document.getElementById('plan-area').appendChild(div);
         requestAnimationFrame(() => div.classList.add('visible'));
         document.getElementById('plan-area').scrollTop = document.getElementById('plan-area').scrollHeight;
-
         if (i === planSteps.length - 1) {
           setTimeout(() => {
             document.getElementById('plan-action-row').classList.add('visible');
@@ -1183,11 +1091,7 @@ function acceptPlan() {
 
 function regenPlan() {
   planGenerated = false;
-  document.getElementById('plan-area').innerHTML = `
-    <div style="text-align:center;padding:30px 16px;color:var(--gray-400)">
-      <div style="font-size:13px">Gerando nova versão do plano...</div>
-    </div>
-  `;
+  document.getElementById('plan-area').innerHTML = '<div style="text-align:center;padding:30px 16px;font-size:13px;color:var(--gray-400)">Gerando nova versão do plano...</div>';
   document.getElementById('plan-action-row').classList.remove('visible');
   document.getElementById('generate-btn-wrap').style.display = 'block';
   document.getElementById('generate-btn').disabled = false;
@@ -1199,30 +1103,16 @@ function sendPlanChat() {
   const text = inp.value.trim();
   if (!text) return;
   inp.value = '';
-
   const area = document.getElementById('plan-area');
   const div = document.createElement('div');
   div.className = 'plan-step fade-in visible';
-  div.style.borderColor = 'var(--red)';
-  div.style.background = 'var(--red-light)';
-  div.innerHTML = `
-    <div class="plan-step-header">
-      <div class="plan-step-num" style="color:var(--gray-500)">Sua pergunta</div>
-    </div>
-    <div class="plan-step-title" style="font-size:13px;font-weight:500;color:var(--gray-700)">${text}</div>
-  `;
+  div.style.borderColor = 'var(--red)'; div.style.background = 'var(--red-light)';
+  div.innerHTML = `<div class="plan-step-header"><div class="plan-step-num" style="color:var(--gray-500)">Sua pergunta</div></div><div class="plan-step-title" style="font-size:13px;font-weight:500;color:var(--gray-700)">${text}</div>`;
   area.appendChild(div);
-
   setTimeout(() => {
     const resp = document.createElement('div');
     resp.className = 'plan-step fade-in visible';
-    resp.innerHTML = `
-      <div class="plan-step-header">
-        <div class="plan-step-num">Resposta do Agente</div>
-        <span class="plan-step-type acao">IA</span>
-      </div>
-      <div class="plan-step-desc">Ótima questão! Com base no seu perfil e no contexto da Força-Tarefa, recomendo priorizar o treinamento de Jornada Digital antes de qualquer outra ação — ele vai te dar vocabulário e credibilidade na entrevista com a Diretoria de Negócios Digitais.</div>
-    `;
+    resp.innerHTML = `<div class="plan-step-header"><div class="plan-step-num">Resposta do Agente</div><span class="plan-step-type acao">IA</span></div><div class="plan-step-desc">Ótima questão! Com base no seu perfil e no contexto da Força-Tarefa, recomendo priorizar o treinamento de Jornada Digital antes de qualquer outra ação — ele vai te dar vocabulário e credibilidade na entrevista com a Diretoria de Negócios Digitais.</div>`;
     area.appendChild(resp);
     area.scrollTop = area.scrollHeight;
   }, 1200);
