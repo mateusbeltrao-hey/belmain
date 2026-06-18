@@ -583,9 +583,9 @@
         <h2>Olá, Marília! 👋</h2>
         <p>Sou o Career Explorer. Conheço toda a estrutura de cargos e trilhas do Bradesco. Como posso te ajudar hoje?</p>
         <div class="suggestion-chips">
-          <div class="chip" onclick="sendMessage('O que preciso para ser Gerente Sênior?')">O que preciso para ser Gerente Sênior?</div>
-          <div class="chip" onclick="sendMessage('Quais são minhas maiores lacunas de desenvolvimento?')">Quais são minhas maiores lacunas?</div>
-          <div class="chip" onclick="sendMessage('Me mostra possíveis caminhos de carreira')">Possíveis caminhos de carreira</div>
+          <div class="chip" onclick="sendMessage('O que falta para eu virar Gerente de Agência?')">O que falta para eu virar Gerente de Agência?</div>
+          <div class="chip" onclick="sendMessage('Vale a pena a vaga de Inteligência de Crédito?')">Vale a pena a vaga de Inteligência de Crédito?</div>
+          <div class="chip" onclick="sendMessage('Qual oportunidade faz mais sentido para mim agora?')">Qual oportunidade faz mais sentido agora?</div>
         </div>
       </div>
     </div>
@@ -915,46 +915,48 @@ if (profilePhoto) {
 
 // ─── CAREER EXPLORER ───
 const explorerConversation = {
-  'O que preciso para ser Gerente Sênior?': `Ótima pergunta, Marília! Analisando seu perfil atual e a estrutura de cargos do Bradesco, aqui está o que você precisa para avançar para **Gerente de Relacionamento Sênior**:
+  'O que falta para eu virar Gerente de Agência?': `Analisei os requisitos da vaga de **Gerente de Agência — Segmento Varejo** aberta no Marketplace em relação ao seu perfil. Veja o que encontrei:
 
-**Requisitos que você já atende ✅**
-- Mínimo de 3 anos como Gerente de Relacionamento (você tem 2 — quase lá!)
-- Carteira com NPS acima de 60 pontos (você tem 72)
-- Histórico de superação de metas por pelo menos 2 anos consecutivos
+**O que você já tem ✅**
+- Experiência sólida em gestão de carteira e relacionamento com clientes
+- NPS 72 — acima da média da rede, sinal forte de liderança pelo cliente
+- Histórico de superação de metas por 2 anos consecutivos
 
-**Gaps que precisam de atenção 📌**
-- **Liderança de equipes maiores**: o nível sênior geralmente exige gestão de 6-8 pessoas. Você lidera 4 atualmente.
-- **Análise Financeira avançada**: o cargo exige proficiência de 85%+ — você está em 70%.
-- **Certificação em produtos complexos**: especialmente Câmbio e Derivativos PJ.
+**O gap principal 📌**
+- **Passagem pelo cargo de Agente de PJ**: o Bradesco exige que o candidato tenha atuado formalmente como Agente de Relacionamento PJ antes de assumir uma agência. É uma etapa da trilha que você ainda não completou.
+- **Gestão de equipes maiores**: o cargo exige liderança de 10+ pessoas. Você lidera 4 hoje.
 
-**Meu conselho:** O projeto de Força-Tarefa Digital no Marketplace seria um acelerador excelente — ele expõe você à gestão de stakeholders em escala e é muito valorizado na avaliação de promoção para o nível sênior.`,
+**Minha recomendação:** O projeto da Força-Tarefa Digital é um atalho interessante aqui — ele te dá exposição à gestão operacional de agências e aparece bem nas avaliações internas para promoção de cargo. Consideraria fazer esse movimento antes de concorrer à vaga de Gerente de Agência.`,
 
-  'Quais são minhas maiores lacunas de desenvolvimento?': `Com base no seu perfil e no mapeamento de competências para a sua função atual, identifiquei **3 lacunas prioritárias**:
+  'Vale a pena a vaga de Inteligência de Crédito?': `Essa é uma pergunta estratégica muito boa, Marília. Vou ser direta:
 
-**1. Transformação Digital (2 níveis abaixo 🔴)**
-É a lacuna mais crítica. O mercado bancário está mudando rapidamente e o Bradesco tem dado muito peso a essa competência nas avaliações de promoção. Recomendo o curso interno *Jornada Digital Bradesco — Trilha Avançada*.
+**A compatibilidade atual é de 54% — abaixo do ideal para uma candidatura agora.** Os gaps técnicos são reais: a vaga exige Python, SQL e modelagem preditiva, que você não tem no histórico.
 
-**2. Análise Financeira (1 nível abaixo 🟡)**
-Seu perfil comercial é forte, mas a análise técnica precisa evoluir para você assumir responsabilidades maiores de crédito. O módulo de *Análise de Demonstrações Financeiras para Gestores* pode resolver isso em ~3 meses.
+**Mas o contexto importa muito aqui 📊**
+O Bradesco está investindo pesado em analytics de crédito para os próximos 3 anos. A área de Crédito Analytics é uma das que mais crescem internamente — a tendência de relevância é **elevada** e tende a subir.
 
-**3. Liderança & Influência (1 nível abaixo 🟡)**
-Você lidera uma equipe pequena. Para crescer, é importante ganhar visibilidade em projetos cross-funcionais — os projetos estratégicos do Marketplace são uma ótima oportunidade para isso.`,
+**Dois caminhos possíveis:**
 
-  'Me mostra possíveis caminhos de carreira': `Ótimo, Marília! Mapeei **3 caminhos possíveis** a partir da sua posição atual:
+**Caminho A — Movimento direto (18-24 meses de prep)**
+Fazer o curso *Data Analytics para Negócios Financeiros* da Universidade Bradesco + módulo de Python para análise de crédito. Reposiciona seu perfil para uma candidatura mais forte.
 
-**Caminho 1: Progressão Vertical 📈**
-Gerente de Relacionamento → **Gerente Sênior** (18-24 meses) → **Superintendente de Agência** (3-4 anos)
-Requer foco em Análise Financeira e expansão da equipe liderada.
+**Caminho B — Entrada pelo lado comercial**
+Algumas posições dessa área aceitam profissionais com forte background em crédito PJ que ainda não têm skills técnicas — e formam internamente. Vale conversar com o RH sobre esse modelo.
 
-**Caminho 2: Especialização 🎯**
-Transição para **Especialista em Segmento Empresas** na área de Produtos — um caminho técnico com ótima remuneração e menos dependência de gestão de pessoas.
-Requer desenvolvimento em Crédito Estruturado e Câmbio PJ.
+Quer que eu te ajude a montar um plano de desenvolvimento para essa direção?`,
 
-**Caminho 3: Inovação & Digital 💡**
-Movimento para a **Diretoria de Negócios Digitais** como Business Partner de agências — cargo novo, muito valorizado internamente.
-Requer experiência em transformação digital (o projeto da Força-Tarefa seria perfeito para isso!).
+  'Qual oportunidade faz mais sentido para mim agora?': `Com base no seu perfil e no momento da sua carreira, aqui está minha análise das **3 oportunidades abertas no Marketplace**:
 
-Qual desses caminhos ressoa mais com você?`
+**🥇 Força-Tarefa de Transformação Digital (85% de fit)**
+A melhor opção para agora. Você já tem tudo que precisam — o projeto aproveita exatamente o que você construiu com o onboarding digital. Além disso, é um trampolim: participar desse projeto aumenta significativamente suas chances nas próximas vagas de liderança.
+
+**🥈 Gerente de Agência (67% de fit)**
+Faz sentido como objetivo de médio prazo (12-18 meses), mas hoje tem um gap estrutural: a trilha do Bradesco exige a passagem pela função de Agente PJ antes. Não é impossível, mas exige uma conversa com seu gestor sobre a trajetória.
+
+**🥉 Analista de Inteligência de Crédito (54% de fit)**
+Movimento interessante, mas para o longo prazo. Exige investimento real em skills técnicas. Vale como direção, não como candidatura imediata.
+
+**Minha recomendação clara:** Vá de Força-Tarefa agora. Use esses 6 meses para construir o histórico em transformação digital e já sair posicionada para a vaga de Gerente de Agência na sequência.`
 };
 
 function sendMessage(text) {
@@ -984,9 +986,9 @@ function resetChat() {
       <h2>Olá, Marília! 👋</h2>
       <p>Sou o Career Explorer. Conheço toda a estrutura de cargos e trilhas do Bradesco. Como posso te ajudar hoje?</p>
       <div class="suggestion-chips">
-        <div class="chip" onclick="sendMessage('O que preciso para ser Gerente Sênior?')">O que preciso para ser Gerente Sênior?</div>
-        <div class="chip" onclick="sendMessage('Quais são minhas maiores lacunas de desenvolvimento?')">Quais são minhas maiores lacunas?</div>
-        <div class="chip" onclick="sendMessage('Me mostra possíveis caminhos de carreira')">Possíveis caminhos de carreira</div>
+        <div class="chip" onclick="sendMessage('O que falta para eu virar Gerente de Agência?')">O que falta para eu virar Gerente de Agência?</div>
+        <div class="chip" onclick="sendMessage('Vale a pena a vaga de Inteligência de Crédito?')">Vale a pena a vaga de Inteligência de Crédito?</div>
+        <div class="chip" onclick="sendMessage('Qual oportunidade faz mais sentido para mim agora?')">Qual oportunidade faz mais sentido agora?</div>
       </div>
     </div>`;
 }
