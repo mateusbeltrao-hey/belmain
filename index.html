@@ -121,28 +121,25 @@
   .achievement-icon svg { width: 12px; height: 12px; stroke: var(--red); fill: none; }
 
   /* STARS SKILLS */
-  .skill-row { margin-bottom: 22px; }
-  .skill-row:last-child { margin-bottom: 0; }
-  .skill-name { font-size: 13.5px; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; }
-  .skill-stars-row { display: flex; align-items: center; gap: 12px; }
-  .stars { display: flex; gap: 4px; }
-  .star { width: 18px; height: 18px; position: relative; }
-  .star svg { width: 100%; height: 100%; }
-  .star-full svg { fill: var(--red); }
-  .star-half { position: relative; overflow: hidden; }
-  .star-half .star-bg { position: absolute; top: 0; left: 0; width: 100%; }
-  .star-half .star-bg svg { fill: var(--gray-200); width: 18px; height: 18px; }
-  .star-half .star-fg { position: absolute; top: 0; left: 0; width: 50%; overflow: hidden; }
-  .star-half .star-fg svg { fill: var(--red); width: 18px; height: 18px; }
-  .star-empty svg { fill: var(--gray-200); }
-  .skill-level-label { font-size: 12px; color: var(--gray-500); font-weight: 500; }
-  .skill-gap-label {
-    font-size: 11.5px; font-weight: 600; margin-top: 5px;
-    display: flex; align-items: center; gap: 5px;
+  .skills-col-header {
+    display: flex; justify-content: flex-end; gap: 0; margin-bottom: 14px;
+    padding-right: 2px;
   }
-  .skill-gap-label.ok { color: #16a34a; }
-  .skill-gap-label.warn { color: #d97706; }
-  .skill-gap-label.crit { color: var(--red); }
+  .skills-col-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--gray-400); width: 102px; text-align: center;
+  }
+  .skill-row { margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .skill-row:last-child { margin-bottom: 0; }
+  .skill-name { font-size: 13px; font-weight: 500; color: var(--gray-700); flex: 1; min-width: 0; }
+  .skill-both-stars { display: flex; gap: 6px; flex-shrink: 0; }
+  .stars { display: flex; gap: 3px; }
+  .star { width: 16px; height: 16px; }
+  .star svg { width: 16px; height: 16px; display: block; }
+  .star-full svg { fill: var(--red); }
+  .star-expected svg { fill: #d1d5db; }
+  .star-empty svg { fill: #f3f4f6; stroke: #d1d5db; stroke-width: 1.5; }
+  .stars-divider { width: 1px; background: var(--gray-200); margin: 0 2px; }
 
   /* ─── SCREEN 2: CAREER EXPLORER ─── */
   .chat-layout { display: flex; flex-direction: column; height: 100vh; }
@@ -543,14 +540,11 @@
 
     <!-- SKILLS & GAPS -->
     <div class="card">
-      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
-        Skills &amp; Gaps
-        <span style="font-size:11px;color:var(--gray-400);font-weight:400;display:flex;align-items:center;gap:5px">
-          <svg width="12" height="12" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#CC092F"/></svg>
-          Atual &nbsp;
-          <svg width="12" height="12" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="none" stroke="#d1d5db" stroke-width="2"/></svg>
-          Esperado
-        </span>
+      <div class="card-title">Skills &amp; Gaps</div>
+
+      <div class="skills-col-header">
+        <span class="skills-col-label">Atual</span>
+        <span class="skills-col-label">Esperado</span>
       </div>
 
       <div id="skills-container"></div>
@@ -872,19 +866,13 @@ const skills = [
 
 const STAR_PTS = '12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26';
 
-function renderStars(current, expected, max = 5) {
+function starsHtml(count, type, max = 5) {
   let html = '<div class="stars">';
   for (let i = 1; i <= max; i++) {
-    if (i <= current) {
-      html += `<div class="star star-full"><svg viewBox="0 0 24 24"><polygon points="${STAR_PTS}"/></svg></div>`;
-    } else if (i <= expected) {
-      html += `<div class="star"><svg viewBox="0 0 24 24"><polygon points="${STAR_PTS}" fill="none" stroke="#d1d5db" stroke-width="1.5"/></svg></div>`;
-    } else {
-      html += `<div class="star star-empty"><svg viewBox="0 0 24 24"><polygon points="${STAR_PTS}"/></svg></div>`;
-    }
+    const cls = i <= count ? `star-${type}` : 'star-empty';
+    html += `<div class="star ${cls}"><svg viewBox="0 0 24 24"><polygon points="${STAR_PTS}"/></svg></div>`;
   }
-  html += '</div>';
-  return html;
+  return html + '</div>';
 }
 
 function buildSkills() {
@@ -892,16 +880,13 @@ function buildSkills() {
   skills.forEach(s => {
     const div = document.createElement('div');
     div.className = 'skill-row';
-    const gapIcon = s.gapClass === 'ok'
-      ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
-      : `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
     div.innerHTML = `
       <div class="skill-name">${s.name}</div>
-      <div class="skill-stars-row">
-        ${renderStars(s.current, s.expected)}
-        <span class="skill-level-label">${s.current}/${s.expected}</span>
+      <div class="skill-both-stars">
+        ${starsHtml(s.current, 'full')}
+        <div class="stars-divider"></div>
+        ${starsHtml(s.expected, 'expected')}
       </div>
-      <div class="skill-gap-label ${s.gapClass}">${gapIcon} ${s.gapText}</div>
     `;
     container.appendChild(div);
   });
