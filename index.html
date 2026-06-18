@@ -269,7 +269,9 @@
   .tag { background: var(--gray-100); color: var(--gray-600); font-size: 11.5px; font-weight: 500; padding: 4px 9px; border-radius: 5px; }
   .opp-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
   .opp-location { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 5px; }
-  .see-btn { font-size: 12px; font-weight: 700; color: var(--red); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: 'Sora', sans-serif; }
+  .tag-trend { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 5px; display: inline-flex; align-items: center; gap: 5px; }
+  .tag-trend.estavel { background: #f3f4f6; color: var(--gray-600); }
+  .tag-trend.elevada { background: #fef3c7; color: #92400e; }
 
   /* Agent 2 */
   .agent2-panel {
@@ -644,52 +646,62 @@
           </div>
         </div>
 
+        <!-- Vaga 2: Gerente de Agência -->
         <div class="opp-card">
           <div class="opp-card-header">
             <div>
               <div class="opp-type vaga">Vaga Interna</div>
-              <div class="opp-title">Gerente de Relacionamento Sênior — Segmento Empresas</div>
-              <div class="opp-dept">Superintendência Empresas SP Interior · Campinas</div>
+              <div class="opp-title">Gerente de Agência — Segmento Varejo</div>
+              <div class="opp-dept">Superintendência de Agências SP Capital · São Paulo</div>
             </div>
             <div class="compat-block">
               <div class="compat-label">Compatibilidade</div>
-              <div class="compat-pct mid">78%</div>
-              <div class="compat-bar-track"><div class="compat-bar-fill mid" style="width:78%"></div></div>
+              <div class="compat-pct mid">67%</div>
+              <div class="compat-bar-track"><div class="compat-bar-fill mid" style="width:67%"></div></div>
             </div>
           </div>
           <div class="opp-tags">
+            <span class="tag">Gestão de Agência</span>
             <span class="tag">Liderança de Equipe</span>
-            <span class="tag">Carteira PJ</span>
-            <span class="tag">Análise de Crédito</span>
+            <span class="tag">Carteira Varejo</span>
             <span class="tag">CLT Efetivo</span>
+            <span class="tag-trend estavel">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg>
+              Tendência: Estável
+            </span>
           </div>
           <div class="opp-footer">
             <div class="opp-location">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Campinas, SP · Presencial
+              São Paulo, SP · Presencial
             </div>
             <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
         </div>
 
+        <!-- Vaga 3: Analista de Dados de Crédito -->
         <div class="opp-card">
           <div class="opp-card-header">
             <div>
               <div class="opp-type vaga">Vaga Interna</div>
-              <div class="opp-title">Especialista em Produtos de Crédito — PJ</div>
-              <div class="opp-dept">Diretoria de Crédito Empresarial · São Paulo</div>
+              <div class="opp-title">Analista de Inteligência de Crédito — PJ &amp; Empresas</div>
+              <div class="opp-dept">Diretoria de Crédito Analytics · São Paulo</div>
             </div>
             <div class="compat-block">
               <div class="compat-label">Compatibilidade</div>
-              <div class="compat-pct" style="color:var(--gray-400)">62%</div>
-              <div class="compat-bar-track"><div class="compat-bar-fill" style="width:62%;background:var(--gray-300)"></div></div>
+              <div class="compat-pct" style="color:var(--gray-400)">54%</div>
+              <div class="compat-bar-track"><div class="compat-bar-fill" style="width:54%;background:var(--gray-300)"></div></div>
             </div>
           </div>
           <div class="opp-tags">
+            <span class="tag">Ciência de Dados</span>
+            <span class="tag">Modelagem Preditiva</span>
+            <span class="tag">Python / SQL</span>
             <span class="tag">Crédito PJ</span>
-            <span class="tag">Modelagem Financeira</span>
-            <span class="tag">Política de Crédito</span>
-            <span class="tag">CLT Efetivo</span>
+            <span class="tag-trend elevada">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 18l7-7 4 4 5-5"/><path d="M15 11h5v5"/></svg>
+              Tendência: Elevada
+            </span>
           </div>
           <div class="opp-footer">
             <div class="opp-location">
@@ -712,9 +724,10 @@
         <div class="agent2-online"></div>
       </div>
       <div class="agent2-messages" id="agent2-messages">
-        <div class="agent2-msg agent">Olá, Marília! Encontrei <strong>3 oportunidades</strong> que combinam com o seu perfil. 🎯</div>
-        <div class="agent2-msg agent">O projeto de <strong>Força-Tarefa Digital</strong> tem a maior compatibilidade com você (85%). Seu histórico de onboarding digital e gestão de carteira PJ é exatamente o que eles precisam.</div>
-        <div class="agent2-msg agent">Quer que eu explique os requisitos de alguma oportunidade específica ou compare as opções?</div>
+        <div class="agent2-msg agent">Olá, Marília! Encontrei <strong>3 oportunidades</strong> disponíveis agora na rede Bradesco. 🎯</div>
+        <div class="agent2-msg agent">O <strong>Projeto de Força-Tarefa Digital</strong> é onde você tem maior fit (85%) — seu histórico com onboarding digital é um diferencial claro ali.</div>
+        <div class="agent2-msg agent">A vaga de <strong>Gerente de Agência</strong> tem compatibilidade média (67%). O principal gap é que o cargo exige passagem prévia pela função de Agente PJ, que você ainda não tem no histórico.</div>
+        <div class="agent2-msg agent">A <strong>Analista de Inteligência de Crédito</strong> tem compatibilidade mais baixa agora, mas é uma área de tendência <strong>elevada</strong> no Bradesco — pode ser um movimento estratégico de médio prazo.</div>
       </div>
       <div class="agent2-input">
         <div class="agent2-input-box">
