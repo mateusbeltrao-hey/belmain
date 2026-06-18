@@ -96,50 +96,52 @@
   .meta { font-size: 13px; color: var(--gray-500); margin-top: 10px; display: flex; gap: 20px; flex-wrap: wrap; }
   .meta span { display: flex; align-items: center; gap: 5px; }
 
-  .profile-body { padding: 36px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-
-  .card { border: 1px solid var(--gray-200); border-radius: 14px; padding: 28px; }
-  .card + .card { margin-top: 0; }
-  .card-title {
-    font-size: 11px; font-weight: 700; color: var(--gray-400);
-    text-transform: uppercase; letter-spacing: .7px; margin-bottom: 18px;
-  }
-  .bio-text { font-size: 14px; color: var(--gray-700); line-height: 1.75; }
-  .bio-text strong { color: var(--gray-900); font-weight: 600; }
-  .bio-text + .bio-text { margin-top: 14px; }
-
-  .achievements { display: flex; flex-direction: column; gap: 12px; }
-  .achievement {
-    display: flex; align-items: flex-start; gap: 12px;
-    background: var(--gray-50); border-radius: 10px; padding: 12px 14px;
-    font-size: 13px; color: var(--gray-700); line-height: 1.6;
-  }
-  .achievement-icon {
-    width: 22px; height: 22px; background: var(--red-light); border-radius: 6px;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
-  }
-  .achievement-icon svg { width: 12px; height: 12px; stroke: var(--red); fill: none; }
+  .profile-body { padding: 32px 48px 40px; display: flex; flex-direction: column; gap: 24px; }
+  .profile-top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 
   /* STARS SKILLS */
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
   .skills-col-header {
-    display: flex; justify-content: flex-end; gap: 0; margin-bottom: 14px;
-    padding-right: 2px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100);
   }
+  .skills-col-header-cell { display: flex; justify-content: flex-end; align-items: center; gap: 18px; padding-right: 4px; }
   .skills-col-label {
     font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-    color: var(--gray-400); width: 102px; text-align: center;
+    color: var(--gray-400); width: 86px; text-align: center;
   }
-  .skill-row { margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .skill-row:last-child { margin-bottom: 0; }
+  .skill-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; cursor: default;
+    transition: background .15s; position: relative;
+  }
+  .skill-row:hover { background: var(--gray-50); }
   .skill-name { font-size: 13px; font-weight: 500; color: var(--gray-700); flex: 1; min-width: 0; }
   .skill-both-stars { display: flex; gap: 6px; flex-shrink: 0; }
   .stars { display: flex; gap: 3px; }
   .star { width: 16px; height: 16px; }
   .star svg { width: 16px; height: 16px; display: block; }
   .star-full svg { fill: var(--red); }
-  .star-expected svg { fill: #d1d5db; }
+  .star-expected svg { fill: var(--red); opacity: .35; }
   .star-empty svg { fill: #f3f4f6; stroke: #d1d5db; stroke-width: 1.5; }
   .stars-divider { width: 1px; background: var(--gray-200); margin: 0 2px; }
+
+  /* SKILL TOOLTIP */
+  .skill-tooltip {
+    display: none; position: fixed; z-index: 999;
+    background: var(--gray-900); color: white; border-radius: 10px;
+    padding: 14px 16px; width: 260px; font-size: 12px; line-height: 1.6;
+    pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  }
+  .skill-tooltip.visible { display: block; }
+  .skill-tooltip-name { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: white; }
+  .skill-tooltip-desc { color: #d1d5db; margin-bottom: 10px; }
+  .skill-tooltip-levels { display: flex; flex-direction: column; gap: 4px; }
+  .skill-tooltip-level { display: flex; gap: 8px; align-items: flex-start; }
+  .skill-tooltip-level-stars { display: flex; gap: 2px; flex-shrink: 0; margin-top: 1px; }
+  .skill-tooltip-level-stars svg { width: 10px; height: 10px; fill: #facc15; }
+  .skill-tooltip-level-stars svg.empty { fill: #4b5563; }
+  .skill-tooltip-level-text { color: #e5e7eb; font-size: 11px; }
 
   /* ─── SCREEN 2: CAREER EXPLORER ─── */
   .chat-layout { display: flex; flex-direction: column; height: 100vh; }
@@ -506,7 +508,7 @@
   </div>
 
   <div class="profile-body">
-    <div style="display:flex;flex-direction:column;gap:24px">
+    <div class="profile-top-row">
       <div class="card">
         <div class="card-title">Trajetória no Bradesco</div>
         <p class="bio-text">
@@ -553,6 +555,8 @@
     </div>
   </div>
 </div>
+
+<div id="skill-tooltip" class="skill-tooltip"></div>
 
 <!-- SCREEN 2: CAREER EXPLORER -->
 <div class="main" id="screen-explorer" style="display:none">
@@ -869,12 +873,72 @@ function goTo(screen) {
 
 // ─── SKILLS STARS ───
 const skills = [
-  { name: 'Gestão de Relacionamento', current: 4, expected: 5, gapText: '1 nível abaixo do esperado', gapClass: 'warn' },
-  { name: 'Negociação Avançada',       current: 4, expected: 4, gapText: 'Dentro do esperado',         gapClass: 'ok'   },
-  { name: 'Análise Financeira',         current: 3, expected: 4, gapText: '1 nível abaixo — gap relevante', gapClass: 'warn' },
-  { name: 'Liderança & Influência',     current: 3, expected: 4, gapText: '1 nível abaixo — gap relevante', gapClass: 'warn' },
-  { name: 'Conhecimento de Produtos',   current: 4, expected: 5, gapText: '1 nível abaixo do esperado', gapClass: 'warn' },
-  { name: 'Transformação Digital',      current: 2, expected: 4, gapText: '2 níveis abaixo — desenvolvimento prioritário', gapClass: 'crit' },
+  {
+    name: 'Gestão de Relacionamento', current: 4, expected: 5, gapText: '1 nível abaixo do esperado', gapClass: 'warn',
+    desc: 'Capacidade de construir, nutrir e expandir relacionamentos de longo prazo com clientes e parceiros estratégicos.',
+    levels: [
+      'Atende demandas pontuais de clientes, sem proatividade no relacionamento.',
+      'Mantém contato regular com a carteira e identifica oportunidades básicas de cross-sell.',
+      'Gerencia carteira com consistência, fideliza clientes e resolve conflitos com autonomia.',
+      'Aprofunda vínculos estratégicos, antecipa necessidades e aumenta share of wallet ativamente.',
+      'Referência na gestão de relacionamento; desenvolve outros, cria playbooks e influencia a cultura da área.',
+    ],
+  },
+  {
+    name: 'Negociação Avançada', current: 4, expected: 4, gapText: 'Dentro do esperado', gapClass: 'ok',
+    desc: 'Habilidade de conduzir negociações complexas gerando valor mútuo, com domínio de técnicas e leitura do interlocutor.',
+    levels: [
+      'Aplica argumentos básicos de venda e aceita condições sem explorar margens.',
+      'Negocia condições comerciais padrão com alguma flexibilidade tática.',
+      'Utiliza técnicas de ancoragem e concessão para fechar acordos equilibrados.',
+      'Conduz negociações de alto valor com múltiplas partes, preservando margem e relacionamento.',
+      'Desenha estratégias de negociação para cenários complexos e treina o time em melhores práticas.',
+    ],
+  },
+  {
+    name: 'Análise Financeira', current: 3, expected: 4, gapText: '1 nível abaixo — gap relevante', gapClass: 'warn',
+    desc: 'Capacidade de interpretar demonstrações financeiras, avaliar riscos de crédito e embasar decisões comerciais em dados.',
+    levels: [
+      'Lê relatórios financeiros básicos com suporte de terceiros.',
+      'Interpreta DRE e balanço patrimonial, identificando indicadores relevantes para a carteira.',
+      'Analisa saúde financeira de empresas PJ e usa dados para embasar propostas comerciais.',
+      'Modela cenários financeiros, avalia capacidade de pagamento e orienta crédito com autonomia.',
+      'Desenvolve frameworks de análise financeira e forma outros analistas da equipe.',
+    ],
+  },
+  {
+    name: 'Liderança & Influência', current: 3, expected: 4, gapText: '1 nível abaixo — gap relevante', gapClass: 'warn',
+    desc: 'Capacidade de inspirar, engajar e direcionar pessoas para resultados, mesmo sem autoridade hierárquica formal.',
+    levels: [
+      'Executa tarefas individualmente sem influenciar o trabalho da equipe.',
+      'Colabora e apoia colegas, sendo referência informal para assuntos técnicos.',
+      'Lidera pequenas equipes, delega tarefas e promove um ambiente colaborativo.',
+      'Inspira o time, gerencia conflitos e desenvolve talentos com feedback estruturado.',
+      'Lidera com visão estratégica, atrai talentos e é referência de liderança na organização.',
+    ],
+  },
+  {
+    name: 'Conhecimento de Produtos', current: 4, expected: 5, gapText: '1 nível abaixo do esperado', gapClass: 'warn',
+    desc: 'Domínio do portfólio de produtos e serviços do Bradesco, incluindo critérios de elegibilidade, rentabilidade e adequação ao perfil do cliente.',
+    levels: [
+      'Conhece os produtos básicos da plataforma e consegue descrevê-los superficialmente.',
+      'Explica características e benefícios dos principais produtos para clientes PF e PJ.',
+      'Compara produtos, identifica o mais adequado ao perfil do cliente e argumenta com propriedade.',
+      'Domina todo o portfólio, incluindo produtos de nicho e estruturados, e orienta clientes em decisões complexas.',
+      'É referência técnica em produtos; treina equipes e colabora com áreas de produto no desenvolvimento de novos lançamentos.',
+    ],
+  },
+  {
+    name: 'Transformação Digital', current: 2, expected: 4, gapText: '2 níveis abaixo — desenvolvimento prioritário', gapClass: 'crit',
+    desc: 'Capacidade de adotar, promover e liderar o uso de tecnologias digitais para melhorar processos, experiências e resultados de negócio.',
+    levels: [
+      'Utiliza ferramentas digitais básicas (e-mail, planilhas) sem explorar seus recursos avançados.',
+      'Adota canais digitais do banco no relacionamento com clientes e entende os benefícios da digitalização.',
+      'Incentiva clientes a migrarem para plataformas digitais e usa dados para personalizar interações.',
+      'Lidera iniciativas de digitalização na equipe, experimenta novas ferramentas e mensura impacto.',
+      'Protagoniza a transformação digital da área, integra dados, IA e automação em processos críticos de negócio.',
+    ],
+  },
 ];
 
 const STAR_PTS = '12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26';
@@ -888,8 +952,18 @@ function starsHtml(count, type, max = 5) {
   return html + '</div>';
 }
 
+function tooltipStars(active, total) {
+  let h = '';
+  for (let i = 1; i <= total; i++) {
+    h += `<svg viewBox="0 0 24 24"${i > active ? ' class="empty"' : ''}><polygon points="${STAR_PTS}"/></svg>`;
+  }
+  return h;
+}
+
 function buildSkills() {
   const container = document.getElementById('skills-container');
+  const tooltip = document.getElementById('skill-tooltip');
+
   skills.forEach(s => {
     const div = document.createElement('div');
     div.className = 'skill-row';
@@ -901,6 +975,31 @@ function buildSkills() {
         ${starsHtml(s.expected, 'expected')}
       </div>
     `;
+
+    div.addEventListener('mouseenter', () => {
+      const levelsHtml = s.levels.map((text, idx) => `
+        <div class="skill-tooltip-level">
+          <div class="skill-tooltip-level-stars">${tooltipStars(idx + 1, 5)}</div>
+          <div class="skill-tooltip-level-text">${text}</div>
+        </div>`).join('');
+      tooltip.innerHTML = `
+        <div class="skill-tooltip-name">${s.name}</div>
+        <div class="skill-tooltip-desc">${s.desc}</div>
+        <div class="skill-tooltip-levels">${levelsHtml}</div>`;
+      tooltip.classList.add('visible');
+    });
+
+    div.addEventListener('mousemove', e => {
+      const x = e.clientX + 16;
+      const y = e.clientY + 16;
+      const tw = tooltip.offsetWidth;
+      const th = tooltip.offsetHeight;
+      tooltip.style.left = (x + tw > window.innerWidth ? e.clientX - tw - 8 : x) + 'px';
+      tooltip.style.top  = (y + th > window.innerHeight ? e.clientY - th - 8 : y) + 'px';
+    });
+
+    div.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+
     container.appendChild(div);
   });
 }
