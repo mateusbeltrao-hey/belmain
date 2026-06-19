@@ -432,6 +432,86 @@
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .fade-in { animation: fadeIn .3s ease forwards; }
+
+  /* VER DETALHES BUTTON */
+  .see-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1.5px solid var(--red); border-radius: 8px; padding: 7px 14px;
+    font-size: 13px; font-weight: 600; color: var(--red);
+    background: var(--red-light); cursor: pointer; transition: all .15s;
+    font-family: 'Sora', sans-serif;
+  }
+  .see-btn:hover { background: var(--red); color: white; }
+  .see-btn svg { transition: stroke .15s; }
+
+  /* SKILLS CALIBRATOR SHORTCUT */
+  .calibrator-shortcut {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 18px; padding: 13px 15px;
+    background: linear-gradient(135deg, var(--red-light), #fff5f7);
+    border: 1.5px solid #fecdd3; border-radius: 12px; cursor: pointer;
+    transition: all .15s;
+  }
+  .calibrator-shortcut:hover { border-color: var(--red); box-shadow: 0 2px 12px rgba(204,9,47,.1); }
+  .calibrator-shortcut-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .calibrator-shortcut-icon svg { width: 16px; height: 16px; fill: white; }
+  .calibrator-shortcut-text { flex: 1; }
+  .calibrator-shortcut-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .calibrator-shortcut-desc { font-size: 11.5px; color: var(--gray-500); margin-top: 1px; line-height: 1.5; }
+  .calibrator-shortcut-arrow { flex-shrink: 0; }
+  .calibrator-shortcut-arrow svg { width: 14px; height: 14px; stroke: var(--gray-400); fill: none; display: block; }
+
+  /* SIDEBAR SECTION LABEL */
+  .nav-section-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+    color: var(--gray-400); padding: 14px 13px 4px;
+  }
+
+  /* GOALS PAGE */
+  .goals-page { overflow-y: auto; height: 100vh; }
+  .goals-layout { padding: 40px 48px 48px; max-width: 820px; }
+  .goals-empty { text-align: center; padding: 80px 40px; }
+  .goals-empty-icon { width: 64px; height: 64px; background: var(--gray-100); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .goals-empty-icon svg { width: 28px; height: 28px; stroke: var(--gray-400); fill: none; }
+  .goals-empty h3 { font-size: 18px; font-weight: 700; color: var(--gray-700); margin-bottom: 8px; }
+  .goals-empty p { font-size: 14px; color: var(--gray-500); line-height: 1.65; max-width: 380px; margin: 0 auto; }
+
+  .goal-card { border: 1.5px solid var(--gray-200); border-radius: 14px; margin-bottom: 20px; background: #fff; overflow: hidden; }
+  .goal-card-header { padding: 20px 24px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--gray-100); }
+  .goal-opp-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; display: inline-block; }
+  .goal-opp-badge.projeto { color: #16a34a; }
+  .goal-opp-badge.vaga { color: #2563eb; }
+  .goal-card-title { font-size: 16px; font-weight: 700; color: var(--gray-900); letter-spacing: -.2px; margin-bottom: 4px; }
+  .goal-card-meta { font-size: 12px; color: var(--gray-400); }
+  .goal-status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .goal-status-badge.active { background: #dcfce7; color: #16a34a; }
+  .goal-status-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #16a34a; }
+
+  .goal-steps { padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .goal-step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 10px; background: var(--gray-50); border: 1px solid var(--gray-100); }
+  .goal-step-badge { width: 28px; height: 28px; border-radius: 50%; background: var(--red-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 11px; font-weight: 800; color: var(--red); }
+  .goal-step-body { flex: 1; }
+  .goal-step-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+  .goal-step-desc { font-size: 12.5px; color: var(--gray-600); line-height: 1.6; }
+  .goal-step-footer { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .goal-step-type { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .goal-step-type.treinamento { background: #eff6ff; color: #2563eb; }
+  .goal-step-type.acao { background: #f0fdf4; color: #16a34a; }
+  .goal-step-type.mentoria { background: #faf5ff; color: #7c3aed; }
+  .goal-step-meta-tag { font-size: 11px; color: var(--gray-400); }
+
+  .goals-cta { margin-top: 28px; padding: 20px 24px; border: 1.5px dashed var(--gray-200); border-radius: 12px; text-align: center; }
+  .goals-cta p { font-size: 13px; color: var(--gray-500); margin-bottom: 12px; }
+  .goals-cta-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 20px; border-radius: 9px; background: var(--red); color: white;
+    border: none; cursor: pointer; font-size: 13px; font-weight: 700;
+    font-family: 'Sora', sans-serif; transition: background .15s;
+  }
+  .goals-cta-btn:hover { background: var(--red-dark); }
+
+  /* SKILLS CALIBRATOR SCREEN */
+  .calibrator-layout { display: flex; flex-direction: column; height: 100vh; }
 </style>
 </head>
 <body>
@@ -451,17 +531,29 @@
   </div>
 
   <div class="sidebar-nav">
-    <button class="nav-item active" onclick="goTo('profile')">
+    <button class="nav-item active" data-screen="profile" onclick="goTo('profile')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       Meu Perfil
     </button>
-    <button class="nav-item" onclick="goTo('explorer')">
+    <button class="nav-item" data-screen="explorer" onclick="goTo('explorer')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12,6 14.5,14.5 12,13 9.5,14.5" fill="currentColor" stroke="none"/><polygon points="12,18 9.5,9.5 12,11 14.5,9.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       Career Explorer
     </button>
-    <button class="nav-item" onclick="goTo('marketplace')">
+    <button class="nav-item" data-screen="marketplace" onclick="goTo('marketplace')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
       Marketplace
+    </button>
+
+    <div class="nav-section-label">Ferramentas</div>
+    <button class="nav-item" data-screen="calibrator" onclick="goTo('calibrator')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4M22 2l-4 4"/></svg>
+      Skills Calibrator
+    </button>
+
+    <div class="nav-section-label">Meu Progresso</div>
+    <button class="nav-item" data-screen="goals" onclick="goTo('goals')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      Goals
     </button>
   </div>
 
@@ -552,6 +644,19 @@
       </div>
 
       <div id="skills-container"></div>
+
+      <div class="calibrator-shortcut" onclick="goTo('calibrator')">
+        <div class="calibrator-shortcut-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4M22 2l-4 4"/></svg>
+        </div>
+        <div class="calibrator-shortcut-text">
+          <div class="calibrator-shortcut-name">Skills Calibrator</div>
+          <div class="calibrator-shortcut-desc">Comprove seu nível com evidências e avalie seu conhecimento com IA</div>
+        </div>
+        <div class="calibrator-shortcut-arrow">
+          <svg viewBox="0 0 24 24" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -622,7 +727,7 @@
       </div>
 
       <div class="opp-cards">
-        <div class="opp-card" onclick="goTo('detail')">
+        <div class="opp-card" onclick="openDetail(0)">
           <div class="opp-card-header">
             <div>
               <div class="opp-type projeto">Projeto Estratégico</div>
@@ -646,12 +751,12 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
               São Paulo, SP · Híbrido
             </div>
-            <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            <button class="see-btn" onclick="event.stopPropagation();openDetail(0)">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
         </div>
 
         <!-- Vaga 2: Gerente de Agência -->
-        <div class="opp-card">
+        <div class="opp-card" onclick="openDetail(1)">
           <div class="opp-card-header">
             <div>
               <div class="opp-type vaga">Vaga Interna</div>
@@ -679,12 +784,12 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
               São Paulo, SP · Presencial
             </div>
-            <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            <button class="see-btn" onclick="event.stopPropagation();openDetail(1)">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
         </div>
 
         <!-- Vaga 3: Analista de Dados de Crédito -->
-        <div class="opp-card">
+        <div class="opp-card" onclick="openDetail(2)">
           <div class="opp-card-header">
             <div>
               <div class="opp-type vaga">Vaga Interna</div>
@@ -712,7 +817,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
               São Paulo, SP · Híbrido
             </div>
-            <button class="see-btn">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            <button class="see-btn" onclick="event.stopPropagation();openDetail(2)">Ver detalhes <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           </div>
         </div>
       </div>
@@ -751,59 +856,7 @@
         <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Voltar ao Marketplace
       </button>
-
-      <div class="detail-type">✦ Projeto Estratégico</div>
-      <h1 class="detail-title">Força-Tarefa de Transformação Digital — Agências SP</h1>
-      <div class="detail-meta">
-        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Início: Agosto 2025</span>
-        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Duração: 6 meses</span>
-        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> São Paulo, SP · Híbrido</span>
-        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 8 vagas no projeto</span>
-      </div>
-
-      <div class="compat-hero">
-        <div class="compat-hero-pct">85%</div>
-        <div class="compat-hero-info">
-          <h3>Alta compatibilidade com seu perfil</h3>
-          <p>Seu histórico em digitalização e gestão de carteira PJ é muito valorizado neste projeto.</p>
-          <div class="compat-full-bar"><div class="compat-full-fill"></div></div>
-        </div>
-      </div>
-
-      <div class="section-title">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Sobre o Projeto
-      </div>
-      <div class="detail-desc">
-        A Diretoria de Negócios Digitais está formando uma força-tarefa para acelerar a transformação digital de 40 agências na Grande São Paulo. O projeto visa migrar processos críticos de atendimento para canais digitais, reduzir filas em agências e aumentar o engajamento dos clientes com o app Bradesco. Os colaboradores selecionados atuarão como agentes de mudança, treinando equipes locais e mapeando fricções no processo de adoção.
-      </div>
-
-      <div class="section-title">
-        <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Requisitos &amp; Seu Perfil
-      </div>
-      <div class="req-list">
-        <div class="req-item">
-          <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><strong>Experiência em gestão de carteira PJ</strong> — Você gerencia 120+ clientes há 2 anos</div>
-        </div>
-        <div class="req-item">
-          <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><strong>Habilidade em relacionamento e influência</strong> — NPS 72, acima da média da rede</div>
-        </div>
-        <div class="req-item">
-          <div class="req-check met"><svg viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div><strong>Vivência com iniciativas digitais</strong> — Liderou onboarding digital com redução de 40% no tempo</div>
-        </div>
-        <div class="req-item">
-          <div class="req-check gap"><svg viewBox="0 0 24 24" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <div><strong>Conhecimento em metodologias ágeis</strong> — Gap identificado: sem certificação formal em Agile/Scrum</div>
-        </div>
-        <div class="req-item">
-          <div class="req-check gap"><svg viewBox="0 0 24 24" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-          <div><strong>Gestão de mudança organizacional</strong> — Gap identificado: experiência parcial, sem formação estruturada</div>
-        </div>
-      </div>
+      <div id="detail-dynamic"></div>
     </div>
 
     <!-- Agent 3 -->
@@ -834,15 +887,19 @@
 
       <div class="saved-indicator" id="saved-indicator">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        Plano salvo em "Força-Tarefa Digital"
+        <span id="saved-indicator-text">Plano salvo em Goals!</span>
+        <button onclick="goTo('goals')" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:11px;font-weight:700;color:#166534;font-family:'Sora',sans-serif;text-decoration:underline;">Ver Goals →</button>
       </div>
 
       <div id="plan-action-row" class="plan-action-row">
         <button class="accept-btn" onclick="acceptPlan()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Salvar plano de ação
+          Salvar Learning Path
         </button>
-        <button class="regen-btn" onclick="regenPlan()">Regenerar</button>
+        <button class="regen-btn" onclick="regenPlan()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Regenerar
+        </button>
       </div>
 
       <div class="generate-btn-wrap" id="generate-btn-wrap">
@@ -860,15 +917,249 @@
   </div>
 </div>
 
+<!-- SCREEN: SKILLS CALIBRATOR -->
+<div class="main" id="screen-calibrator" style="display:none">
+  <div class="calibrator-layout">
+    <div class="chat-topbar">
+      <div class="agent-dot"></div>
+      <div class="chat-topbar-info">
+        <h2>Skills Calibrator</h2>
+        <p>Comprove sua proficiência com evidências e avalie seu conhecimento com IA</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="new-chat-btn" onclick="resetCalibrator()">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Nova sessão
+        </button>
+        <div class="agent-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4M22 2l-4 4"/></svg>
+          Skills Calibrator
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="calibrator-messages">
+      <div class="chat-welcome" id="calibrator-welcome">
+        <div class="welcome-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4M22 2l-4 4"/></svg>
+        </div>
+        <h2>Olá, Marília! Vamos calibrar suas skills? 🎯</h2>
+        <p>Posso te ajudar a reunir evidências de proficiência, testar seu conhecimento e identificar o que demonstra melhor seu nível atual em cada competência.</p>
+        <div class="suggestion-chips">
+          <div class="chip" onclick="sendCalibrator('Quero comprovar meu nível em Transformação Digital')">Comprovar nível em Transformação Digital</div>
+          <div class="chip" onclick="sendCalibrator('Que evidências mostram minha Liderança?')">Que evidências mostram minha Liderança?</div>
+          <div class="chip" onclick="sendCalibrator('Me faça perguntas sobre Análise Financeira')">Me faça perguntas sobre Análise Financeira</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="chat-input-box">
+        <input type="text" id="calibrator-input" placeholder="Pergunte sobre uma skill específica..." onkeypress="if(event.key==='Enter') sendCalibratorChat()"/>
+        <button class="send-btn" onclick="sendCalibratorChat()">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: GOALS -->
+<div class="main" id="screen-goals" style="display:none">
+  <div class="goals-page">
+    <div class="goals-layout">
+      <div class="page-header">
+        <h1>Goals</h1>
+        <p>Seus objetivos de desenvolvimento e Learning Paths salvos a partir do Marketplace</p>
+      </div>
+      <div id="goals-container"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ─── NAVIGATION ───
 function goTo(screen) {
   document.querySelectorAll('.main').forEach(m => m.style.display = 'none');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('screen-' + screen).style.display = 'block';
-  const map = { profile: 0, explorer: 1, marketplace: 2, detail: 2 };
-  const idx = map[screen];
-  if (idx !== undefined) document.querySelectorAll('.nav-item')[idx].classList.add('active');
+  const activeScreenMap = { profile: 'profile', explorer: 'explorer', marketplace: 'marketplace', detail: 'marketplace', calibrator: 'calibrator', goals: 'goals' };
+  const activeScreen = activeScreenMap[screen];
+  if (activeScreen) {
+    const btn = document.querySelector(`.nav-item[data-screen="${activeScreen}"]`);
+    if (btn) btn.classList.add('active');
+  }
+  if (screen === 'goals') renderGoals();
+}
+
+// ─── OPPORTUNITIES DATA ───
+const opportunities = [
+  {
+    idx: 0, typeClass: 'projeto', typeLabel: 'Projeto Estratégico',
+    title: 'Força-Tarefa de Transformação Digital — Agências SP',
+    dept: 'Diretoria de Negócios Digitais · São Paulo',
+    compat: 85, compatClass: 'high', compatColor: '#16a34a',
+    heroTitle: 'Alta compatibilidade com seu perfil',
+    heroDesc: 'Seu histórico em digitalização e gestão de carteira PJ é muito valorizado neste projeto.',
+    meta: [
+      { icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>', label: 'Início: Agosto 2025' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Duração: 6 meses' },
+      { icon: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/>', label: 'São Paulo, SP · Híbrido' },
+      { icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', label: '8 vagas no projeto' },
+    ],
+    desc: 'A Diretoria de Negócios Digitais está formando uma força-tarefa para acelerar a transformação digital de 40 agências na Grande São Paulo. O projeto visa migrar processos críticos de atendimento para canais digitais, reduzir filas em agências e aumentar o engajamento dos clientes com o app Bradesco. Os colaboradores selecionados atuarão como agentes de mudança, treinando equipes locais e mapeando fricções no processo de adoção.',
+    requirements: [
+      { met: true,  text: '<strong>Experiência em gestão de carteira PJ</strong> — Você gerencia 120+ clientes há 2 anos' },
+      { met: true,  text: '<strong>Habilidade em relacionamento e influência</strong> — NPS 72, acima da média da rede' },
+      { met: true,  text: '<strong>Vivência com iniciativas digitais</strong> — Liderou onboarding digital com redução de 40% no tempo' },
+      { met: false, text: '<strong>Conhecimento em metodologias ágeis</strong> — Gap identificado: sem certificação formal em Agile/Scrum' },
+      { met: false, text: '<strong>Gestão de mudança organizacional</strong> — Gap identificado: experiência parcial, sem formação estruturada' },
+    ],
+  },
+  {
+    idx: 1, typeClass: 'vaga', typeLabel: 'Vaga Interna',
+    title: 'Gerente de Agência — Segmento Varejo',
+    dept: 'Superintendência de Agências SP Capital · São Paulo',
+    compat: 67, compatClass: 'mid', compatColor: '#d97706',
+    heroTitle: 'Compatibilidade moderada — objetivo de médio prazo',
+    heroDesc: 'Sua liderança de carteira é forte, mas o cargo exige passagem prévia pelo cargo de Agente PJ e gestão de equipes maiores.',
+    meta: [
+      { icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>', label: 'Candidaturas abertas' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'CLT Efetivo' },
+      { icon: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/>', label: 'São Paulo, SP · Presencial' },
+      { icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', label: '1 vaga disponível' },
+    ],
+    desc: 'A Superintendência de Agências SP Capital está buscando um Gerente de Agência para liderar uma unidade do segmento varejo na capital. O profissional será responsável pela gestão operacional completa da agência, incluindo liderança de uma equipe de 10 a 14 pessoas, gestão da carteira de clientes PF e pequenas empresas, e entrega de metas comerciais trimestrais. O cargo exige visão comercial apurada e capacidade de desenvolver equipes.',
+    requirements: [
+      { met: true,  text: '<strong>Experiência em gestão comercial e carteira</strong> — Você tem histórico sólido com carteira PJ e metas superadas' },
+      { met: true,  text: '<strong>Liderança de pequenas equipes</strong> — Você lidera equipe de 4 pessoas atualmente' },
+      { met: true,  text: '<strong>NPS e relacionamento com clientes</strong> — NPS 72, acima da média da rede Bradesco' },
+      { met: false, text: '<strong>Passagem pelo cargo de Agente de Relacionamento PJ</strong> — Gap estrutural: trilha interna exige essa etapa prévia' },
+      { met: false, text: '<strong>Gestão de equipes com 10+ pessoas</strong> — Gap de escala: sua experiência atual é com times menores' },
+      { met: false, text: '<strong>Gestão operacional de agência</strong> — Gap identificado: sem histórico formal em operações de agência física' },
+    ],
+  },
+  {
+    idx: 2, typeClass: 'vaga', typeLabel: 'Vaga Interna',
+    title: 'Analista de Inteligência de Crédito — PJ & Empresas',
+    dept: 'Diretoria de Crédito Analytics · São Paulo',
+    compat: 54, compatClass: 'low', compatColor: '#6b7280',
+    heroTitle: 'Compatibilidade em desenvolvimento — visão de longo prazo',
+    heroDesc: 'Seu conhecimento de crédito PJ é um diferencial, mas a vaga exige skills técnicas (Python, SQL) que precisam ser desenvolvidas.',
+    meta: [
+      { icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>', label: 'Candidaturas abertas' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'CLT Efetivo' },
+      { icon: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/>', label: 'São Paulo, SP · Híbrido' },
+      { icon: '<path d="M5 18l7-7 4 4 5-5"/><path d="M15 11h5v5"/>', label: 'Tendência: Elevada' },
+    ],
+    desc: 'A Diretoria de Crédito Analytics está expandindo sua equipe de inteligência para desenvolver modelos preditivos de risco e comportamento para o segmento PJ & Empresas. O profissional trabalhará com grandes volumes de dados, construindo dashboards e modelos que orientam decisões de crédito para carteiras de médio e grande porte. É uma posição estratégica dentro de uma das áreas de maior crescimento do Bradesco nos próximos anos.',
+    requirements: [
+      { met: true,  text: '<strong>Conhecimento de crédito PJ</strong> — Você tem experiência prática com carteira PJ de R$ 1M–10M' },
+      { met: true,  text: '<strong>Leitura e interpretação de dados financeiros</strong> — Analisou DREs e balanços no contexto comercial' },
+      { met: false, text: '<strong>Python para análise de dados</strong> — Gap técnico: sem experiência formal em programação' },
+      { met: false, text: '<strong>SQL e manipulação de bases de dados</strong> — Gap técnico: não identificado no histórico' },
+      { met: false, text: '<strong>Modelagem preditiva e machine learning</strong> — Gap técnico: área completamente nova' },
+      { met: false, text: '<strong>Certificação em Data Analytics</strong> — Gap formal: sem certificações na área de dados' },
+    ],
+  },
+];
+
+const allPlanSteps = [
+  // Opp 0: Força-Tarefa
+  [
+    { num: 'Passo 1', type: 'treinamento', typeLabel: 'Treinamento', title: 'Jornada Digital Bradesco — Trilha Avançada', desc: 'Curso interno disponível na Universidade Bradesco. Cobre fundamentos de transformação digital, design de jornadas e gestão de mudança em ambientes bancários. Carga horária: 24h online.', meta: ['⏱ 3 semanas', '📱 Universidade Bradesco', '✦ Gratuito para colaboradores'] },
+    { num: 'Passo 2', type: 'acao', typeLabel: 'Ação', title: 'Documentar e apresentar o caso do onboarding digital', desc: 'Formalize os resultados que você alcançou com a iniciativa de onboarding (redução de 40% no tempo de ativação) em um documento de 1 página. Isso fortalece sua candidatura e demonstra seu impacto concreto.', meta: ['⏱ 1 semana', '📄 Google Docs / PowerPoint', '✦ Alto impacto na candidatura'] },
+    { num: 'Passo 3', type: 'mentoria', typeLabel: 'Mentoria', title: 'Conversar com um colega que já participou de projeto similar', desc: 'Identifique no diretório interno um colaborador que tenha participado de projetos da Diretoria de Negócios Digitais. Uma conversa de 30 min pode revelar expectativas informais e calibrar sua candidatura.', meta: ['⏱ 1-2 semanas', '👥 Diretório Interno', '✦ Networking estratégico'] },
+    { num: 'Passo 4', type: 'acao', typeLabel: 'Ação', title: 'Submeter candidatura com carta de motivação', desc: 'Com o treinamento concluído e seu caso documentado, submeta sua candidatura pelo Portal RH até o prazo. Inclua uma carta de 3 parágrafos conectando sua trajetória ao objetivo do projeto.', meta: ['⏱ Até 20/07/2025', '🔗 Portal RH Bradesco', '✦ Prazo fixo'] },
+  ],
+  // Opp 1: Gerente de Agência
+  [
+    { num: 'Passo 1', type: 'acao', typeLabel: 'Ação', title: 'Conversar com seu gestor sobre a trilha para Gerente de Agência', desc: 'O primeiro passo é entender formalmente o que falta na sua trilha interna. Agende uma conversa com seu gestor direto e pergunte quais marcos você precisa atingir antes de se candidatar ao cargo.', meta: ['⏱ Esta semana', '👤 Gestor direto', '✦ Essencial para o planejamento'] },
+    { num: 'Passo 2', type: 'treinamento', typeLabel: 'Treinamento', title: 'Programa de Formação em Liderança de Agências — Bradesco', desc: 'Trilha interna da Universidade Bradesco voltada para gestores que desejam assumir agências. Cobre gestão operacional, liderança de equipes maiores e controle de indicadores da agência. Carga: 40h.', meta: ['⏱ 5-6 semanas', '📱 Universidade Bradesco', '✦ Recomendado para a trilha'] },
+    { num: 'Passo 3', type: 'mentoria', typeLabel: 'Mentoria', title: 'Mentorar com um Gerente de Agência atual', desc: 'Identifique um Gerente de Agência sênior da sua região e solicite ao RH uma sessão de mentoria via Programa de Shadowing interno. Isso dá visibilidade e referência para o processo seletivo.', meta: ['⏱ 2-3 semanas', '👥 Programa de Shadowing', '✦ Diferencial no processo'] },
+    { num: 'Passo 4', type: 'acao', typeLabel: 'Ação', title: 'Solicitar exposição à gestão operacional de uma agência', desc: 'Negocie com seu gestor a possibilidade de acompanhar um dia de operações em uma agência parceira. Isso preenche o gap de experiência operacional e enriquece sua candidatura futura.', meta: ['⏱ 1 mês', '🏦 Agência parceira local', '✦ Gap crítico a preencher'] },
+  ],
+  // Opp 2: Analista de Crédito
+  [
+    { num: 'Passo 1', type: 'treinamento', typeLabel: 'Treinamento', title: 'Data Analytics para Negócios Financeiros — Universidade Bradesco', desc: 'Curso introdutório de análise de dados com foco em contextos bancários. Cobre conceitos de dados, visualização e primeiros passos com SQL. Disponível na plataforma interna. Carga: 20h.', meta: ['⏱ 3-4 semanas', '📱 Universidade Bradesco', '✦ Gratuito para colaboradores'] },
+    { num: 'Passo 2', type: 'treinamento', typeLabel: 'Treinamento', title: 'Python para Análise de Dados — Coursera ou DataCamp', desc: 'Curso externo de Python focado em análise de dados com Pandas e visualização. É o gap técnico mais crítico para a vaga. O Bradesco subsidia até 80% de cursos homologados na área de dados.', meta: ['⏱ 8-10 semanas', '🖥 Coursera / DataCamp', '✦ Gap prioritário'] },
+    { num: 'Passo 3', type: 'acao', typeLabel: 'Ação', title: 'Construir um mini-projeto de análise de crédito PJ', desc: 'Use seus dados anonimizados de carteira para criar uma análise simples de comportamento de pagamento. Documente o processo e publique no perfil interno. Demonstra iniciativa e aplica as skills em contexto real.', meta: ['⏱ 4-6 semanas', '📊 Ferramentas internas', '✦ Evidência concreta'] },
+    { num: 'Passo 4', type: 'mentoria', typeLabel: 'Mentoria', title: 'Conectar-se com o time de Crédito Analytics', desc: 'Solicite ao RH uma conversa informativa com alguém da área de Crédito Analytics. Entenda quais skills são mais valorizadas no dia a dia e como seria a transição pelo lado comercial para o técnico.', meta: ['⏱ 2 semanas', '👥 Diretório Interno', '✦ Visão de carreira'] },
+  ],
+];
+
+const planState = [false, false, false];
+let currentDetailIdx = 0;
+
+// ─── OPEN DETAIL (DYNAMIC) ───
+function openDetail(idx) {
+  currentDetailIdx = idx;
+  const opp = opportunities[idx];
+
+  const compatStyle = opp.compatClass === 'high'
+    ? 'background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #bbf7d0;'
+    : opp.compatClass === 'mid'
+    ? 'background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fde68a;'
+    : 'background:linear-gradient(135deg,#f9fafb,#f3f4f6);border:1.5px solid #e5e7eb;';
+  const compatPctStyle = opp.compatClass === 'high' ? 'color:#16a34a' : opp.compatClass === 'mid' ? 'color:#d97706' : 'color:#6b7280';
+  const compatBarColor = opp.compatClass === 'high' ? '#16a34a' : opp.compatClass === 'mid' ? '#d97706' : '#9ca3af';
+  const compatInfoColor = opp.compatClass === 'high' ? '#166534' : opp.compatClass === 'mid' ? '#92400e' : '#374151';
+  const compatHeadColor = opp.compatClass === 'high' ? '#15803d' : opp.compatClass === 'mid' ? '#b45309' : '#374151';
+
+  const metaHtml = opp.meta.map(m => `<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${m.icon}</svg> ${m.label}</span>`).join('');
+  const reqHtml = opp.requirements.map(r => `
+    <div class="req-item">
+      <div class="req-check ${r.met ? 'met' : 'gap'}">
+        <svg viewBox="0 0 24 24" stroke-width="3">${r.met
+          ? '<polyline points="20 6 9 17 4 12"/>'
+          : '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>'
+        }</svg>
+      </div>
+      <div>${r.text}</div>
+    </div>`).join('');
+
+  document.getElementById('detail-dynamic').innerHTML = `
+    <div class="detail-type" style="color:${opp.typeClass === 'projeto' ? '#16a34a' : '#2563eb'}">✦ ${opp.typeLabel}</div>
+    <h1 class="detail-title">${opp.title}</h1>
+    <div class="detail-meta">${metaHtml}</div>
+    <div class="compat-hero" style="${compatStyle}">
+      <div class="compat-hero-pct" style="${compatPctStyle}">${opp.compat}%</div>
+      <div class="compat-hero-info">
+        <h3 style="color:${compatHeadColor}">${opp.heroTitle}</h3>
+        <p style="color:${compatInfoColor}">${opp.heroDesc}</p>
+        <div class="compat-full-bar" style="background:${opp.compatClass === 'high' ? '#dcfce7' : opp.compatClass === 'mid' ? '#fef3c7' : '#e5e7eb'}">
+          <div class="compat-full-fill" style="width:${opp.compat}%;background:${compatBarColor}"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      ${opp.typeClass === 'projeto' ? 'Sobre o Projeto' : 'Sobre a Vaga'}
+    </div>
+    <div class="detail-desc">${opp.desc}</div>
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Requisitos &amp; Seu Perfil
+    </div>
+    <div class="req-list">${reqHtml}</div>
+  `;
+
+  // Reset Agent 3 plan state for this opportunity
+  planState[idx] = false;
+  document.getElementById('plan-area').innerHTML = `
+    <div style="text-align:center;padding:36px 16px;color:var(--gray-400)">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;display:block;opacity:.35"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <div style="font-size:14px;font-weight:700;color:var(--gray-700);margin-bottom:8px">Pronto para gerar seu plano</div>
+      <div style="font-size:13px;line-height:1.6">Clique abaixo para receber um plano de ação personalizado com base no seu perfil e nos requisitos desta oportunidade.</div>
+    </div>`;
+  document.getElementById('plan-action-row').classList.remove('visible');
+  document.getElementById('saved-indicator').classList.remove('visible');
+  document.getElementById('generate-btn-wrap').style.display = 'block';
+  document.getElementById('generate-btn').disabled = false;
+  document.getElementById('plan-chat-input').style.display = 'none';
+  document.getElementById('plan-thinking').classList.remove('visible');
+
+  goTo('detail');
 }
 
 // ─── SKILLS STARS ───
@@ -1148,23 +1439,17 @@ function sendAgent2() {
 }
 
 // ─── AGENT 3 ───
-const planSteps = [
-  { num: 'Passo 1', type: 'treinamento', typeLabel: 'Treinamento', title: 'Jornada Digital Bradesco — Trilha Avançada', desc: 'Curso interno disponível na Universidade Bradesco. Cobre fundamentos de transformação digital, design de jornadas e gestão de mudança em ambientes bancários. Carga horária: 24h online.', meta: ['⏱ 3 semanas', '📱 Universidade Bradesco', '✦ Gratuito para colaboradores'] },
-  { num: 'Passo 2', type: 'acao', typeLabel: 'Ação', title: 'Documentar e apresentar o caso do onboarding digital', desc: 'Formalize os resultados que você alcançou com a iniciativa de onboarding (redução de 40% no tempo de ativação) em um documento de 1 página. Isso fortalece sua candidatura e demonstra seu impacto concreto.', meta: ['⏱ 1 semana', '📄 Google Docs / PowerPoint', '✦ Alto impacto na candidatura'] },
-  { num: 'Passo 3', type: 'mentoria', typeLabel: 'Mentoria', title: 'Conversar com um colega que já participou de projeto similar', desc: 'Identifique no diretório interno um colaborador que tenha participado de projetos da Diretoria de Negócios Digitais. Uma conversa de 30 min pode revelar expectativas informais e calibrar sua candidatura.', meta: ['⏱ 1-2 semanas', '👥 Diretório Interno', '✦ Networking estratégico'] },
-  { num: 'Passo 4', type: 'acao', typeLabel: 'Ação', title: 'Submeter candidatura com carta de motivação', desc: 'Com o treinamento concluído e seu caso documentado, submeta sua candidatura pelo Portal RH até o prazo. Inclua uma carta de 3 parágrafos conectando sua trajetória ao objetivo do projeto.', meta: ['⏱ Até 20/07/2025', '🔗 Portal RH Bradesco', '✦ Prazo fixo'] }
-];
-let planGenerated = false;
-
 function generatePlan() {
-  if (planGenerated) return;
+  const idx = currentDetailIdx;
+  if (planState[idx]) return;
   document.getElementById('generate-btn').disabled = true;
   document.getElementById('plan-thinking').classList.add('visible');
   document.getElementById('plan-area').innerHTML = '';
   setTimeout(() => {
     document.getElementById('plan-thinking').classList.remove('visible');
-    planGenerated = true;
-    planSteps.forEach((step, i) => {
+    planState[idx] = true;
+    const steps = allPlanSteps[idx];
+    steps.forEach((step, i) => {
       setTimeout(() => {
         const div = document.createElement('div');
         div.className = 'plan-step';
@@ -1172,7 +1457,7 @@ function generatePlan() {
         document.getElementById('plan-area').appendChild(div);
         requestAnimationFrame(() => div.classList.add('visible'));
         document.getElementById('plan-area').scrollTop = document.getElementById('plan-area').scrollHeight;
-        if (i === planSteps.length - 1) {
+        if (i === steps.length - 1) {
           setTimeout(() => {
             document.getElementById('plan-action-row').classList.add('visible');
             document.getElementById('generate-btn-wrap').style.display = 'none';
@@ -1184,18 +1469,187 @@ function generatePlan() {
   }, 2200);
 }
 
+const savedGoals = [];
+
 function acceptPlan() {
+  const idx = currentDetailIdx;
+  const opp = opportunities[idx];
+  const alreadySaved = savedGoals.find(g => g.oppIdx === idx);
+  if (!alreadySaved) {
+    savedGoals.push({
+      oppIdx: idx,
+      typeClass: opp.typeClass,
+      typeLabel: opp.typeLabel,
+      title: opp.title,
+      steps: allPlanSteps[idx],
+      savedAt: new Date().toLocaleDateString('pt-BR'),
+    });
+  }
   document.getElementById('plan-action-row').classList.remove('visible');
+  document.getElementById('saved-indicator-text').textContent = 'Plano salvo em Goals!';
   document.getElementById('saved-indicator').classList.add('visible');
 }
 
 function regenPlan() {
-  planGenerated = false;
+  const idx = currentDetailIdx;
+  planState[idx] = false;
   document.getElementById('plan-area').innerHTML = '<div style="text-align:center;padding:30px 16px;font-size:13px;color:var(--gray-400)">Gerando nova versão do plano...</div>';
   document.getElementById('plan-action-row').classList.remove('visible');
   document.getElementById('generate-btn-wrap').style.display = 'block';
   document.getElementById('generate-btn').disabled = false;
   setTimeout(() => generatePlan(), 300);
+}
+
+// ─── GOALS PAGE ───
+function renderGoals() {
+  const container = document.getElementById('goals-container');
+  if (savedGoals.length === 0) {
+    container.innerHTML = `
+      <div class="goals-empty">
+        <div class="goals-empty-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
+        <h3>Nenhum objetivo salvo ainda</h3>
+        <p>Explore uma oportunidade no Marketplace, gere um Learning Path com IA e salve para acompanhar seu progresso aqui.</p>
+      </div>
+      <div class="goals-cta">
+        <p>Pronto para dar o próximo passo na sua carreira?</p>
+        <button class="goals-cta-btn" onclick="goTo('marketplace')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Explorar Marketplace
+        </button>
+      </div>`;
+    return;
+  }
+  container.innerHTML = savedGoals.map((goal, gi) => {
+    const stepsHtml = goal.steps.map((step, si) => `
+      <div class="goal-step">
+        <div class="goal-step-badge">${si + 1}</div>
+        <div class="goal-step-body">
+          <div class="goal-step-title">${step.title}</div>
+          <div class="goal-step-desc">${step.desc}</div>
+          <div class="goal-step-footer">
+            <span class="goal-step-type ${step.type}">${step.typeLabel}</span>
+            ${step.meta.map(m => `<span class="goal-step-meta-tag">${m}</span>`).join('')}
+          </div>
+        </div>
+      </div>`).join('');
+    return `
+      <div class="goal-card">
+        <div class="goal-card-header">
+          <div>
+            <span class="goal-opp-badge ${goal.typeClass}">${goal.typeLabel}</span>
+            <div class="goal-card-title">${goal.title}</div>
+            <div class="goal-card-meta">Learning Path salvo em ${goal.savedAt} · ${goal.steps.length} passos</div>
+          </div>
+          <div class="goal-status-badge active"><div class="dot"></div>Em andamento</div>
+        </div>
+        <div class="goal-steps">${stepsHtml}</div>
+      </div>`;
+  }).join('');
+}
+
+// ─── SKILLS CALIBRATOR ───
+const calibratorConversation = {
+  'Quero comprovar meu nível em Transformação Digital': `Ótima escolha, Marília! Transformação Digital é exatamente onde temos mais trabalho a fazer — você está no **nível 2**, mas os cargos que você quer exigem nível 4. Veja como comprovar e evoluir:
+
+**Evidências que você já pode reunir agora 📁**
+- Documentação do seu projeto de onboarding digital (redução de 40% no tempo de ativação)
+- Número de clientes que você migrou para os canais digitais do app
+- Qualquer comunicação ou apresentação sobre a iniciativa
+
+**Para demonstrar nível 3 (próxima meta) 🎯**
+- Documente de forma estruturada como você incentivou clientes a adotarem canais digitais
+- Peça ao seu gestor um feedback formal sobre a iniciativa de onboarding
+- Identifique uma nova fricção digital na sua agência e proponha uma solução
+
+Quer que eu te faça **perguntas para testar seu conhecimento** em transformação digital? Isso vai te ajudar a identificar gaps específicos antes de uma avaliação.`,
+
+  'Que evidências mostram minha Liderança?': `Vamos mapear suas evidências de Liderança & Influência, Marília. Com base no que conheço do seu perfil, aqui está uma análise:
+
+**Evidências existentes no seu perfil ✅**
+- Liderança de equipe de 4 pessoas como Gerente de Relacionamento
+- NPS de 72 — isso indica forte capacidade de influenciar comportamento de clientes
+- Migração de 87 clientes para o segmento Empresas (movimento que exige convencimento)
+
+**O que fortaleceria a evidência de nível 4 📈**
+- Feedback 360 formal de pelo menos 3 membros da sua equipe
+- Registro de algum colaborador que você desenvolveu ou promoveu
+- Exemplos de situações onde você resolveu conflitos internos
+
+**Teste rápido de auto-avaliação 🧠**
+Responda mentalmente:
+1. Você consegue citar uma pessoa que cresceu profissionalmente por influência direta sua?
+2. Você já mediou um conflito de equipe de forma estruturada?
+3. Você influenciou alguma decisão acima da sua hierarquia?
+
+Se a maioria das respostas for sim, você está mais perto do nível 4 do que imagina. Quer detalhar alguma dessas situações para eu te ajudar a estruturar a evidência?`,
+
+  'Me faça perguntas sobre Análise Financeira': `Perfeito! Vou te fazer **5 perguntas** para testar seu nível em Análise Financeira. Responda com a que você se sentir mais confortável — não precisa ser formal.
+
+**Pergunta 1 de 5 🧾**
+
+Você está avaliando um cliente PJ para uma proposta de crédito. Ele te apresenta o balanço patrimonial da empresa. Quais são os **3 indicadores principais** que você analisa primeiro para ter uma leitura rápida da saúde financeira?
+
+*(Responda com o que vier naturalmente — vou calibrar seu nível com base na sua resposta e te dar feedback imediato.)*
+
+Depois das 5 perguntas, você terá uma estimativa do seu nível atual e uma lista de pontos a desenvolver para subir ao nível esperado.`
+};
+
+function sendCalibrator(text) {
+  document.getElementById('calibrator-welcome').style.display = 'none';
+  addCalibratorMsg('user', text);
+  showCalibratorTyping();
+  setTimeout(() => {
+    removeCalibratorTyping();
+    const resp = calibratorConversation[text] || `Entendi! Vou te ajudar a calibrar essa skill. Me conta mais sobre o que você já fez ou sabe nessa área — assim consigo mapear seu nível atual e sugerir as melhores evidências para demonstrar sua evolução.`;
+    addCalibratorMsg('agent', resp);
+  }, 1800);
+}
+
+function sendCalibratorChat() {
+  const inp = document.getElementById('calibrator-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = '';
+  sendCalibrator(text);
+}
+
+function addCalibratorMsg(type, text) {
+  const messages = document.getElementById('calibrator-messages');
+  const div = document.createElement('div');
+  div.className = `msg ${type} fade-in`;
+  const avatarText = type === 'agent' ? 'SC' : 'MS';
+  const avatarClass = type === 'agent' ? 'agent' : 'user-av';
+  const formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+  div.innerHTML = `<div class="msg-avatar ${avatarClass}">${avatarText}</div><div class="msg-bubble">${formatted}</div>`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function showCalibratorTyping() {
+  const messages = document.getElementById('calibrator-messages');
+  const div = document.createElement('div');
+  div.className = 'msg agent fade-in'; div.id = 'calibrator-typing';
+  div.innerHTML = `<div class="msg-avatar agent">SC</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+function removeCalibratorTyping() { const t = document.getElementById('calibrator-typing'); if (t) t.remove(); }
+
+function resetCalibrator() {
+  const msgs = document.getElementById('calibrator-messages');
+  msgs.innerHTML = `
+    <div class="chat-welcome" id="calibrator-welcome">
+      <div class="welcome-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4M22 2l-4 4"/></svg></div>
+      <h2>Olá, Marília! Vamos calibrar suas skills? 🎯</h2>
+      <p>Posso te ajudar a reunir evidências de proficiência, testar seu conhecimento e identificar o que demonstra melhor seu nível atual em cada competência.</p>
+      <div class="suggestion-chips">
+        <div class="chip" onclick="sendCalibrator('Quero comprovar meu nível em Transformação Digital')">Comprovar nível em Transformação Digital</div>
+        <div class="chip" onclick="sendCalibrator('Que evidências mostram minha Liderança?')">Que evidências mostram minha Liderança?</div>
+        <div class="chip" onclick="sendCalibrator('Me faça perguntas sobre Análise Financeira')">Me faça perguntas sobre Análise Financeira</div>
+      </div>
+    </div>`;
 }
 
 function sendPlanChat() {
