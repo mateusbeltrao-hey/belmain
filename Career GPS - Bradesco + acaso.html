@@ -120,16 +120,15 @@
   .achievement-icon svg { width: 10px; height: 10px; stroke: var(--red); fill: none; display: block; }
 
   /* STARS SKILLS */
-  .skills-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
   .skills-col-header {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100);
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 4px; padding: 0 12px 10px; border-bottom: 1px solid var(--gray-200);
   }
-  .skills-col-header-cell { display: flex; justify-content: flex-end; align-items: center; gap: 18px; padding-right: 4px; }
   .skills-col-label {
     font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-    color: var(--gray-400); width: 86px; text-align: center;
+    color: var(--gray-400); width: 92px; text-align: center; flex-shrink: 0;
   }
+  .skills-col-label-spacer { flex: 1; }
   .skill-row {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
     padding: 10px 12px; border-radius: 8px; cursor: default;
@@ -149,19 +148,20 @@
   /* SKILL TOOLTIP */
   .skill-tooltip {
     display: none; position: fixed; z-index: 999;
-    background: var(--gray-900); color: white; border-radius: 10px;
-    padding: 14px 16px; width: 260px; font-size: 12px; line-height: 1.6;
-    pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    background: #fff; color: var(--gray-900);
+    border: 1.5px solid var(--gray-200); border-radius: 14px;
+    padding: 16px 20px; width: 420px; font-size: 12px; line-height: 1.6;
+    pointer-events: none; box-shadow: 0 8px 32px rgba(0,0,0,.1);
   }
   .skill-tooltip.visible { display: block; }
-  .skill-tooltip-name { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: white; }
-  .skill-tooltip-desc { color: #d1d5db; margin-bottom: 10px; }
-  .skill-tooltip-levels { display: flex; flex-direction: column; gap: 4px; }
-  .skill-tooltip-level { display: flex; gap: 8px; align-items: flex-start; }
-  .skill-tooltip-level-stars { display: flex; gap: 2px; flex-shrink: 0; margin-top: 1px; }
-  .skill-tooltip-level-stars svg { width: 10px; height: 10px; fill: #facc15; }
-  .skill-tooltip-level-stars svg.empty { fill: #4b5563; }
-  .skill-tooltip-level-text { color: #e5e7eb; font-size: 11px; }
+  .skill-tooltip-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; color: var(--gray-900); }
+  .skill-tooltip-desc { color: var(--gray-500); margin-bottom: 12px; font-size: 12.5px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
+  .skill-tooltip-levels { display: flex; flex-direction: column; gap: 6px; }
+  .skill-tooltip-level { display: flex; gap: 10px; align-items: flex-start; }
+  .skill-tooltip-level-stars { display: flex; gap: 2px; flex-shrink: 0; margin-top: 2px; }
+  .skill-tooltip-level-stars svg { width: 11px; height: 11px; fill: var(--red); opacity: .8; }
+  .skill-tooltip-level-stars svg.empty { fill: var(--gray-200); opacity: 1; }
+  .skill-tooltip-level-text { color: var(--gray-600); font-size: 12px; line-height: 1.55; }
 
   /* ─── SCREEN 2: CAREER EXPLORER ─── */
   .chat-layout { display: flex; flex-direction: column; height: 100vh; }
@@ -659,8 +659,12 @@
       <div class="card-title">Skills &amp; Gaps</div>
 
       <div class="skills-col-header">
-        <span class="skills-col-label">Atual</span>
-        <span class="skills-col-label">Esperado</span>
+        <div class="skills-col-label-spacer"></div>
+        <div style="display:flex;gap:6px;align-items:center;flex-shrink:0">
+          <span class="skills-col-label">Atual</span>
+          <div style="width:5px"></div>
+          <span class="skills-col-label">Esperado</span>
+        </div>
       </div>
 
       <div id="skills-container"></div>
@@ -1319,8 +1323,19 @@ buildSkills();
 // Handle photo load
 const profilePhoto = document.getElementById('profile-photo');
 if (profilePhoto) {
-  profilePhoto.onload = () => { document.getElementById('profile-initials').style.display = 'none'; };
-  profilePhoto.onerror = () => { profilePhoto.style.display = 'none'; };
+  const hideInitials = () => { document.getElementById('profile-initials').style.display = 'none'; };
+  const hidePhoto = () => { profilePhoto.style.display = 'none'; };
+  profilePhoto.onload = hideInitials;
+  profilePhoto.onerror = hidePhoto;
+  // Image may already be loaded from cache before JS ran
+  if (profilePhoto.complete) {
+    if (profilePhoto.naturalWidth > 0) hideInitials(); else hidePhoto();
+  }
+}
+// Same for sidebar photo
+const sidebarPhoto = document.getElementById('sidebar-photo');
+if (sidebarPhoto && sidebarPhoto.complete && sidebarPhoto.naturalWidth === 0) {
+  sidebarPhoto.style.display = 'none';
 }
 
 // ─── CAREER EXPLORER ───
