@@ -540,14 +540,15 @@
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-  <div class="sidebar-logo">
+  <div class="sidebar-logo" style="cursor:pointer" onclick="openHub()" title="Abrir Hub de Talentos">
     <div class="logo-icon">
       <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
     </div>
-    <div>
+    <div style="flex:1">
       <div class="logo-text">Career GPS</div>
       <div class="logo-sub">Globo</div>
     </div>
+    <div style="background:var(--blue-light);color:var(--blue);font-size:9px;font-weight:700;padding:3px 7px;border-radius:5px;letter-spacing:.3px;white-space:nowrap;flex-shrink:0">HUB ↗</div>
   </div>
 
   <div class="sidebar-nav">
@@ -1705,6 +1706,790 @@ function sendPlanChat() {
     area.appendChild(resp);
     area.scrollTop = area.scrollHeight;
   }, 1200);
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HUB DE TALENTOS — Ambiente do Gestor / RH
+════════════════════════════════════════════════════════════════ -->
+<style>
+/* ── Hub overlay ── */
+#hub-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: #fff; font-family: 'Sora', sans-serif;
+  flex-direction: row;
+}
+#hub-overlay.open { display: flex; }
+
+/* ── Hub Sidebar ── */
+.hub-sidebar {
+  width: 232px; min-width: 232px; background: #fff;
+  border-right: 1px solid var(--gray-200);
+  display: flex; flex-direction: column; height: 100vh; overflow-y: auto;
+}
+.hub-sidebar-logo {
+  padding: 22px 18px 18px;
+  display: flex; align-items: center; gap: 11px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.hub-logo-icon {
+  width: 34px; height: 34px; background: var(--blue); border-radius: 9px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.hub-logo-icon svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
+.hub-logo-text { font-weight: 800; font-size: 14px; color: var(--gray-900); letter-spacing: -.3px; }
+.hub-logo-sub { font-size: 9px; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-top: 1px; }
+
+.hub-sidebar-nav { padding: 14px 10px; flex: 1; }
+.hub-nav-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--gray-400); padding: 12px 13px 6px; }
+.hub-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 13px; border-radius: 9px;
+  font-size: 13px; font-weight: 500; color: var(--gray-600);
+  cursor: pointer; transition: all .15s; margin-bottom: 2px;
+  border: none; background: none; width: 100%; text-align: left;
+  font-family: 'Sora', sans-serif;
+}
+.hub-nav-item:hover { background: var(--gray-100); color: var(--gray-900); }
+.hub-nav-item.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+.hub-nav-item svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.hub-back-btn {
+  margin: 14px 10px; padding: 9px 13px; border-radius: 9px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; color: var(--gray-500);
+  border: 1.5px solid var(--gray-200); background: #fff;
+  cursor: pointer; font-family: 'Sora', sans-serif; transition: all .15s;
+}
+.hub-back-btn:hover { border-color: var(--blue); color: var(--blue); }
+.hub-back-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.hub-user { padding: 14px 16px; border-top: 1px solid var(--gray-200); display: flex; align-items: center; gap: 10px; }
+.hub-user-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px; color: white; flex-shrink: 0;
+}
+.hub-user-name { font-size: 12px; font-weight: 600; color: var(--gray-900); }
+.hub-user-role { font-size: 10px; color: var(--gray-400); margin-top: 1px; }
+
+/* ── Hub Main ── */
+.hub-main { flex: 1; overflow-y: auto; height: 100vh; }
+.hub-page { display: none; }
+.hub-page.active { display: block; }
+.hub-topbar {
+  padding: 22px 36px; border-bottom: 1px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hub-topbar h1 { font-size: 20px; font-weight: 800; letter-spacing: -.4px; }
+.hub-topbar p { font-size: 12.5px; color: var(--gray-500); margin-top: 3px; }
+.hub-body { padding: 28px 36px 48px; }
+
+/* ── Talentos Table ── */
+.hub-search-bar {
+  display: flex; gap: 10px; margin-bottom: 20px; align-items: center;
+}
+.hub-search-input {
+  flex: 1; border: 1.5px solid var(--gray-200); border-radius: 9px;
+  padding: 9px 14px; font-size: 13px; font-family: 'Sora', sans-serif;
+  outline: none; transition: border-color .15s;
+}
+.hub-search-input:focus { border-color: var(--blue); }
+.hub-filter-select {
+  border: 1.5px solid var(--gray-200); border-radius: 9px;
+  padding: 9px 12px; font-size: 12.5px; font-family: 'Sora', sans-serif;
+  outline: none; background: #fff; color: var(--gray-700); cursor: pointer;
+}
+.hub-table-wrap { border: 1.5px solid var(--gray-200); border-radius: 14px; overflow: hidden; }
+.hub-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.hub-table thead tr { background: var(--gray-50); }
+.hub-table th {
+  padding: 12px 16px; text-align: left;
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--gray-400);
+  border-bottom: 1px solid var(--gray-200); cursor: pointer; white-space: nowrap;
+}
+.hub-table th:hover { color: var(--blue); }
+.hub-table td { padding: 13px 16px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+.hub-table tr:last-child td { border-bottom: none; }
+.hub-table tbody tr { cursor: pointer; transition: background .12s; }
+.hub-table tbody tr:hover { background: var(--blue-light); }
+.talent-name { font-weight: 600; color: var(--gray-900); display: flex; align-items: center; gap: 9px; }
+.talent-avatar-sm {
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: white;
+}
+.perf-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+.perf-alto { background: #dcfce7; color: #15803d; }
+.perf-medio { background: #fef9c3; color: #854d0e; }
+.perf-em-dev { background: #fee2e2; color: #b91c1c; }
+.dept-tag { background: var(--gray-100); color: var(--gray-600); padding: 3px 8px; border-radius: 5px; font-size: 11.5px; font-weight: 500; }
+.skill-bars { display: flex; gap: 3px; }
+.skill-bar { width: 8px; height: 20px; border-radius: 3px; background: var(--gray-200); }
+.skill-bar.filled { background: var(--blue); }
+.skill-bar.filled.high { opacity: 1; }
+.skill-bar.filled.mid { opacity: .6; }
+
+/* ── Talent Detail Modal ── */
+.talent-modal {
+  display: none; position: fixed; inset: 0; z-index: 400;
+  background: rgba(0,0,0,.35); align-items: center; justify-content: center;
+}
+.talent-modal.open { display: flex; }
+.talent-modal-box {
+  background: #fff; border-radius: 18px; width: 640px; max-height: 85vh;
+  overflow-y: auto; padding: 32px; position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+}
+.talent-modal-close {
+  position: absolute; top: 18px; right: 18px; width: 30px; height: 30px;
+  border-radius: 50%; border: none; background: var(--gray-100);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--gray-500); transition: background .15s;
+}
+.talent-modal-close:hover { background: var(--gray-200); }
+.talent-modal-header { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-200); }
+.talent-modal-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.talent-modal-name { font-size: 20px; font-weight: 800; letter-spacing: -.3px; }
+.talent-modal-role { font-size: 13px; color: var(--gray-500); margin-top: 3px; }
+.talent-modal-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+.talent-modal-meta span { font-size: 11.5px; color: var(--gray-500); display: flex; align-items: center; gap: 4px; }
+
+.talent-section { margin-bottom: 20px; }
+.talent-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--gray-400); margin-bottom: 10px; }
+.skill-detail-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.skill-detail-name { font-size: 13px; font-weight: 500; color: var(--gray-700); width: 160px; flex-shrink: 0; }
+.skill-detail-bar-track { flex: 1; height: 7px; background: var(--gray-100); border-radius: 4px; }
+.skill-detail-bar-fill { height: 100%; border-radius: 4px; background: var(--blue); }
+.skill-detail-level { font-size: 11.5px; color: var(--gray-500); width: 28px; text-align: right; flex-shrink: 0; }
+.gap-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 13px; color: var(--gray-700); }
+.gap-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.gap-dot.red { background: #ef4444; }
+.gap-dot.yellow { background: #f59e0b; }
+.gap-dot.green { background: #22c55e; }
+.recommend-box { background: var(--blue-light); border: 1.5px solid #c7d7ff; border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; }
+.recommend-box p { font-size: 13px; color: #1e3a8a; line-height: 1.65; }
+
+/* ── Busca Inteligente ── */
+.busca-layout { display: flex; flex-direction: column; height: 100vh; }
+.busca-topbar { padding: 20px 36px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px; }
+.busca-topbar h2 { font-size: 16px; font-weight: 700; letter-spacing: -.2px; }
+.busca-topbar p { font-size: 12px; color: var(--gray-400); }
+.busca-messages { flex: 1; overflow-y: auto; padding: 28px 36px; display: flex; flex-direction: column; gap: 20px; }
+.busca-welcome { text-align: center; padding: 40px 0 24px; }
+.busca-welcome-icon { width: 56px; height: 56px; background: var(--blue); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.busca-welcome-icon svg { width: 28px; height: 28px; stroke: white; fill: none; stroke-width: 2; }
+.busca-welcome h2 { font-size: 22px; font-weight: 800; letter-spacing: -.4px; margin-bottom: 8px; }
+.busca-welcome p { font-size: 13.5px; color: var(--gray-500); max-width: 400px; margin: 0 auto 24px; line-height: 1.6; }
+.busca-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.busca-chip {
+  border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 8px 15px;
+  font-size: 12.5px; font-weight: 500; color: var(--gray-700); cursor: pointer;
+  transition: all .15s; background: #fff; font-family: 'Sora', sans-serif;
+}
+.busca-chip:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.busca-msg { display: flex; gap: 10px; max-width: 700px; }
+.busca-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.busca-msg-av { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.busca-msg-av.agent { background: var(--blue); color: white; }
+.busca-msg-av.user { background: var(--gray-200); color: var(--gray-600); }
+.busca-bubble { padding: 13px 16px; border-radius: 13px; font-size: 13.5px; line-height: 1.65; max-width: 560px; }
+.busca-msg.agent .busca-bubble { background: var(--gray-50); border: 1px solid var(--gray-200); border-top-left-radius: 4px; }
+.busca-msg.user .busca-bubble { background: var(--blue); color: white; border-top-right-radius: 4px; }
+.busca-result-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.busca-result-card {
+  border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 16px 18px;
+  cursor: pointer; transition: all .18s; background: #fff; display: flex; align-items: center; gap: 14px;
+}
+.busca-result-card:hover { border-color: var(--blue); box-shadow: 0 3px 14px rgba(0,51,153,.08); }
+.busca-result-av { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: white; }
+.busca-result-info { flex: 1; }
+.busca-result-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+.busca-result-role { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+.busca-result-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.busca-result-tag { background: var(--blue-light); color: var(--blue); font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+.busca-match { text-align: right; flex-shrink: 0; }
+.busca-match-pct { font-size: 22px; font-weight: 800; color: #15803d; }
+.busca-match-label { font-size: 10px; color: var(--gray-400); margin-top: 1px; }
+.busca-input-area { padding: 16px 36px 24px; border-top: 1px solid var(--gray-200); }
+.busca-input-box { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--gray-200); border-radius: 13px; padding: 11px 15px; transition: border-color .15s; }
+.busca-input-box:focus-within { border-color: var(--blue); }
+.busca-input-box input { flex: 1; border: none; outline: none; font-size: 13.5px; background: transparent; color: var(--gray-900); font-family: 'Sora', sans-serif; }
+.busca-input-box input::placeholder { color: var(--gray-400); }
+.busca-send { width: 34px; height: 34px; border-radius: 9px; background: var(--blue); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+.busca-send:hover { background: var(--blue-dark); }
+.busca-send svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2; }
+
+/* ── Times ── */
+.times-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.time-card { border: 1.5px solid var(--gray-200); border-radius: 14px; padding: 22px 24px; background: #fff; }
+.time-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.time-card-name { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+.time-card-size { font-size: 12px; color: var(--gray-400); margin-top: 3px; }
+.time-health { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+.time-health.alto { background: #dcfce7; color: #15803d; }
+.time-health.medio { background: #fef9c3; color: #854d0e; }
+.time-skill-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+.time-skill-name { font-size: 12px; color: var(--gray-600); width: 140px; flex-shrink: 0; }
+.time-skill-track { flex: 1; height: 8px; background: var(--gray-100); border-radius: 4px; }
+.time-skill-fill { height: 100%; border-radius: 4px; transition: width .4s; }
+.time-skill-fill.high { background: #22c55e; }
+.time-skill-fill.mid { background: #f59e0b; }
+.time-skill-fill.low { background: #ef4444; }
+.time-skill-pct { font-size: 11.5px; font-weight: 600; color: var(--gray-600); width: 32px; text-align: right; }
+.time-members { display: flex; gap: -4px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gray-100); }
+.time-member-av { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: white; margin-left: -6px; }
+.time-member-av:first-child { margin-left: 0; }
+.time-more { font-size: 11px; color: var(--gray-400); margin-left: 8px; align-self: center; }
+
+/* ── Objetivos do Time ── */
+.obj-section { margin-bottom: 28px; }
+.obj-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.obj-section-title { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+.obj-section-sub { font-size: 12px; color: var(--gray-400); }
+.obj-card { border: 1.5px solid var(--gray-200); border-radius: 13px; padding: 18px 22px; margin-bottom: 12px; background: #fff; }
+.obj-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.obj-card-person { display: flex; align-items: center; gap: 9px; }
+.obj-card-av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; flex-shrink: 0; }
+.obj-card-name { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+.obj-card-dept { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
+.obj-card-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+.obj-card-desc { font-size: 12.5px; color: var(--gray-600); line-height: 1.6; margin-bottom: 12px; }
+.obj-steps-mini { display: flex; gap: 6px; flex-wrap: wrap; }
+.obj-step-mini { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 5px; }
+.obj-step-mini.done { background: #dcfce7; color: #15803d; }
+.obj-progress-wrap { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
+.obj-progress-track { flex: 1; height: 6px; background: var(--gray-100); border-radius: 3px; }
+.obj-progress-fill { height: 100%; border-radius: 3px; background: var(--blue); }
+.obj-progress-label { font-size: 11.5px; font-weight: 600; color: var(--blue); }
+.obj-status-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+.obj-status-badge.active { background: var(--blue-light); color: var(--blue); }
+.obj-status-badge.done { background: #dcfce7; color: #15803d; }
+.obj-empty { text-align: center; padding: 48px 24px; }
+.obj-empty-icon { font-size: 36px; margin-bottom: 12px; }
+.obj-empty p { font-size: 13.5px; color: var(--gray-400); }
+
+/* ── Hub topbar badge ── */
+.hub-env-badge {
+  background: var(--blue); color: white; font-size: 10px; font-weight: 700;
+  padding: 4px 10px; border-radius: 5px; letter-spacing: .3px;
+}
+</style>
+
+<!-- HUB OVERLAY -->
+<div id="hub-overlay">
+  <!-- Sidebar -->
+  <div class="hub-sidebar">
+    <div class="hub-sidebar-logo">
+      <div class="hub-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <div class="hub-logo-text">Hub de Talentos</div>
+        <div class="hub-logo-sub">Globo · RH &amp; Gestão</div>
+      </div>
+    </div>
+
+    <div class="hub-sidebar-nav">
+      <button class="hub-nav-item active" data-hub="talentos" onclick="hubGoTo('talentos')">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Talentos
+      </button>
+      <button class="hub-nav-item" data-hub="busca" onclick="hubGoTo('busca')">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Busca Inteligente
+      </button>
+      <button class="hub-nav-item" data-hub="times" onclick="hubGoTo('times')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Times
+      </button>
+      <button class="hub-nav-item" data-hub="objetivos" onclick="hubGoTo('objetivos')">
+        <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        Objetivos do Time
+      </button>
+    </div>
+
+    <div>
+      <button class="hub-back-btn" onclick="closeHub()">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Voltar ao Career GPS
+      </button>
+      <div class="hub-user">
+        <div class="hub-user-avatar">RP</div>
+        <div>
+          <div class="hub-user-name">Ricardo Paiva</div>
+          <div class="hub-user-role">Gerente de Pessoas · Globo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="hub-main">
+
+    <!-- PAGE: TALENTOS -->
+    <div class="hub-page active" id="hub-talentos">
+      <div class="hub-topbar">
+        <div>
+          <h1>Talentos</h1>
+          <p>Visão completa dos colaboradores · 14 pessoas na sua carteira</p>
+        </div>
+        <span class="hub-env-badge">Hub de Talentos</span>
+      </div>
+      <div class="hub-body">
+        <div class="hub-search-bar">
+          <input class="hub-search-input" id="talent-search" placeholder="Buscar por nome, cargo ou departamento..." oninput="filterTalents()"/>
+          <select class="hub-filter-select" id="talent-dept-filter" onchange="filterTalents()">
+            <option value="">Todos os departamentos</option>
+            <option>Jornalismo</option>
+            <option>Globoplay</option>
+            <option>Esportes</option>
+            <option>Entretenimento</option>
+            <option>Tecnologia</option>
+            <option>Produção</option>
+          </select>
+          <select class="hub-filter-select" id="talent-perf-filter" onchange="filterTalents()">
+            <option value="">Toda performance</option>
+            <option>Alto desempenho</option>
+            <option>Médio desempenho</option>
+            <option>Em desenvolvimento</option>
+          </select>
+        </div>
+        <div class="hub-table-wrap">
+          <table class="hub-table" id="talent-table">
+            <thead>
+              <tr>
+                <th>Colaborador</th>
+                <th>Cargo</th>
+                <th>Departamento</th>
+                <th>Cidade</th>
+                <th>Tempo de Casa</th>
+                <th>Senioridade</th>
+                <th>Performance</th>
+                <th>Skills</th>
+              </tr>
+            </thead>
+            <tbody id="talent-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: BUSCA INTELIGENTE -->
+    <div class="hub-page" id="hub-busca">
+      <div class="busca-layout">
+        <div class="busca-topbar">
+          <div style="width:9px;height:9px;border-radius:50%;background:#22c55e;flex-shrink:0"></div>
+          <div>
+            <h2>Busca Inteligente de Talentos</h2>
+            <p>Descreva um desafio de negócio e encontrarei as melhores pessoas para resolvê-lo</p>
+          </div>
+          <span class="hub-env-badge" style="margin-left:auto">IA Ativa</span>
+        </div>
+        <div class="busca-messages" id="busca-messages">
+          <div class="busca-welcome" id="busca-welcome">
+            <div class="busca-welcome-icon">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <h2>Busca por desafio de negócio</h2>
+            <p>Descreva o que você precisa resolver e eu analiso o perfil de todos os colaboradores para encontrar os mais indicados.</p>
+            <div class="busca-chips">
+              <div class="busca-chip" onclick="buscaSend('Preciso de alguém para liderar o lançamento de um produto no Globoplay')">Lançamento no Globoplay</div>
+              <div class="busca-chip" onclick="buscaSend('Quem tem skills para liderar uma equipe de jornalismo digital?')">Liderança em Jornalismo Digital</div>
+              <div class="busca-chip" onclick="buscaSend('Preciso montar um time de dados e audiência para o projeto de streaming')">Time de dados &amp; audiência</div>
+              <div class="busca-chip" onclick="buscaSend('Quem está pronto para uma promoção agora?')">Prontos para promoção</div>
+            </div>
+          </div>
+        </div>
+        <div class="busca-input-area">
+          <div class="busca-input-box">
+            <input type="text" id="busca-input" placeholder="Descreva o desafio ou a vaga que você precisa preencher..." onkeypress="if(event.key==='Enter') buscaSend()"/>
+            <button class="busca-send" onclick="buscaSend()">
+              <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4z" fill="white" stroke="none"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: TIMES -->
+    <div class="hub-page" id="hub-times">
+      <div class="hub-topbar">
+        <div>
+          <h1>Times</h1>
+          <p>Visão de saúde e skills por equipe</p>
+        </div>
+        <span class="hub-env-badge">Hub de Talentos</span>
+      </div>
+      <div class="hub-body">
+        <div class="times-grid" id="times-grid"></div>
+      </div>
+    </div>
+
+    <!-- PAGE: OBJETIVOS DO TIME -->
+    <div class="hub-page" id="hub-objetivos">
+      <div class="hub-topbar">
+        <div>
+          <h1>Objetivos do Time</h1>
+          <p>Metas de desenvolvimento criadas pelos colaboradores no Career GPS</p>
+        </div>
+        <span class="hub-env-badge">Hub de Talentos</span>
+      </div>
+      <div class="hub-body" id="hub-objetivos-body"></div>
+    </div>
+
+  </div><!-- /hub-main -->
+</div><!-- /hub-overlay -->
+
+<!-- TALENT DETAIL MODAL -->
+<div class="talent-modal" id="talent-modal" onclick="if(event.target===this)closeTalentModal()">
+  <div class="talent-modal-box" id="talent-modal-box">
+    <button class="talent-modal-close" onclick="closeTalentModal()">✕</button>
+    <div id="talent-modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  HUB DE TALENTOS — Data & Logic
+// ═══════════════════════════════════════════════════
+
+const hubColors = ['#1d4ed8','#7c3aed','#0f766e','#b45309','#be185d','#0369a1','#15803d','#9333ea','#c2410c','#0e7490','#4338ca','#65a30d','#b91c1c','#0284c7'];
+
+const talentsData = [
+  { id:1,  name:'Marília Santos',    initials:'MS', role:'Produtora de Conteúdo Digital', dept:'Jornalismo',     city:'São Paulo',   years:5,  seniority:'Pleno',    perf:'Alto desempenho',    skills:{producao:4,storytelling:5,audiencia:3,dados:2,lideranca:3}, color:'#1d4ed8' },
+  { id:2,  name:'Carlos Mendonça',   initials:'CM', role:'Editor de Vídeo Sênior',        dept:'Globoplay',      city:'Rio de Janeiro', years:8, seniority:'Sênior', perf:'Alto desempenho',    skills:{producao:5,storytelling:4,audiencia:3,dados:3,lideranca:4}, color:'#7c3aed' },
+  { id:3,  name:'Fernanda Lima',     initials:'FL', role:'Analista de Audiência',         dept:'Globoplay',      city:'São Paulo',   years:3,  seniority:'Pleno',    perf:'Médio desempenho',   skills:{producao:2,storytelling:3,audiencia:5,dados:5,lideranca:2}, color:'#0f766e' },
+  { id:4,  name:'Diego Torres',      initials:'DT', role:'Repórter Digital',              dept:'Jornalismo',     city:'Brasília',    years:2,  seniority:'Júnior',   perf:'Em desenvolvimento', skills:{producao:3,storytelling:4,audiencia:2,dados:2,lideranca:1}, color:'#b45309' },
+  { id:5,  name:'Aline Ferreira',    initials:'AF', role:'Coordenadora de Produção',      dept:'Entretenimento', city:'São Paulo',   years:10, seniority:'Sênior',   perf:'Alto desempenho',    skills:{producao:5,storytelling:3,audiencia:3,dados:2,lideranca:5}, color:'#be185d' },
+  { id:6,  name:'Pedro Alves',       initials:'PA', role:'Engenheiro de Dados',           dept:'Tecnologia',     city:'São Paulo',   years:4,  seniority:'Pleno',    perf:'Alto desempenho',    skills:{producao:1,storytelling:2,audiencia:4,dados:5,lideranca:3}, color:'#0369a1' },
+  { id:7,  name:'Juliana Costa',     initials:'JC', role:'Produtora de Esportes',         dept:'Esportes',       city:'Rio de Janeiro', years:6, seniority:'Pleno', perf:'Médio desempenho',   skills:{producao:4,storytelling:4,audiencia:3,dados:2,lideranca:3}, color:'#15803d' },
+  { id:8,  name:'Rafael Sousa',      initials:'RS', role:'Designer de Conteúdo',          dept:'Globoplay',      city:'São Paulo',   years:1,  seniority:'Júnior',   perf:'Em desenvolvimento', skills:{producao:3,storytelling:5,audiencia:2,dados:1,lideranca:1}, color:'#9333ea' },
+  { id:9,  name:'Tatiane Oliveira',  initials:'TO', role:'Gerente de Streaming',          dept:'Globoplay',      city:'São Paulo',   years:7,  seniority:'Sênior',   perf:'Alto desempenho',    skills:{producao:3,storytelling:3,audiencia:5,dados:4,lideranca:5}, color:'#c2410c' },
+  { id:10, name:'Bruno Nascimento',  initials:'BN', role:'Jornalista de Dados',           dept:'Jornalismo',     city:'Porto Alegre',years:3,  seniority:'Pleno',    perf:'Médio desempenho',   skills:{producao:3,storytelling:4,audiencia:4,dados:5,lideranca:2}, color:'#0e7490' },
+  { id:11, name:'Camila Rodrigues',  initials:'CR', role:'Repórter Esportiva',            dept:'Esportes',       city:'Rio de Janeiro', years:5, seniority:'Pleno', perf:'Alto desempenho',    skills:{producao:4,storytelling:5,audiencia:3,dados:2,lideranca:3}, color:'#4338ca' },
+  { id:12, name:'Lucas Mendes',      initials:'LM', role:'Analista de Performance',       dept:'Tecnologia',     city:'São Paulo',   years:2,  seniority:'Júnior',   perf:'Médio desempenho',   skills:{producao:2,storytelling:2,audiencia:5,dados:4,lideranca:1}, color:'#65a30d' },
+  { id:13, name:'Priya Iyer',        initials:'PI', role:'Especialista em SEO',           dept:'Jornalismo',     city:'São Paulo',   years:4,  seniority:'Pleno',    perf:'Alto desempenho',    skills:{producao:3,storytelling:4,audiencia:5,dados:4,lideranca:2}, color:'#b91c1c' },
+  { id:14, name:'André Cavalcanti',  initials:'AC', role:'Diretor de Conteúdo',           dept:'Entretenimento', city:'Rio de Janeiro', years:12, seniority:'Diretor', perf:'Alto desempenho',  skills:{producao:5,storytelling:5,audiencia:4,dados:3,lideranca:5}, color:'#0284c7' },
+];
+
+const skillNames = { producao:'Produção', storytelling:'Storytelling', audiencia:'Audiência', dados:'Dados', lideranca:'Liderança' };
+
+const timesData = [
+  { name:'Jornalismo Digital', members:[1,4,10,13], health:'alto' },
+  { name:'Globoplay', members:[2,3,8,9], health:'alto' },
+  { name:'Esportes', members:[7,11], health:'medio' },
+  { name:'Entretenimento', members:[5,14], health:'alto' },
+  { name:'Tecnologia & Dados', members:[6,12], health:'medio' },
+];
+
+const exampleGoals = [
+  {
+    personId: 1,
+    title: 'Força-Tarefa de Conteúdo Multiplataforma — SP',
+    type: 'Projeto Estratégico',
+    desc: 'Participar da força-tarefa de conteúdo multiplataforma para ampliar experiência com produção integrada TV+digital+streaming.',
+    steps: [
+      { label:'Jornada Criativa Globo', done: true },
+      { label:'Alinhamento com gestor', done: true },
+      { label:'Projeto piloto', done: false },
+    ],
+    progress: 67,
+    status: 'active',
+  },
+  {
+    personId: 9,
+    title: 'Coordenador(a) de Conteúdo — Globoplay',
+    type: 'Vaga Interna',
+    desc: 'Buscar promoção para Coordenação de Conteúdo com foco em desenvolvimento de skills de liderança de equipes grandes.',
+    steps: [
+      { label:'Formação em Liderança Editorial', done: true },
+      { label:'Imersão Editorial', done: false },
+      { label:'Candidatura formal', done: false },
+    ],
+    progress: 33,
+    status: 'active',
+  },
+  {
+    personId: 2,
+    title: 'Analista de Dados de Audiência — Globoplay',
+    type: 'Vaga Interna',
+    desc: 'Transição para área de dados para alavancar skills técnicas e se posicionar na área de maior crescimento do Grupo.',
+    steps: [
+      { label:'Curso de Analytics', done: true },
+      { label:'Projeto de análise', done: true },
+      { label:'Mentoria Analytics', done: true },
+      { label:'Candidatura', done: false },
+    ],
+    progress: 75,
+    status: 'active',
+  },
+];
+
+// ── Navigation ──
+function openHub() {
+  document.getElementById('hub-overlay').classList.add('open');
+  renderTalents();
+  renderTimes();
+  renderObjetivos();
+}
+function closeHub() {
+  document.getElementById('hub-overlay').classList.remove('open');
+}
+function hubGoTo(page) {
+  document.querySelectorAll('.hub-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.hub-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('hub-' + page).classList.add('active');
+  document.querySelector(`.hub-nav-item[data-hub="${page}"]`).classList.add('active');
+  if (page === 'objetivos') renderObjetivos();
+}
+
+// ── Talentos Table ──
+function renderTalents(data) {
+  const list = data || talentsData;
+  const tbody = document.getElementById('talent-tbody');
+  tbody.innerHTML = list.map(t => {
+    const perfClass = t.perf === 'Alto desempenho' ? 'perf-alto' : t.perf === 'Médio desempenho' ? 'perf-medio' : 'perf-em-dev';
+    const skillTotal = Object.values(t.skills).reduce((a,b)=>a+b,0);
+    const maxTotal = Object.keys(t.skills).length * 5;
+    const bars = [1,2,3,4,5].map(i => `<div class="skill-bar ${i <= Math.round(skillTotal/maxTotal*5) ? 'filled' : ''}"></div>`).join('');
+    const yearsLabel = t.years === 1 ? '1 ano' : `${t.years} anos`;
+    return `<tr onclick="openTalentModal(${t.id})">
+      <td><div class="talent-name"><div class="talent-avatar-sm" style="background:${t.color}">${t.initials}</div>${t.name}</div></td>
+      <td style="color:var(--gray-600);font-size:12.5px">${t.role}</td>
+      <td><span class="dept-tag">${t.dept}</span></td>
+      <td style="color:var(--gray-600);font-size:12.5px">${t.city}</td>
+      <td style="color:var(--gray-600);font-size:12.5px">${yearsLabel}</td>
+      <td style="color:var(--gray-600);font-size:12.5px">${t.seniority}</td>
+      <td><span class="perf-badge ${perfClass}">${t.perf}</span></td>
+      <td><div class="skill-bars">${bars}</div></td>
+    </tr>`;
+  }).join('');
+}
+function filterTalents() {
+  const q = document.getElementById('talent-search').value.toLowerCase();
+  const dept = document.getElementById('talent-dept-filter').value;
+  const perf = document.getElementById('talent-perf-filter').value;
+  const filtered = talentsData.filter(t => {
+    const matchQ = !q || t.name.toLowerCase().includes(q) || t.role.toLowerCase().includes(q) || t.dept.toLowerCase().includes(q);
+    const matchDept = !dept || t.dept === dept;
+    const matchPerf = !perf || t.perf === perf;
+    return matchQ && matchDept && matchPerf;
+  });
+  renderTalents(filtered);
+}
+
+// ── Talent Modal ──
+function openTalentModal(id, recommendReason) {
+  const t = talentsData.find(x => x.id === id);
+  if (!t) return;
+  const skillsHtml = Object.entries(t.skills).map(([k,v]) => `
+    <div class="skill-detail-row">
+      <div class="skill-detail-name">${skillNames[k]}</div>
+      <div class="skill-detail-bar-track"><div class="skill-detail-bar-fill" style="width:${v/5*100}%"></div></div>
+      <div class="skill-detail-level">${v}/5</div>
+    </div>`).join('');
+  const gaps = Object.entries(t.skills).filter(([,v])=>v<=2).map(([k])=>`<div class="gap-item"><div class="gap-dot red"></div><div><strong>${skillNames[k]}</strong> — Nível ${t.skills[k]}/5 · Abaixo do esperado para o cargo</div></div>`).join('');
+  const strengths = Object.entries(t.skills).filter(([,v])=>v>=4).map(([k])=>`<div class="gap-item"><div class="gap-dot green"></div><div><strong>${skillNames[k]}</strong> — Nível ${t.skills[k]}/5 · Ponto forte destacado</div></div>`).join('');
+  const recommendHtml = recommendReason ? `<div class="recommend-box"><p>🎯 <strong>Por que foi recomendado(a):</strong> ${recommendReason}</p></div>` : '';
+  const goalsForPerson = [...exampleGoals, ...(typeof savedGoals !== 'undefined' ? savedGoals.map(g => ({...g, personId: 1})) : [])].filter(g => g.personId === id);
+  const goalsHtml = goalsForPerson.length ? `<div class="talent-section"><div class="talent-section-title">Objetivos ativos no Career GPS</div>${goalsForPerson.map(g=>`<div style="background:var(--blue-light);border-radius:9px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;font-weight:600;color:#1e3a8a">${g.title}</div><div style="font-size:12px;color:#3b5fc0;margin-top:4px">${Math.round(g.progress||0)}% concluído</div></div>`).join('')}</div>` : '';
+  document.getElementById('talent-modal-content').innerHTML = `
+    ${recommendHtml}
+    <div class="talent-modal-header">
+      <div class="talent-modal-avatar" style="background:${t.color}">${t.initials}</div>
+      <div>
+        <div class="talent-modal-name">${t.name}</div>
+        <div class="talent-modal-role">${t.role} · ${t.dept}</div>
+        <div class="talent-modal-meta">
+          <span>📍 ${t.city}</span>
+          <span>🏢 ${t.years} ${t.years===1?'ano':'anos'} de casa</span>
+          <span>⭐ ${t.seniority}</span>
+          <span class="perf-badge ${t.perf==='Alto desempenho'?'perf-alto':t.perf==='Médio desempenho'?'perf-medio':'perf-em-dev'}">${t.perf}</span>
+        </div>
+      </div>
+    </div>
+    <div class="talent-section">
+      <div class="talent-section-title">Mapa de Skills</div>
+      ${skillsHtml}
+    </div>
+    ${strengths ? `<div class="talent-section"><div class="talent-section-title">Pontos Fortes</div>${strengths}</div>` : ''}
+    ${gaps ? `<div class="talent-section"><div class="talent-section-title">Gaps Identificados</div>${gaps}</div>` : ''}
+    ${goalsHtml}
+  `;
+  document.getElementById('talent-modal').classList.add('open');
+}
+function closeTalentModal() {
+  document.getElementById('talent-modal').classList.remove('open');
+}
+
+// ── Times ──
+function renderTimes() {
+  const grid = document.getElementById('times-grid');
+  grid.innerHTML = timesData.map(time => {
+    const members = time.members.map(id => talentsData.find(t=>t.id===id));
+    const skillAvg = {};
+    Object.keys(skillNames).forEach(k => {
+      skillAvg[k] = Math.round(members.reduce((s,m)=>s+(m.skills[k]||0),0)/members.length*10)/10;
+    });
+    const skillRows = Object.entries(skillAvg).map(([k,v])=>{
+      const pct = v/5*100;
+      const cls = pct>=70?'high':pct>=50?'mid':'low';
+      return `<div class="time-skill-row">
+        <div class="time-skill-name">${skillNames[k]}</div>
+        <div class="time-skill-track"><div class="time-skill-fill ${cls}" style="width:${pct}%"></div></div>
+        <div class="time-skill-pct">${Math.round(pct)}%</div>
+      </div>`;
+    }).join('');
+    const avatars = members.map(m=>`<div class="time-member-av" style="background:${m.color}" title="${m.name}">${m.initials}</div>`).join('');
+    const healthLabel = time.health==='alto'?'Saudável':'Atenção';
+    return `<div class="time-card">
+      <div class="time-card-header">
+        <div>
+          <div class="time-card-name">${time.name}</div>
+          <div class="time-card-size">${members.length} colaboradores</div>
+        </div>
+        <span class="time-health ${time.health}">${healthLabel}</span>
+      </div>
+      ${skillRows}
+      <div class="time-members">${avatars}<span class="time-more">${members.length} pessoas</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ── Objetivos do Time ──
+function renderObjetivos() {
+  const body = document.getElementById('hub-objetivos-body');
+  // Merge example goals + real savedGoals (mapped to person 1 = Marília)
+  const liveGoals = (typeof savedGoals !== 'undefined' && savedGoals.length)
+    ? savedGoals.map(g => ({ personId:1, title: g.title || g.oppTitle, type: g.typeLabel || 'Objetivo', desc: g.heroDesc || '', steps: (g.steps||[]).slice(0,4), progress: g.progress || 0, status:'active' }))
+    : [];
+  const allGoals = [...exampleGoals, ...liveGoals];
+  if (!allGoals.length) {
+    body.innerHTML = `<div class="obj-empty"><div class="obj-empty-icon">🎯</div><p>Nenhum objetivo criado ainda.<br>Os objetivos aparecerão aqui quando os colaboradores os criarem no Career GPS.</p></div>`;
+    return;
+  }
+  body.innerHTML = allGoals.map(g => {
+    const person = talentsData.find(t=>t.id===g.personId) || talentsData[0];
+    const stepsHtml = (g.steps||[]).map(s=>`<span class="obj-step-mini ${s.done?'done':''}">${s.done?'✓ ':''}${s.label}</span>`).join('');
+    return `<div class="obj-card">
+      <div class="obj-card-header">
+        <div class="obj-card-person">
+          <div class="obj-card-av" style="background:${person.color}">${person.initials}</div>
+          <div>
+            <div class="obj-card-name">${person.name}</div>
+            <div class="obj-card-dept">${person.dept} · ${person.role}</div>
+          </div>
+        </div>
+        <span class="obj-status-badge ${g.status}">${g.status==='active'?'Em andamento':'Concluído'}</span>
+      </div>
+      <div class="obj-card-title">${g.title}</div>
+      ${g.desc ? `<div class="obj-card-desc">${g.desc}</div>` : ''}
+      <div class="obj-steps-mini">${stepsHtml}</div>
+      <div class="obj-progress-wrap">
+        <div class="obj-progress-track"><div class="obj-progress-fill" style="width:${g.progress}%"></div></div>
+        <div class="obj-progress-label">${g.progress}%</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Busca Inteligente ──
+const buscaResponses = {
+  'Preciso de alguém para liderar o lançamento de um produto no Globoplay': {
+    intro: 'Analisei todos os colaboradores com base em skills de produção, audiência e liderança. Encontrei **3 perfis ideais** para liderar esse lançamento:',
+    results: [
+      { id:9, match:94, reason:'Tatiane combina experiência em gestão de streaming com alto desempenho em audiência (5/5) e liderança (5/5). É a candidata mais completa para esse desafio.', tags:['Gestão Streaming','Audiência 5/5','Liderança Sênior'] },
+      { id:5, match:81, reason:'Aline tem 10 anos de casa e skills excepcionais de produção (5/5) e liderança (5/5). Ideal para projetos que exigem maturidade operacional.', tags:['Produção 5/5','10 anos de casa','Entretenimento'] },
+      { id:14, match:76, reason:'André é Diretor com o perfil mais estratégico do time — pode atuar como sponsor ou líder executivo do lançamento.', tags:['Nível Diretor','Storytelling 5/5','Visão estratégica'] },
+    ]
+  },
+  'Quem tem skills para liderar uma equipe de jornalismo digital?': {
+    intro: 'Para liderança em jornalismo digital, cruzei skills de storytelling, produção e gestão de equipes. Os **melhores perfis** são:',
+    results: [
+      { id:13, match:89, reason:'Priya combina SEO, audiência (5/5) e storytelling (4/5). Já opera no jornalismo e tem alto desempenho consistente.', tags:['SEO Especialista','Audiência 5/5','Jornalismo'] },
+      { id:1,  match:82, reason:'Marília tem storytelling 5/5 e histórico sólido em produção digital. Está buscando crescimento e seria uma liderança natural.', tags:['Storytelling 5/5','NPS 72','5 anos de casa'] },
+      { id:10, match:71, reason:'Bruno alia dados e jornalismo — perfil raro que agrega visão analítica ao time editorial.', tags:['Jornalismo de Dados','Dados 5/5','Storytelling 4/5'] },
+    ]
+  },
+  'Preciso montar um time de dados e audiência para o projeto de streaming': {
+    intro: 'Para um time de dados & audiência focado em streaming, identifiquei os perfis com **maior fit técnico**:',
+    results: [
+      { id:3,  match:96, reason:'Fernanda é a analista de audiência mais técnica do time — dados 5/5 e audiência 5/5. Essencial para esse projeto.', tags:['Audiência 5/5','Dados 5/5','Globoplay'] },
+      { id:6,  match:91, reason:'Pedro é engenheiro de dados com nível máximo (5/5) — o pilar técnico do time de streaming.', tags:['Dados 5/5','Engenharia','Tecnologia'] },
+      { id:12, match:78, reason:'Lucas já analisa performance e pode crescer rapidamente nesse contexto com mentoria adequada.', tags:['Analytics','Audiência 5/5','Em crescimento'] },
+    ]
+  },
+  'Quem está pronto para uma promoção agora?': {
+    intro: 'Cruzei performance, tempo de casa, senioridade e objetivos ativos no Career GPS. Esses colaboradores têm **maior prontidão para promoção**:',
+    results: [
+      { id:2,  match:93, reason:'Carlos tem 8 anos de casa, alto desempenho e skills de produção no máximo. Está pronto para assumir uma coordenação.', tags:['Alto desempenho','8 anos de casa','Produção 5/5'] },
+      { id:9,  match:90, reason:'Tatiane já opera como gestora informal — skills de liderança 5/5 e metas de audiência consistentemente superadas.', tags:['Liderança 5/5','Audiência 5/5','7 anos de casa'] },
+      { id:5,  match:88, reason:'Aline tem 10 anos de experiência e histórico de entregas de alto nível. Está claramente acima do seu cargo atual.', tags:['Pleno→Sênior','10 anos','Entretenimento'] },
+    ]
+  },
+};
+const buscaDefault = {
+  intro: 'Analisei os perfis disponíveis com base no seu desafio. Estes colaboradores têm as características mais aderentes:',
+  results: [
+    { id:14, match:88, reason:'André é o perfil mais sênior e versátil do time, com skills balanceadas e capacidade de liderança estratégica.', tags:['Diretor','Storytelling 5/5','12 anos'] },
+    { id:9,  match:82, reason:'Tatiane combina gestão de streaming com alto desempenho em audiência e liderança.', tags:['Streaming','Liderança 5/5','Alto desempenho'] },
+    { id:5,  match:75, reason:'Aline tem profundo know-how operacional e é referência em gestão de equipes.', tags:['Produção 5/5','Entretenimento','10 anos'] },
+  ]
+};
+let buscaHistory = [];
+function buscaSend(text) {
+  const inp = document.getElementById('busca-input');
+  const msg = text || inp.value.trim();
+  if (!msg) return;
+  inp.value = '';
+  document.getElementById('busca-welcome') && (document.getElementById('busca-welcome').style.display='none');
+  const area = document.getElementById('busca-messages');
+  // User message
+  const userDiv = document.createElement('div');
+  userDiv.className = 'busca-msg user';
+  userDiv.innerHTML = `<div class="busca-msg-av user">RP</div><div class="busca-bubble">${msg}</div>`;
+  area.appendChild(userDiv);
+  // Typing
+  const typing = document.createElement('div');
+  typing.className = 'busca-msg agent';
+  typing.innerHTML = `<div class="busca-msg-av agent">IA</div><div class="busca-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+  area.appendChild(typing);
+  area.scrollTop = area.scrollHeight;
+  setTimeout(() => {
+    area.removeChild(typing);
+    const resp = buscaResponses[msg] || buscaDefault;
+    const cardsHtml = resp.results.map(r => {
+      const t = talentsData.find(x=>x.id===r.id);
+      const tagsHtml = r.tags.map(tag=>`<span class="busca-result-tag">${tag}</span>`).join('');
+      return `<div class="busca-result-card" onclick="openTalentModal(${r.id}, '${r.reason.replace(/'/g,"\\'")}')">
+        <div class="busca-result-av" style="background:${t.color}">${t.initials}</div>
+        <div class="busca-result-info">
+          <div class="busca-result-name">${t.name}</div>
+          <div class="busca-result-role">${t.role} · ${t.dept}</div>
+          <div class="busca-result-tags">${tagsHtml}</div>
+        </div>
+        <div class="busca-match">
+          <div class="busca-match-pct">${r.match}%</div>
+          <div class="busca-match-label">compatível</div>
+        </div>
+      </div>`;
+    }).join('');
+    const agentDiv = document.createElement('div');
+    agentDiv.className = 'busca-msg agent';
+    agentDiv.innerHTML = `<div class="busca-msg-av agent">IA</div><div class="busca-bubble">${resp.intro.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}<div class="busca-result-cards" style="margin-top:14px">${cardsHtml}</div></div>`;
+    area.appendChild(agentDiv);
+    area.scrollTop = area.scrollHeight;
+  }, 1300);
 }
 </script>
 </body>
