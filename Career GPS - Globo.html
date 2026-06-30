@@ -2185,11 +2185,16 @@ const talentsData = [
 const skillNames = { producao:'Produção', storytelling:'Storytelling', audiencia:'Audiência', dados:'Dados', lideranca:'Liderança' };
 
 const timesData = [
-  { name:'Jornalismo Digital', members:[1,4,10,13], health:'alto' },
-  { name:'Globoplay', members:[2,3,8,9], health:'alto' },
-  { name:'Esportes', members:[7,11], health:'medio' },
-  { name:'Entretenimento', members:[5,14], health:'alto' },
-  { name:'Tecnologia & Dados', members:[6,12], health:'medio' },
+  { name:'Jornalismo Digital', members:[1,4,10,13], health:'alto',
+    skillMap:{ storytelling:'Apuração & Texto', producao:'Produção Digital', audiencia:'SEO & Alcance', dados:'Jornalismo de Dados', lideranca:'Gestão Editorial' } },
+  { name:'Globoplay', members:[2,3,8,9], health:'alto',
+    skillMap:{ producao:'Produção de Conteúdo', audiencia:'Análise de Audiência', storytelling:'Narrativa Visual', lideranca:'Gestão de Produto', dados:'Analytics de Streaming' } },
+  { name:'Esportes', members:[7,11], health:'medio',
+    skillMap:{ producao:'Cobertura ao Vivo', storytelling:'Narrativa Esportiva', audiencia:'Engajamento', dados:'Análise de Performance', lideranca:'Gestão de Pauta' } },
+  { name:'Entretenimento', members:[5,14], health:'alto',
+    skillMap:{ producao:'Produção Executiva', storytelling:'Desenvolvimento de Formato', lideranca:'Gestão de Talentos', audiencia:'Impacto de Audiência', dados:'Business Intelligence' } },
+  { name:'Tecnologia & Dados', members:[6,12], health:'medio',
+    skillMap:{ dados:'Engenharia de Dados', audiencia:'Analytics de Performance', lideranca:'Arquitetura de Sistemas', producao:'Infraestrutura', storytelling:'Visualização de Dados' } },
 ];
 
 const exampleGoals = [
@@ -2337,15 +2342,16 @@ function renderTimes() {
   const grid = document.getElementById('times-grid');
   grid.innerHTML = timesData.map(time => {
     const members = time.members.map(id => talentsData.find(t=>t.id===id));
+    const map = time.skillMap || skillNames;
     const skillAvg = {};
-    Object.keys(skillNames).forEach(k => {
+    Object.keys(map).forEach(k => {
       skillAvg[k] = Math.round(members.reduce((s,m)=>s+(m.skills[k]||0),0)/members.length*10)/10;
     });
     const skillRows = Object.entries(skillAvg).map(([k,v])=>{
       const pct = v/5*100;
       const cls = pct>=70?'high':pct>=50?'mid':'low';
       return `<div class="time-skill-row">
-        <div class="time-skill-name">${skillNames[k]}</div>
+        <div class="time-skill-name">${map[k]}</div>
         <div class="time-skill-track"><div class="time-skill-fill ${cls}" style="width:${pct}%"></div></div>
         <div class="time-skill-pct">${Math.round(pct)}%</div>
       </div>`;
